@@ -1,0 +1,73 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf200
+{\fonttbl\f0\fmodern\fcharset0 Courier;}
+{\colortbl;\red255\green255\blue255;\red245\green245\blue245;}
+{\*\expandedcolortbl;;\cssrgb\c96863\c96863\c96863;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww16140\viewh9240\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs25\fsmilli12844 \cf0 \cb2 \expnd0\expndtw0\kerning0
+CREATE FUNCTION public.test_updata()\
+RETURNS void AS \
+$BODY$\
+		BEGIN\
+    	DELETE FROM test_triger;\
+        \
+    	INSERT INTO test_triger(site_id, country_code, country)\
+        SELECT "TBL_LEFT"."site_id" AS "site_id", "TBL_LEFT"."country_code" AS "country_code", "TBL_RIGHT"."country" AS "country"\
+  			FROM (SELECT "id" AS "site_id", "country_code" AS "country_code"\
+			FROM "site") "TBL_LEFT"\
+  		INNER JOIN "country_fk" AS "TBL_RIGHT"\
+  			ON ("TBL_LEFT"."country_code" = "TBL_RIGHT"."country_code");\
+		\
+        return NULL;\
+    END;\
+$BODY$ \
+LANGUAGE 'plpgsql' VOLATILE\
+ COST 100;\
+\
+INSERT INTO global_table(id, year, site_code, site_label, country_code, longitude, latitude, elevation, temp, prec, species_code, target_proxy, cell_type, organ, system, software, contact_last_name, contact_first_name, contact_email, contact_institution_code, n_trees, n_radii, n_rings, from, to, trw, eww, lww, density, ldrad, ldtan, cwtrad, cwttan, lum, cwa)\
+        \
+\
+CREATE TRIGGER ring_global_tr\
+    AFTER INSERT OR DELETE OR UPDATE OF id\
+    ON public.ring\
+    FOR EACH STATEMENT\
+    EXECUTE PROCEDURE public.global_update();\
+\
+CREATE TRIGGER measure_info_global_tr\
+    AFTER INSERT OR DELETE OR UPDATE OF id\
+    ON public.measure_info\
+    FOR EACH STATEMENT\
+    EXECUTE PROCEDURE public.global_update();\
+\
+CREATE TRIGGER wood_sample_global_tr\
+    AFTER INSERT OR DELETE OR UPDATE OF id\
+    ON public.wood_sample\
+    FOR EACH STATEMENT\
+    EXECUTE PROCEDURE public.global_update();\
+\
+CREATE TRIGGER tree_global_tr\
+    AFTER INSERT OR DELETE OR UPDATE OF id\
+    ON public.tree\
+    FOR EACH STATEMENT\
+    EXECUTE PROCEDURE public.global_update();\
+\
+CREATE TRIGGER site_global_tr\
+    AFTER INSERT OR DELETE OR UPDATE OF id\
+    ON public.site\
+    FOR EACH STATEMENT\
+    EXECUTE PROCEDURE public.global_update();\
+\
+CREATE TRIGGER person_role_global_tr\
+    AFTER INSERT OR DELETE OR UPDATE OF id\
+    ON public.person_role\
+    FOR EACH STATEMENT\
+    EXECUTE PROCEDURE public.global_update();\
+\
+CREATE TRIGGER person_global_tr\
+    AFTER INSERT OR DELETE OR UPDATE OF id\
+    ON public.person\
+    FOR EACH STATEMENT\
+    EXECUTE PROCEDURE public.global_update();\
+}
