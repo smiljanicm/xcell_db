@@ -7,7 +7,7 @@ source('data_upload/0_functions.R')
 
 
 # 0. load the data --------------------------------------------------------
-file_dir <- '~/Desktop/xcell/data_upload/data/XD_CH_LTN08/'
+file_dir <- 'data_upload/data/XD_CH_LTN08/'
 file_name <- 'XD_CH_LTN08.xlsm'
 
 #- RAW data

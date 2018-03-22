@@ -7,6 +7,8 @@ source('data_upload/0_functions.R')
 
 
 # 0. load the data --------------------------------------------------------
+# Please use path relative to the default home directory. It is enout to write data_upload/data..... So
+# it will also work for me
 #file_dir <- '~/Desktop/xcell/data_upload/data/XC_DE_SILH/'
 #file_name <- 'XC_DE_SILH.xlsm'
 #file_dir <- '~/Desktop/xcell/data_upload/data/XC_DE_SILM/'
