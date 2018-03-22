@@ -4,14 +4,7 @@ library(pool)
 library(DBI)
 library(tidyverse)
 
-dbcon <- dbPool(RPostgreSQL::PostgreSQL(),
-                dbname = "Xcell",
-                host = "postgresql-wsl.cmxphl52sxwm.us-west-2.rds.amazonaws.com",
-                port = 5432,
-                user = "xcell_user", 
-                password = "Xcel1!con")
-
-
+source('pw.R')
 
 # Global table ------------------------------------------------------------
 
