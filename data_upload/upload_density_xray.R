@@ -3,7 +3,7 @@
 
 library(tidyverse); library(DBI); library(readxl); library(stringr)
 
-source('~/Desktop/xcell/data_upload/0_functions.R')
+source('data_upload/0_functions.R')
 
 
 # 0. load the data --------------------------------------------------------
