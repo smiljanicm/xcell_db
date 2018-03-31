@@ -52,6 +52,6 @@ union(tbl(dbcon,'profile') %>% group_by(ring_id) %>% summarise_at(vars(density,l
          n_trees, n_radii, n_rings, from, to, trw, eww, lww, density,ldrad,ldtan,cwtrad,cwttan,lum,cwa)->
   global.query
 
-global.query %>% dbplyr::sql_render() %>% write_lines('db_create/globalsql.txt')
+global.query %>% dbplyr::sql_render() %>% write_lines('db_create/global_sql.txt')
 
 temp.df <- global.query %>% collect

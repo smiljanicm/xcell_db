@@ -15,33 +15,17 @@ FROM (SELECT "TBL_LEFT"."ring_id" AS "ring_id", "TBL_LEFT"."density" AS "density
   FROM (SELECT "TBL_LEFT"."ring_id" AS "ring_id", "TBL_LEFT"."density" AS "density", "TBL_LEFT"."ldrad" AS "ldrad", "TBL_LEFT"."ldtan" AS "ldtan", "TBL_LEFT"."cwtrad" AS "cwtrad", "TBL_LEFT"."cwttan" AS "cwttan", "TBL_LEFT"."lum" AS "lum", "TBL_LEFT"."cwa" AS "cwa", "TBL_LEFT"."subpiece_id" AS "subpiece_id", "TBL_LEFT"."trw" AS "trw", "TBL_LEFT"."eww" AS "eww", "TBL_LEFT"."lww" AS "lww", "TBL_RIGHT"."sample_id" AS "sample_id", "TBL_RIGHT"."system" AS "system", "TBL_RIGHT"."software" AS "software", "TBL_RIGHT"."from" AS "from", "TBL_RIGHT"."to" AS "to"
   FROM (SELECT "TBL_LEFT"."ring_id" AS "ring_id", "TBL_LEFT"."density" AS "density", "TBL_LEFT"."ldrad" AS "ldrad", "TBL_LEFT"."ldtan" AS "ldtan", "TBL_LEFT"."cwtrad" AS "cwtrad", "TBL_LEFT"."cwttan" AS "cwttan", "TBL_LEFT"."lum" AS "lum", "TBL_LEFT"."cwa" AS "cwa", "TBL_RIGHT"."subpiece_id" AS "subpiece_id", "TBL_RIGHT"."trw" AS "trw", "TBL_RIGHT"."eww" AS "eww", "TBL_RIGHT"."lww" AS "lww"
   FROM ((SELECT "ring_id", "density", "ldrad", "ldtan", "cwtrad", "cwttan", "lum", "cwa"
-FROM ((SELECT "ring_id", "density", "ldrad", "ldtan", "cwtrad", "cwttan", "lum", "cwa"
-FROM ((SELECT "ring_id", "density", "ldrad", "ldtan", "cwtrad", "cwttan", "lum", "cwa"
 FROM (SELECT "ring_id", AVG("density") AS "density", AVG("ldrad") AS "ldrad", AVG("ldtan") AS "ldtan", AVG("cwtrad") AS "cwtrad", AVG("cwttan") AS "cwttan", AVG("lum") AS "lum", AVG("cwa") AS "cwa"
 FROM (SELECT *
-FROM "profile") "nzkhptzpnx"
-GROUP BY "ring_id") "airfrtcnqx")
+FROM "profile") "jvslgmjlvi"
+GROUP BY "ring_id") "wltasgrsdx")
 UNION
 (SELECT "ring_id", "density", "ldrad", "ldtan", "cwtrad", "cwttan", "lum", "cwa"
 FROM (SELECT "ring_id", "ldrad", "ldtan", "cwtrad", "cwttan", "lum", "cwa", NULL AS "density"
 FROM (SELECT "ring_id", AVG("ldrad") AS "ldrad", AVG("ldtan") AS "ldtan", AVG("cwtrad") AS "cwtrad", AVG("cwttan") AS "cwttan", AVG("lum") AS "lum", AVG("cwa") AS "cwa"
 FROM (SELECT *
-FROM "tracheid_full") "cxfbskbybu"
-GROUP BY "ring_id") "vtvomfsxsx") "tdjhfmoudd")) "nzhjykwozi")
-UNION
-(SELECT "ring_id", "density", "ldrad", "ldtan", "cwtrad", "cwttan", "lum", "cwa"
-FROM (SELECT "ring_id", "ldrad", "cwtrad", "lum", NULL AS "density", NULL AS "ldtan", NULL AS "cwttan", NULL AS "cwa"
-FROM (SELECT "ring_id", AVG("ldrad") AS "ldrad", AVG("cwtrad") AS "cwtrad", AVG("lum") AS "lum"
-FROM (SELECT *
-FROM "tracheid_row") "kxykcrggsm"
-GROUP BY "ring_id") "fadmebhoxv") "cvymtruipv")) "fsdmuzzqxl")
-UNION
-(SELECT "ring_id", "density", "ldrad", "ldtan", "cwtrad", "cwttan", "lum", "cwa"
-FROM (SELECT "ring_id", "lum", NULL AS "density", NULL AS "ldtan", NULL AS "cwttan", NULL AS "cwa", NULL AS "ldrad", NULL AS "cwtrad"
-FROM (SELECT "ring_id", AVG("lum") AS "lum"
-FROM (SELECT *
-FROM "vessel") "wskbcsydsz"
-GROUP BY "ring_id") "vwgvctzdjf") "wuqixfujjr")) "TBL_LEFT"
+FROM "tracheid_full") "uaemrsnckv"
+GROUP BY "ring_id") "xgutguwipo") "ffmvkdpzyo")) "TBL_LEFT"
   INNER JOIN (SELECT "id" AS "ring_id", "subpiece_id", "ring_width" AS "trw", "eww", "lww"
 FROM "ring") "TBL_RIGHT"
   ON ("TBL_LEFT"."ring_id" = "TBL_RIGHT"."ring_id")
@@ -57,7 +41,7 @@ FROM "wood_sample") "TBL_RIGHT"
   INNER JOIN (SELECT "id" AS "tree_id", "site_id", "species_code"
 FROM "tree") "TBL_RIGHT"
   ON ("TBL_LEFT"."tree_id" = "TBL_RIGHT"."tree_id")
-) "uuscuamjld"
+) "rhdavpdbpb"
 GROUP BY "site_id", "species_code", "cell_type", "organ", "system", "software") "TBL_LEFT"
   INNER JOIN (SELECT "id" AS "site_id", "sampling_year" AS "year", "site_code", "site_label", "country_code", "longitude", "latitude", "elevation", "target_proxy"
 FROM "site") "TBL_RIGHT"
@@ -66,7 +50,7 @@ FROM "site") "TBL_RIGHT"
   LEFT JOIN (SELECT "site_id", AVG("value") AS "temp"
 FROM (SELECT *
 FROM "clima"
-WHERE (("source" = 'chelsa') AND ("param" = 'temp'))) "cvnkajhmqt"
+WHERE (("source" = 'chelsa') AND ("param" = 'temp'))) "wpsfqbtunw"
 GROUP BY "site_id") "TBL_RIGHT"
   ON ("TBL_LEFT"."site_id" = "TBL_RIGHT"."site_id")
 ) "TBL_LEFT"
@@ -74,15 +58,15 @@ GROUP BY "site_id") "TBL_RIGHT"
 FROM (SELECT "site_id", "year", SUM("value") AS "prec"
 FROM (SELECT *
 FROM "clima"
-WHERE (("source" = 'chelsa') AND ("param" = 'prec'))) "hngveekzst"
-GROUP BY "site_id", "year") "bmzedmdlxh"
+WHERE (("source" = 'chelsa') AND ("param" = 'prec'))) "jtabhuprmt"
+GROUP BY "site_id", "year") "sxanqmrnpl"
 GROUP BY "site_id") "TBL_RIGHT"
   ON ("TBL_LEFT"."site_id" = "TBL_RIGHT"."site_id")
 ) "TBL_LEFT"
   INNER JOIN (SELECT "site_id", "person_id"
 FROM (SELECT *
 FROM "person_role"
-WHERE ("role" IN (2.0, 3.0))) "xbcuglkwwa") "TBL_RIGHT"
+WHERE ("role" IN (2.0, 3.0))) "quiegyqinr") "TBL_RIGHT"
   ON ("TBL_LEFT"."site_id" = "TBL_RIGHT"."site_id")
 ) "TBL_LEFT"
   INNER JOIN (SELECT "id" AS "person_id", "last_name" AS "contact_last_name", "first_name" AS "contact_first_name", "email" AS "contact_email", "institution_code" AS "contact_institution_code"
@@ -100,5 +84,5 @@ FROM "organ_fk") "TBL_RIGHT"
   INNER JOIN (SELECT "target_proxy", "description" AS "target_proxy_f"
 FROM "target_proxy_fk") "TBL_RIGHT"
   ON ("TBL_LEFT"."target_proxy" = "TBL_RIGHT"."target_proxy")
-) "qngwaviqho"
-ORDER BY "site_code") "exrzrewkmr") "vsrgcyryfn"
+) "uuungfjpqr"
+ORDER BY "site_code") "mwudscupfe") "ujhxyltkml"
