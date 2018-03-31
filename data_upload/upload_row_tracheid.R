@@ -9,56 +9,56 @@ source('data_upload/0_functions.R')
 # 0. load the data --------------------------------------------------------
 # Please use path relative to the default home directory. It is enout to write data_upload/data..... So
 # it will also work for me
-#file_dir <- '~/Desktop/xcell/data_upload/data/XC_DE_SILH/'
+#file_dir <- 'data_upload/data/XC_DE_SILH/'
 #file_name <- 'XC_DE_SILH.xlsm'
-#file_dir <- '~/Desktop/xcell/data_upload/data/XC_DE_SILM/'
+#file_dir <- 'data_upload/data/XC_DE_SILM/'
 #file_name <- 'XC_DE_SILM.xlsm'
-#file_dir <- '~/Desktop/xcell/data_upload/data/XC_DE_SILL/'
+#file_dir <- 'data_upload/data/XC_DE_SILL/'
 #file_name <- 'XC_DE_SILL.xlsm'
-#file_dir <- '~/Desktop/xcell/data_upload/data/XC_DE_LIL/'
+#file_dir <- 'data_upload/data/XC_DE_LIL/'
 #file_name <- 'XC_DE_LIL.xlsm'
-#file_dir <- '~/Desktop/xcell/data_upload/data/XC_DE_SCH/'
+#file_dir <- 'data_upload/data/XC_DE_SCH/'
 #file_name <- 'XC_DE_SCH.xlsm'
-#file_dir <- '~/Desktop/xcell/data_upload/data/XC_RU_ALT/'
+#file_dir <- 'data_upload/data/XC_RU_ALT/'
 #file_name <- 'XC_RU_ALT.xlsm'
-#file_dir <- '~/Desktop/xcell/data_upload/data/XC_RU_IND/'
+#file_dir <- 'data_upload/data/XC_RU_IND/'
 #file_name <- 'XC_RU_IND.xlsm'
-#file_dir <- '~/Desktop/xcell/data_upload/data/XC_RU_IND2/'
+#file_dir <- 'data_upload/data/XC_RU_IND2/'
 #file_name <- 'XC_RU_IND2.xlsm'
-#file_dir <- '~/Desktop/xcell/data_upload/data/XC_RU_NAN/'
+#file_dir <- 'data_upload/data/XC_RU_NAN/'
 #file_name <- 'XC_RU_NAN.xlsm'
-#file_dir <- '~/Desktop/xcell/data_upload/data/XC_RU_GOF/'
+#file_dir <- 'data_upload/data/XC_RU_GOF/'
 #file_name <- 'XC_RU_GOF.xlsm'
-#file_dir <- '~/Desktop/xcell/data_upload/data/XC_DE_HEI/'
-#file_name <- 'XC_DE_HEI.xlsm'
-#file_dir <- '~/Desktop/xcell/data_upload/data/XC_IT_REN/'
+file_dir <- 'data_upload/data/XC_DE_HEI/'
+file_name <- 'XC_DE_HEI.xlsm'
+#file_dir <- 'data_upload/data/XC_IT_REN/'
 #file_name <- 'XC_IT_REN.xlsm'
-#file_dir <- '~/Desktop/xcell/data_upload/data/XC_SE_FLA/'
+#file_dir <- 'data_upload/data/XC_SE_FLA/'
 #file_name <- 'XC_SE_FLA.xlsm'
-#file_dir <- '~/Desktop/xcell/data_upload/data/XC_RU_Tura/'
+#file_dir <- 'data_upload/data/XC_RU_Tura/'
 #file_name <- 'XC_RU_Tura.xlsm'
-#file_dir <- '~/Desktop/xcell/data_upload/data/XC_RU_ZOT/'
+#file_dir <- 'data_upload/data/XC_RU_ZOT/'
 #file_name <- 'XC_RU_ZOT.xlsm'
-#file_dir <- '~/Desktop/xcell/data_upload/data/XC_RU_YAK/'
+#file_dir <- 'data_upload/data/XC_RU_YAK/'
 #file_name <- 'XC_RU_YAK.xlsm'
-#file_dir <- '~/Desktop/xcell/data_upload/data/XC_RU_TAY/'
+#file_dir <- 'data_upload/data/XC_RU_TAY/'
 #file_name <- 'XC_RU_TAY.xlsm'
-#file_dir <- '~/Desktop/xcell/data_upload/data/XC_RU_KOTL/'
+#file_dir <- 'data_upload/data/XC_RU_KOTL/'
 #file_name <- 'XC_RU_KOTL.xlsm'
-#file_dir <- '~/Desktop/xcell/data_upload/data/XC_RU_KOTH/'
+#file_dir <- 'data_upload/data/XC_RU_KOTH/'
 #file_name <- 'XC_RU_KOTH.xlsm'
-#file_dir <- '~/Desktop/xcell/data_upload/data/XC_RU_KAN/'
+#file_dir <- 'data_upload/data/XC_RU_KAN/'
 #file_name <- 'XC_RU_KAN.xlsm'
-#file_dir <- '~/Desktop/xcell/data_upload/data/XC_US_CHI/'
+#file_dir <- 'data_upload/data/XC_US_CHI/'
 #file_name <- 'XC_US_CHI.xlsm'
-#file_dir <- '~/Desktop/xcell/data_upload/data/XC_RU_KAK/'
+#file_dir <- 'data_upload/data/XC_RU_KAK/'
 #file_name <- 'XC_RU_KAK.xlsm'
-#file_dir <- '~/Desktop/xcell/data_upload/data/XC_ES_SOR/'
+#file_dir <- 'data_upload/data/XC_ES_SOR/'
 #file_name <- 'XC_ES_SOR.xlsm'
-#file_dir <- '~/Desktop/xcell/data_upload/data/XC_ES_PAL/'
+#file_dir <- 'data_upload/data/XC_ES_PAL/'
 #file_name <- 'XC_ES_PAL.xlsm'
-file_dir <- '~/Desktop/xcell/data_upload/data/XC_ES_ENG/'
-file_name <- 'XC_ES_ENG.xlsm'
+#file_dir <- 'data_upload/data/XC_ES_ENG/'
+#file_name <- 'XC_ES_ENG.xlsm'
 
 
 
@@ -68,7 +68,7 @@ tree.xls <- read_xlsx(paste0(file_dir,file_name), 'TreeTable')
 measure.xls <- read_xlsx(paste0(file_dir,file_name), 'MeasuringTable', skip = 1)
 
 #- INFO table
-file_info <- '~/Desktop/xcell/data_upload/info_table.xlsx'
+file_info <- 'data_upload/info_table.xlsx'
 institution_info <- read_xlsx(file_info, 'institution')
 person_info <- read_xlsx(file_info, 'person')
 site_info <- read_xlsx(file_info, 'site')
@@ -169,15 +169,15 @@ xrow_output <- load_tracheid_row_measurements_1(file_dir = file_dir, sample_id =
 # A Chelsa
 chelsa <- extract_climate_chelsa(new.site)
 # B Cru 4.1
-cru<-extract_climate_cru(new.site) 
+#cru<-extract_climate_cru(new.site) 
 # C EU Dirk
-new.site$longitude<-as.numeric(new.site$longitude)
-new.site$latitude<-as.numeric(new.site$latitude)
-if (new.site$longitude > -11 & new.site$longitude < 32 & new.site$latitude >34 & new.site$latitude <72) {
-eu<-extract_climate_EuDirk(new.site)
-eu$value[which(eu$param=="temp")]<-eu$value[which(eu$param=="temp")]/100
-eu$value[which(eu$param=="prec")]<-eu$value[which(eu$param=="prec")]/10
-}
+# new.site$longitude<-as.numeric(new.site$longitude)
+# new.site$latitude<-as.numeric(new.site$latitude)
+# if (new.site$longitude > -11 & new.site$longitude < 32 & new.site$latitude >34 & new.site$latitude <72) {
+# eu<-extract_climate_EuDirk(new.site)
+# eu$value[which(eu$param=="temp")]<-eu$value[which(eu$param=="temp")]/100
+# eu$value[which(eu$param=="prec")]<-eu$value[which(eu$param=="prec")]/10
+# }
 
 
 # 2. UPLOAD the data ------------------------------------------------------
@@ -220,13 +220,13 @@ chelsa$value<-round(chelsa$value,2)
 chelsa<-chelsa[,c("id","site_id","param","year","month","value","source")]
 dbWriteXcell(table.name = 'clima', df = chelsa)
 # B cru
-cru$site_id<-site.id
-dbWriteXcell(table.name = 'clima', df = cru)
+#cru$site_id<-site.id
+#dbWriteXcell(table.name = 'clima', df = cru)
 # C Eu Dirk
-if (new.site$longitude > -11 & new.site$longitude < 32 & new.site$latitude >34 & new.site$latitude <72) {
-  eu$site_id<-site.id
-  dbWriteXcell(table.name = 'clima', df = eu)
-}
+#if (new.site$longitude > -11 & new.site$longitude < 32 & new.site$latitude >34 & new.site$latitude <72) {
+#  eu$site_id<-site.id
+#  dbWriteXcell(table.name = 'clima', df = eu)
+#}
 
 # 2.4 Tree ----------------------------------------------------------------
 dbWriteXcell(table.name = 'tree', df = new.tree %>% mutate(site_id = site.id))
