@@ -1,0 +1,88 @@
+SELECT "id", "year", "site_code", "site_label", "country_code", "longitude", "latitude", "elevation", "temp", "prec", "species_code", "target_proxy", "cell_type", "organ", "system", "software", "contact_last_name", "contact_first_name", "contact_email", "contact_institution_code", "n_trees", "n_radii", "n_rings", "from", "to", "trw", "eww", "lww", "density", "ldrad", "ldtan", "cwtrad", "cwttan", "lum", "cwa"
+FROM (SELECT "site_id", "species_code", "cell_type_f" AS "cell_type", "organ_f" AS "organ", "system", "software", "n_trees", "n_radii", "n_rings", "from", "to", "trw", "eww", "lww", "density", "ldrad", "ldtan", "cwtrad", "cwttan", "lum", "cwa", "year", "site_code", "site_label", "country_code", "longitude", "latitude", "elevation", "target_proxy_f" AS "target_proxy", "temp", "prec", "person_id", "contact_last_name", "contact_first_name", "contact_email", "contact_institution_code", "cell_type_f", "organ_f", "target_proxy_f", row_number() OVER (ORDER BY "site_code") AS "id"
+FROM (SELECT *
+FROM (SELECT "TBL_LEFT"."site_id" AS "site_id", "TBL_LEFT"."species_code" AS "species_code", "TBL_LEFT"."cell_type" AS "cell_type", "TBL_LEFT"."organ" AS "organ", "TBL_LEFT"."system" AS "system", "TBL_LEFT"."software" AS "software", "TBL_LEFT"."n_trees" AS "n_trees", "TBL_LEFT"."n_radii" AS "n_radii", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."trw" AS "trw", "TBL_LEFT"."eww" AS "eww", "TBL_LEFT"."lww" AS "lww", "TBL_LEFT"."density" AS "density", "TBL_LEFT"."ldrad" AS "ldrad", "TBL_LEFT"."ldtan" AS "ldtan", "TBL_LEFT"."cwtrad" AS "cwtrad", "TBL_LEFT"."cwttan" AS "cwttan", "TBL_LEFT"."lum" AS "lum", "TBL_LEFT"."cwa" AS "cwa", "TBL_LEFT"."year" AS "year", "TBL_LEFT"."site_code" AS "site_code", "TBL_LEFT"."site_label" AS "site_label", "TBL_LEFT"."country_code" AS "country_code", "TBL_LEFT"."longitude" AS "longitude", "TBL_LEFT"."latitude" AS "latitude", "TBL_LEFT"."elevation" AS "elevation", "TBL_LEFT"."target_proxy" AS "target_proxy", "TBL_LEFT"."temp" AS "temp", "TBL_LEFT"."prec" AS "prec", "TBL_LEFT"."person_id" AS "person_id", "TBL_LEFT"."contact_last_name" AS "contact_last_name", "TBL_LEFT"."contact_first_name" AS "contact_first_name", "TBL_LEFT"."contact_email" AS "contact_email", "TBL_LEFT"."contact_institution_code" AS "contact_institution_code", "TBL_LEFT"."cell_type_f" AS "cell_type_f", "TBL_LEFT"."organ_f" AS "organ_f", "TBL_RIGHT"."target_proxy_f" AS "target_proxy_f"
+  FROM (SELECT "TBL_LEFT"."site_id" AS "site_id", "TBL_LEFT"."species_code" AS "species_code", "TBL_LEFT"."cell_type" AS "cell_type", "TBL_LEFT"."organ" AS "organ", "TBL_LEFT"."system" AS "system", "TBL_LEFT"."software" AS "software", "TBL_LEFT"."n_trees" AS "n_trees", "TBL_LEFT"."n_radii" AS "n_radii", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."trw" AS "trw", "TBL_LEFT"."eww" AS "eww", "TBL_LEFT"."lww" AS "lww", "TBL_LEFT"."density" AS "density", "TBL_LEFT"."ldrad" AS "ldrad", "TBL_LEFT"."ldtan" AS "ldtan", "TBL_LEFT"."cwtrad" AS "cwtrad", "TBL_LEFT"."cwttan" AS "cwttan", "TBL_LEFT"."lum" AS "lum", "TBL_LEFT"."cwa" AS "cwa", "TBL_LEFT"."year" AS "year", "TBL_LEFT"."site_code" AS "site_code", "TBL_LEFT"."site_label" AS "site_label", "TBL_LEFT"."country_code" AS "country_code", "TBL_LEFT"."longitude" AS "longitude", "TBL_LEFT"."latitude" AS "latitude", "TBL_LEFT"."elevation" AS "elevation", "TBL_LEFT"."target_proxy" AS "target_proxy", "TBL_LEFT"."temp" AS "temp", "TBL_LEFT"."prec" AS "prec", "TBL_LEFT"."person_id" AS "person_id", "TBL_LEFT"."contact_last_name" AS "contact_last_name", "TBL_LEFT"."contact_first_name" AS "contact_first_name", "TBL_LEFT"."contact_email" AS "contact_email", "TBL_LEFT"."contact_institution_code" AS "contact_institution_code", "TBL_LEFT"."cell_type_f" AS "cell_type_f", "TBL_RIGHT"."organ_f" AS "organ_f"
+  FROM (SELECT "TBL_LEFT"."site_id" AS "site_id", "TBL_LEFT"."species_code" AS "species_code", "TBL_LEFT"."cell_type" AS "cell_type", "TBL_LEFT"."organ" AS "organ", "TBL_LEFT"."system" AS "system", "TBL_LEFT"."software" AS "software", "TBL_LEFT"."n_trees" AS "n_trees", "TBL_LEFT"."n_radii" AS "n_radii", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."trw" AS "trw", "TBL_LEFT"."eww" AS "eww", "TBL_LEFT"."lww" AS "lww", "TBL_LEFT"."density" AS "density", "TBL_LEFT"."ldrad" AS "ldrad", "TBL_LEFT"."ldtan" AS "ldtan", "TBL_LEFT"."cwtrad" AS "cwtrad", "TBL_LEFT"."cwttan" AS "cwttan", "TBL_LEFT"."lum" AS "lum", "TBL_LEFT"."cwa" AS "cwa", "TBL_LEFT"."year" AS "year", "TBL_LEFT"."site_code" AS "site_code", "TBL_LEFT"."site_label" AS "site_label", "TBL_LEFT"."country_code" AS "country_code", "TBL_LEFT"."longitude" AS "longitude", "TBL_LEFT"."latitude" AS "latitude", "TBL_LEFT"."elevation" AS "elevation", "TBL_LEFT"."target_proxy" AS "target_proxy", "TBL_LEFT"."temp" AS "temp", "TBL_LEFT"."prec" AS "prec", "TBL_LEFT"."person_id" AS "person_id", "TBL_LEFT"."contact_last_name" AS "contact_last_name", "TBL_LEFT"."contact_first_name" AS "contact_first_name", "TBL_LEFT"."contact_email" AS "contact_email", "TBL_LEFT"."contact_institution_code" AS "contact_institution_code", "TBL_RIGHT"."cell_type_f" AS "cell_type_f"
+  FROM (SELECT "TBL_LEFT"."site_id" AS "site_id", "TBL_LEFT"."species_code" AS "species_code", "TBL_LEFT"."cell_type" AS "cell_type", "TBL_LEFT"."organ" AS "organ", "TBL_LEFT"."system" AS "system", "TBL_LEFT"."software" AS "software", "TBL_LEFT"."n_trees" AS "n_trees", "TBL_LEFT"."n_radii" AS "n_radii", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."trw" AS "trw", "TBL_LEFT"."eww" AS "eww", "TBL_LEFT"."lww" AS "lww", "TBL_LEFT"."density" AS "density", "TBL_LEFT"."ldrad" AS "ldrad", "TBL_LEFT"."ldtan" AS "ldtan", "TBL_LEFT"."cwtrad" AS "cwtrad", "TBL_LEFT"."cwttan" AS "cwttan", "TBL_LEFT"."lum" AS "lum", "TBL_LEFT"."cwa" AS "cwa", "TBL_LEFT"."year" AS "year", "TBL_LEFT"."site_code" AS "site_code", "TBL_LEFT"."site_label" AS "site_label", "TBL_LEFT"."country_code" AS "country_code", "TBL_LEFT"."longitude" AS "longitude", "TBL_LEFT"."latitude" AS "latitude", "TBL_LEFT"."elevation" AS "elevation", "TBL_LEFT"."target_proxy" AS "target_proxy", "TBL_LEFT"."temp" AS "temp", "TBL_LEFT"."prec" AS "prec", "TBL_LEFT"."person_id" AS "person_id", "TBL_RIGHT"."contact_last_name" AS "contact_last_name", "TBL_RIGHT"."contact_first_name" AS "contact_first_name", "TBL_RIGHT"."contact_email" AS "contact_email", "TBL_RIGHT"."contact_institution_code" AS "contact_institution_code"
+  FROM (SELECT "TBL_LEFT"."site_id" AS "site_id", "TBL_LEFT"."species_code" AS "species_code", "TBL_LEFT"."cell_type" AS "cell_type", "TBL_LEFT"."organ" AS "organ", "TBL_LEFT"."system" AS "system", "TBL_LEFT"."software" AS "software", "TBL_LEFT"."n_trees" AS "n_trees", "TBL_LEFT"."n_radii" AS "n_radii", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."trw" AS "trw", "TBL_LEFT"."eww" AS "eww", "TBL_LEFT"."lww" AS "lww", "TBL_LEFT"."density" AS "density", "TBL_LEFT"."ldrad" AS "ldrad", "TBL_LEFT"."ldtan" AS "ldtan", "TBL_LEFT"."cwtrad" AS "cwtrad", "TBL_LEFT"."cwttan" AS "cwttan", "TBL_LEFT"."lum" AS "lum", "TBL_LEFT"."cwa" AS "cwa", "TBL_LEFT"."year" AS "year", "TBL_LEFT"."site_code" AS "site_code", "TBL_LEFT"."site_label" AS "site_label", "TBL_LEFT"."country_code" AS "country_code", "TBL_LEFT"."longitude" AS "longitude", "TBL_LEFT"."latitude" AS "latitude", "TBL_LEFT"."elevation" AS "elevation", "TBL_LEFT"."target_proxy" AS "target_proxy", "TBL_LEFT"."temp" AS "temp", "TBL_LEFT"."prec" AS "prec", "TBL_RIGHT"."person_id" AS "person_id"
+  FROM (SELECT "TBL_LEFT"."site_id" AS "site_id", "TBL_LEFT"."species_code" AS "species_code", "TBL_LEFT"."cell_type" AS "cell_type", "TBL_LEFT"."organ" AS "organ", "TBL_LEFT"."system" AS "system", "TBL_LEFT"."software" AS "software", "TBL_LEFT"."n_trees" AS "n_trees", "TBL_LEFT"."n_radii" AS "n_radii", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."trw" AS "trw", "TBL_LEFT"."eww" AS "eww", "TBL_LEFT"."lww" AS "lww", "TBL_LEFT"."density" AS "density", "TBL_LEFT"."ldrad" AS "ldrad", "TBL_LEFT"."ldtan" AS "ldtan", "TBL_LEFT"."cwtrad" AS "cwtrad", "TBL_LEFT"."cwttan" AS "cwttan", "TBL_LEFT"."lum" AS "lum", "TBL_LEFT"."cwa" AS "cwa", "TBL_LEFT"."year" AS "year", "TBL_LEFT"."site_code" AS "site_code", "TBL_LEFT"."site_label" AS "site_label", "TBL_LEFT"."country_code" AS "country_code", "TBL_LEFT"."longitude" AS "longitude", "TBL_LEFT"."latitude" AS "latitude", "TBL_LEFT"."elevation" AS "elevation", "TBL_LEFT"."target_proxy" AS "target_proxy", "TBL_LEFT"."temp" AS "temp", "TBL_RIGHT"."prec" AS "prec"
+  FROM (SELECT "TBL_LEFT"."site_id" AS "site_id", "TBL_LEFT"."species_code" AS "species_code", "TBL_LEFT"."cell_type" AS "cell_type", "TBL_LEFT"."organ" AS "organ", "TBL_LEFT"."system" AS "system", "TBL_LEFT"."software" AS "software", "TBL_LEFT"."n_trees" AS "n_trees", "TBL_LEFT"."n_radii" AS "n_radii", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."trw" AS "trw", "TBL_LEFT"."eww" AS "eww", "TBL_LEFT"."lww" AS "lww", "TBL_LEFT"."density" AS "density", "TBL_LEFT"."ldrad" AS "ldrad", "TBL_LEFT"."ldtan" AS "ldtan", "TBL_LEFT"."cwtrad" AS "cwtrad", "TBL_LEFT"."cwttan" AS "cwttan", "TBL_LEFT"."lum" AS "lum", "TBL_LEFT"."cwa" AS "cwa", "TBL_LEFT"."year" AS "year", "TBL_LEFT"."site_code" AS "site_code", "TBL_LEFT"."site_label" AS "site_label", "TBL_LEFT"."country_code" AS "country_code", "TBL_LEFT"."longitude" AS "longitude", "TBL_LEFT"."latitude" AS "latitude", "TBL_LEFT"."elevation" AS "elevation", "TBL_LEFT"."target_proxy" AS "target_proxy", "TBL_RIGHT"."temp" AS "temp"
+  FROM (SELECT "TBL_LEFT"."site_id" AS "site_id", "TBL_LEFT"."species_code" AS "species_code", "TBL_LEFT"."cell_type" AS "cell_type", "TBL_LEFT"."organ" AS "organ", "TBL_LEFT"."system" AS "system", "TBL_LEFT"."software" AS "software", "TBL_LEFT"."n_trees" AS "n_trees", "TBL_LEFT"."n_radii" AS "n_radii", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."trw" AS "trw", "TBL_LEFT"."eww" AS "eww", "TBL_LEFT"."lww" AS "lww", "TBL_LEFT"."density" AS "density", "TBL_LEFT"."ldrad" AS "ldrad", "TBL_LEFT"."ldtan" AS "ldtan", "TBL_LEFT"."cwtrad" AS "cwtrad", "TBL_LEFT"."cwttan" AS "cwttan", "TBL_LEFT"."lum" AS "lum", "TBL_LEFT"."cwa" AS "cwa", "TBL_RIGHT"."year" AS "year", "TBL_RIGHT"."site_code" AS "site_code", "TBL_RIGHT"."site_label" AS "site_label", "TBL_RIGHT"."country_code" AS "country_code", "TBL_RIGHT"."longitude" AS "longitude", "TBL_RIGHT"."latitude" AS "latitude", "TBL_RIGHT"."elevation" AS "elevation", "TBL_RIGHT"."target_proxy" AS "target_proxy"
+  FROM (SELECT "site_id", "species_code", "cell_type", "organ", "system", "software", COUNT(DISTINCT "tree_id") AS "n_trees", COUNT(DISTINCT "sample_id") AS "n_radii", COUNT(DISTINCT "ring_id") AS "n_rings", MIN("from") AS "from", MAX("to") AS "to", AVG("trw") AS "trw", AVG("eww") AS "eww", AVG("lww") AS "lww", AVG("density") AS "density", AVG("ldrad") AS "ldrad", AVG("ldtan") AS "ldtan", AVG("cwtrad") AS "cwtrad", AVG("cwttan") AS "cwttan", AVG("lum") AS "lum", AVG("cwa") AS "cwa"
+FROM (SELECT "TBL_LEFT"."ring_id" AS "ring_id", "TBL_LEFT"."density" AS "density", "TBL_LEFT"."ldrad" AS "ldrad", "TBL_LEFT"."ldtan" AS "ldtan", "TBL_LEFT"."cwtrad" AS "cwtrad", "TBL_LEFT"."cwttan" AS "cwttan", "TBL_LEFT"."lum" AS "lum", "TBL_LEFT"."cwa" AS "cwa", "TBL_LEFT"."subpiece_id" AS "subpiece_id", "TBL_LEFT"."trw" AS "trw", "TBL_LEFT"."eww" AS "eww", "TBL_LEFT"."lww" AS "lww", "TBL_LEFT"."sample_id" AS "sample_id", "TBL_LEFT"."system" AS "system", "TBL_LEFT"."software" AS "software", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."tree_id" AS "tree_id", "TBL_LEFT"."cell_type" AS "cell_type", "TBL_LEFT"."organ" AS "organ", "TBL_RIGHT"."site_id" AS "site_id", "TBL_RIGHT"."species_code" AS "species_code"
+  FROM (SELECT "TBL_LEFT"."ring_id" AS "ring_id", "TBL_LEFT"."density" AS "density", "TBL_LEFT"."ldrad" AS "ldrad", "TBL_LEFT"."ldtan" AS "ldtan", "TBL_LEFT"."cwtrad" AS "cwtrad", "TBL_LEFT"."cwttan" AS "cwttan", "TBL_LEFT"."lum" AS "lum", "TBL_LEFT"."cwa" AS "cwa", "TBL_LEFT"."subpiece_id" AS "subpiece_id", "TBL_LEFT"."trw" AS "trw", "TBL_LEFT"."eww" AS "eww", "TBL_LEFT"."lww" AS "lww", "TBL_LEFT"."sample_id" AS "sample_id", "TBL_LEFT"."system" AS "system", "TBL_LEFT"."software" AS "software", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_RIGHT"."tree_id" AS "tree_id", "TBL_RIGHT"."cell_type" AS "cell_type", "TBL_RIGHT"."organ" AS "organ"
+  FROM (SELECT "TBL_LEFT"."ring_id" AS "ring_id", "TBL_LEFT"."density" AS "density", "TBL_LEFT"."ldrad" AS "ldrad", "TBL_LEFT"."ldtan" AS "ldtan", "TBL_LEFT"."cwtrad" AS "cwtrad", "TBL_LEFT"."cwttan" AS "cwttan", "TBL_LEFT"."lum" AS "lum", "TBL_LEFT"."cwa" AS "cwa", "TBL_LEFT"."subpiece_id" AS "subpiece_id", "TBL_LEFT"."trw" AS "trw", "TBL_LEFT"."eww" AS "eww", "TBL_LEFT"."lww" AS "lww", "TBL_RIGHT"."sample_id" AS "sample_id", "TBL_RIGHT"."system" AS "system", "TBL_RIGHT"."software" AS "software", "TBL_RIGHT"."from" AS "from", "TBL_RIGHT"."to" AS "to"
+  FROM (SELECT "TBL_LEFT"."ring_id" AS "ring_id", "TBL_LEFT"."density" AS "density", "TBL_LEFT"."ldrad" AS "ldrad", "TBL_LEFT"."ldtan" AS "ldtan", "TBL_LEFT"."cwtrad" AS "cwtrad", "TBL_LEFT"."cwttan" AS "cwttan", "TBL_LEFT"."lum" AS "lum", "TBL_LEFT"."cwa" AS "cwa", "TBL_RIGHT"."subpiece_id" AS "subpiece_id", "TBL_RIGHT"."trw" AS "trw", "TBL_RIGHT"."eww" AS "eww", "TBL_RIGHT"."lww" AS "lww"
+  FROM ((SELECT "ring_id", "density", "ldrad", "ldtan", "cwtrad", "cwttan", "lum", "cwa"
+FROM (SELECT "ring_id", AVG("density") AS "density", AVG("ldrad") AS "ldrad", AVG("ldtan") AS "ldtan", AVG("cwtrad") AS "cwtrad", AVG("cwttan") AS "cwttan", AVG("lum") AS "lum", AVG("cwa") AS "cwa"
+FROM (SELECT *
+FROM "profile") "vyirhvxlyv"
+GROUP BY "ring_id") "dltrmxoogh")
+UNION
+(SELECT "ring_id", "density", "ldrad", "ldtan", "cwtrad", "cwttan", "lum", "cwa"
+FROM (SELECT "ring_id", "ldrad", "ldtan", "cwtrad", "cwttan", "lum", "cwa", NULL AS "density"
+FROM (SELECT "ring_id", AVG("ldrad") AS "ldrad", AVG("ldtan") AS "ldtan", AVG("cwtrad") AS "cwtrad", AVG("cwttan") AS "cwttan", AVG("lum") AS "lum", AVG("cwa") AS "cwa"
+FROM (SELECT *
+FROM "tracheid_full") "kmzxorihck"
+GROUP BY "ring_id") "voyhipaeef") "ioauauhhce")) "TBL_LEFT"
+  INNER JOIN (SELECT "id" AS "ring_id", "subpiece_id", "ring_width" AS "trw", "eww", "lww"
+FROM "ring") "TBL_RIGHT"
+  ON ("TBL_LEFT"."ring_id" = "TBL_RIGHT"."ring_id")
+) "TBL_LEFT"
+  INNER JOIN (SELECT "id" AS "subpiece_id", "sample_id", "system", "software", "from", "to"
+FROM "measure_info") "TBL_RIGHT"
+  ON ("TBL_LEFT"."subpiece_id" = "TBL_RIGHT"."subpiece_id")
+) "TBL_LEFT"
+  INNER JOIN (SELECT "id" AS "sample_id", "tree_id", "cell_type", "organ"
+FROM "wood_sample") "TBL_RIGHT"
+  ON ("TBL_LEFT"."sample_id" = "TBL_RIGHT"."sample_id")
+) "TBL_LEFT"
+  INNER JOIN (SELECT "id" AS "tree_id", "site_id", "species_code"
+FROM "tree") "TBL_RIGHT"
+  ON ("TBL_LEFT"."tree_id" = "TBL_RIGHT"."tree_id")
+) "jbjnsguils"
+GROUP BY "site_id", "species_code", "cell_type", "organ", "system", "software") "TBL_LEFT"
+  INNER JOIN (SELECT "id" AS "site_id", "sampling_year" AS "year", "site_code", "site_label", "country_code", "longitude", "latitude", "elevation", "target_proxy"
+FROM "site") "TBL_RIGHT"
+  ON ("TBL_LEFT"."site_id" = "TBL_RIGHT"."site_id")
+) "TBL_LEFT"
+  LEFT JOIN (SELECT "site_id", AVG("value") AS "temp"
+FROM (SELECT *
+FROM "clima"
+WHERE (("source" = 'chelsa') AND ("param" = 'temp'))) "piandhjtnl"
+GROUP BY "site_id") "TBL_RIGHT"
+  ON ("TBL_LEFT"."site_id" = "TBL_RIGHT"."site_id")
+) "TBL_LEFT"
+  LEFT JOIN (SELECT "site_id", AVG("prec") AS "prec"
+FROM (SELECT "site_id", "year", SUM("value") AS "prec"
+FROM (SELECT *
+FROM "clima"
+WHERE (("source" = 'chelsa') AND ("param" = 'prec'))) "cdziwigdlj"
+GROUP BY "site_id", "year") "iddnpoxnmd"
+GROUP BY "site_id") "TBL_RIGHT"
+  ON ("TBL_LEFT"."site_id" = "TBL_RIGHT"."site_id")
+) "TBL_LEFT"
+  INNER JOIN (SELECT "site_id", "person_id"
+FROM (SELECT *
+FROM "person_role"
+WHERE ("role" IN (2.0, 3.0))) "lctoxvtehl") "TBL_RIGHT"
+  ON ("TBL_LEFT"."site_id" = "TBL_RIGHT"."site_id")
+) "TBL_LEFT"
+  INNER JOIN (SELECT "id" AS "person_id", "last_name" AS "contact_last_name", "first_name" AS "contact_first_name", "email" AS "contact_email", "institution_code" AS "contact_institution_code"
+FROM "person") "TBL_RIGHT"
+  ON ("TBL_LEFT"."person_id" = "TBL_RIGHT"."person_id")
+) "TBL_LEFT"
+  INNER JOIN (SELECT "cell_type", "description" AS "cell_type_f"
+FROM "cell_type_fk") "TBL_RIGHT"
+  ON ("TBL_LEFT"."cell_type" = "TBL_RIGHT"."cell_type")
+) "TBL_LEFT"
+  INNER JOIN (SELECT "organ", "description" AS "organ_f"
+FROM "organ_fk") "TBL_RIGHT"
+  ON ("TBL_LEFT"."organ" = "TBL_RIGHT"."organ")
+) "TBL_LEFT"
+  INNER JOIN (SELECT "target_proxy", "description" AS "target_proxy_f"
+FROM "target_proxy_fk") "TBL_RIGHT"
+  ON ("TBL_LEFT"."target_proxy" = "TBL_RIGHT"."target_proxy")
+) "earlzoljiz"
+ORDER BY "site_code") "uepidtcndp") "pcunakxxke"
