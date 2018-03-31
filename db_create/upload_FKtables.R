@@ -5,9 +5,9 @@
 
 # 1. load libraries and WD -------------------------------------------------------
 library(RPostgreSQL)
-library(tidyverse)
 library(DBI)
 library(readxl)
+library(tidyverse)
 
 # 2. Create a connection to the DB ----------------------------------------
 source('pw.R')

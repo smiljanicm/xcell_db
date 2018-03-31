@@ -1,27 +1,27 @@
 
 # 0. Libraries ---------------------------------------------------
 
-library(tidyverse); library(DBI); library(readxl); library(stringr)
+library(DBI); library(readxl); library(stringr); library(tidyverse)
 
 source('data_upload/0_functions.R')
 
 
 # 0. load the data --------------------------------------------------------
-#file_dir <- '~/Desktop/xcell/data_upload/data/XC_CH_LTS22/'
+#file_dir <- 'data_upload/data/XC_CH_LTS22/'
 #file_name <- 'XC_CH_LTS22.xlsm'
-file_dir <- '~/Desktop/xcell/data_upload/data/XC_CH_LTS22/'
+file_dir <- 'data_upload/data/XC_CH_LTS22/'
 file_name <- 'XC_CH_LTS22.xlsm'
-#file_dir <- '~/Desktop/xcell/data_upload/data/XC_CH_LTS19/'
+#file_dir <- 'data_upload/data/XC_CH_LTS19/'
 #file_name <- 'XC_CH_LTS19.xlsm'
-#file_dir <-  '~/Desktop/xcell/data_upload/data/XC_CH_LTN13/'
+#file_dir <-  'data_upload/data/XC_CH_LTN13/'
 #file_name <- 'XC_CH_LTN13.xlsm'
-#file_dir <-  '~/Desktop/xcell/data_upload/data/XC_RU_Shira/'
+#file_dir <-  'data_upload/data/XC_RU_Shira/'
 #file_name <- 'XC_RU_Shira.xlsm'
-#file_dir <-  '~/Desktop/xcell/data_upload/data/XC_IT_CRO12/'
+#file_dir <-  'data_upload/data/XC_IT_CRO12/'
 #file_name <- 'XC_IT_CRO12.xlsm'
-#file_dir <-  '~/Desktop/xcell/data_upload/data/XC_IT_CRO16/'
+#file_dir <-  'data_upload/data/XC_IT_CRO16/'
 #file_name <- 'XC_IT_CRO16.xlsm'
-#file_dir <-  '~/Desktop/xcell/data_upload/data/XC_IT_CRO21/'
+#file_dir <-  'data_upload/data/XC_IT_CRO21/'
 #file_name <- 'XC_IT_CRO21.xlsm'
 
 #- RAW data
@@ -30,8 +30,8 @@ tree.xls <- read_xlsx(paste0(file_dir,file_name), 'TreeTable')
 measure.xls <- read_xlsx(paste0(file_dir,file_name), 'MeasuringTable', skip = 1)
 
 #- INFO table
-#file_info <- 'data_upload/info_table.xlsx'
-file_info <- '/Users/fonti/iCloud Drive (Archive)/Desktop/xcell/data_upload/info_table.xlsx'
+file_info <- 'data_upload/info_table.xlsx'
+#file_info <- '/Users/fonti/iCloud Drive (Archive)/Desktop/xcell/data_upload/info_table.xlsx'
 institution_info <- read_xlsx(file_info, 'institution')
 person_info <- read_xlsx(file_info, 'person')
 site_info <- read_xlsx(file_info, 'site')
@@ -58,7 +58,7 @@ constrains_db <- dbGetConstrains(dbcon)
 # 1.1 Institution ---------------------------------------------------------
 new.institution <- left_join( institution_info, general.xls, by = 'xcel_name' ) %>%
   group_by(db_name) %>%
-  mutate(id = row_number()) %>%
+  dplyr::mutate(id = row_number()) %>%
   dplyr::select(-xcel_name) %>%
   spread(db_name, value) %>%
   filter(!is.na(institution_code)) %>%
@@ -133,11 +133,11 @@ if(nrow(roxas_output$roxas_dontmatch) > 0) stop('THERE are files that dont match
 # A Chelsa
 chelsa <- extract_climate_chelsa(new.site)
 # B Cru 4.1
-cru<-extract_climate_cru(new.site) 
+#cru<-extract_climate_cru(new.site) 
 # C EU Dirk
-eu<-extract_climate_EuDirk(new.site)
-eu$value[which(eu$param=="temp")]<-eu$value[which(eu$param=="temp")]/100
-eu$value[which(eu$param=="prec")]<-eu$value[which(eu$param=="prec")]/10
+#eu<-extract_climate_EuDirk(new.site)
+#eu$value[which(eu$param=="temp")]<-eu$value[which(eu$param=="temp")]/100
+#eu$value[which(eu$param=="prec")]<-eu$value[which(eu$param=="prec")]/10
 
 # 2. UPLOAD the data ------------------------------------------------------
 # Information about the site
@@ -178,9 +178,9 @@ chelsa$value<-round(chelsa$value,2)
 chelsa<-chelsa[,c("id","site_id","param","year","month","value","source")]
 dbWriteXcell(table.name = 'clima', df = chelsa)
 # B cru
-dbWriteXcell(table.name = 'clima', df = cru)
+#dbWriteXcell(table.name = 'clima', df = cru)
 # C Eu Dirk
-dbWriteXcell(table.name = 'clima', df = eu)
+#dbWriteXcell(table.name = 'clima', df = eu)
 
 
 # 2.4 Tree ----------------------------------------------------------------
@@ -221,7 +221,7 @@ ring.id <- tbl(dbcon, 'ring') %>% filter(subpiece_id %in% measure_info.id$subpie
 inner_join(ring.id, measure_info.id, by = 'subpiece_id') %>%
   dplyr::select(ring_id, data_filename, year) %>%
   inner_join(., roxas_output$roxas_cells, by = c('data_filename', 'year')) %>%
-  mutate_at(vars(drad,dtan,cwtpi,cwtba,cwtle,cwtri,cwttan,cwtrad,cwa,bend),funs(ifelse(. == -999, NA, .))) %>%
+  mutate_at(vars(ldrad,ldtan,cwtpi,cwtba,cwtle,cwtri,cwttan,cwtrad,cwa,bend),funs(ifelse(. == -999, NA, .))) %>%
   mutate_at(vars(x_cal, y_cal), funs(round(., 4))) %>%
   dbWriteXcell(table.name = 'tracheid_full', df = .)
 
