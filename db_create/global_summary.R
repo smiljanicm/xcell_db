@@ -11,8 +11,8 @@ source('pw.R')
 union(tbl(dbcon,'profile') %>% group_by(ring_id) %>% summarise_at(vars(density,ldrad,ldtan,cwtrad,cwttan,lum,cwa), mean),
       tbl(dbcon,'tracheid_full') %>% group_by(ring_id) %>% summarise_at(vars(ldrad,ldtan,cwtrad,cwttan,lum,cwa), mean) %>% mutate(density=NA)
 ) %>% 
-  union(tbl(dbcon,'tracheid_row') %>% group_by(ring_id) %>% summarise_at(vars(ldrad,cwtrad,lum), mean) %>% mutate(density=NA,ldtan=NA,cwttan=NA,cwa=NA)) %>%
-  union(tbl(dbcon,'vessel') %>% group_by(ring_id) %>% summarise_at(vars(lum), mean) %>% mutate(density=NA,ldtan=NA,cwttan=NA,cwa=NA,ldrad=NA,cwtrad=NA)) %>% 
+  #union(tbl(dbcon,'tracheid_row') %>% group_by(ring_id) %>% summarise_at(vars(ldrad,cwtrad,lum), mean) %>% mutate(density=NA,ldtan=NA,cwttan=NA,cwa=NA)) %>%
+  #union(tbl(dbcon,'vessel') %>% group_by(ring_id) %>% summarise_at(vars(lum), mean) %>% mutate(density=NA,ldtan=NA,cwttan=NA,cwa=NA,ldrad=NA,cwtrad=NA)) %>% 
   #tbl(dbcon,'profile') %>% group_by(ring_id) %>% summarise_at(vars(density,ldrad,ldtan,cwtrad,cwttan,lum,cwa), funs(mean)) %>% 
   inner_join(tbl(dbcon,'ring') %>% select(ring_id=id,subpiece_id,trw=ring_width,eww,lww), by='ring_id') %>% 
   inner_join(tbl(dbcon,'measure_info') %>% select(subpiece_id=id,sample_id,system, software,from,to), by='subpiece_id') %>%
@@ -52,6 +52,6 @@ union(tbl(dbcon,'profile') %>% group_by(ring_id) %>% summarise_at(vars(density,l
          n_trees, n_radii, n_rings, from, to, trw, eww, lww, density,ldrad,ldtan,cwtrad,cwttan,lum,cwa)->
   global.query
 
-global.query %>% dbplyr::sql_render() %>% write_lines('DB/globalsql.txt')
+global.query %>% dbplyr::sql_render() %>% write_lines('db_create/globalsql.txt')
 
 temp.df <- global.query %>% collect
