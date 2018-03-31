@@ -16,17 +16,17 @@ source('pw.R')
 
 # 3. Get a general information about the DB -----------------------------
 #--/ List availale tables
-db_list_tables(Xcell_db)
+db_list_tables(dbcon)
 #--/ List columns in the table
-dbListFields(Xcell_db, "institution_fk")
+dbListFields(dbcon, "institution_fk")
 
 # 4. upload data to the FK-tables ----------------------------------------------
-sheetsNameList <- excel_sheets("db/xcell_fk_tables.xlsx")
+sheetsNameList <- excel_sheets("db_create/xcell_fk_tables.xlsx")
   
   for (i in sheetsNameList) {       
     print(i)
-    sheet<-read_excel("db/xcell_fk_tables.xlsx", sheet = i)
-    dbWriteTable(conn = Xcell_db, 
+    sheet<-read_excel("db_create/xcell_fk_tables.xlsx", sheet = i)
+    dbWriteTable(conn = dbcon, 
                  name = i, # name of the table that you want to modify
                  value = sheet, # data you want to add
                  overwrite = FALSE, # you don't want to overwrite a table, just append
@@ -36,4 +36,4 @@ sheetsNameList <- excel_sheets("db/xcell_fk_tables.xlsx")
 
 
 # 5. Close connection to the DB ----------------------------------------
-dbDisconnect(Xcell_db)
+dbDisconnect(dbcon)
