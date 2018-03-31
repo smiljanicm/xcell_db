@@ -492,8 +492,6 @@ load_tracheid_row_measurements <- function( file_dir = NULL, sample_id = new.mea
     #' @param site.coord - a data frame that include the site information including latitude and longitude in WGS 84
     #' @return a table: site_id, param,  year, month, value, source
     
-    library(tidyverse)
-
     site.coord <- as.data.frame(site.coord[,c('id','latitude', 'longitude')])
     site.coord$latitude<-as.numeric(site.coord$latitude)
     site.coord$longitude<-as.numeric(site.coord$longitude)
@@ -502,7 +500,10 @@ load_tracheid_row_measurements <- function( file_dir = NULL, sample_id = new.mea
     for (i in 1:nrow(site.coord)) {
       print(site.coord$id[i])
  
-    # PREC data
+    
+    old.wd<-getwd()  
+      
+      # PREC data
     setwd(paste0("/Volumes/My Passport for Mac/Climate_data/Chelsa1979_2013/timeseries/",'prec'))
     tibble(fl = list.files(pattern = '_V1.2_land.tif')) %>%
       rowwise() %>%
@@ -528,6 +529,7 @@ load_tracheid_row_measurements <- function( file_dir = NULL, sample_id = new.mea
              source = "chelsa")
     allID<-rbind(allID,eachID)
     }
+    setwd(old.wd)
     return(allID)
   }
   
