@@ -109,38 +109,38 @@ get_id <- function(d_table, table.name, sch = 'v1', constrains_db){
 }
 
 
-extract_climate_chelsa <- function(site_i) {
-  #' @description extract climate data from the 1km resolution chelsa climate data set 1979-2013
-  #' @param site.coord - a data frame that include the site information including latitude and longitude in WGS 84
-  #' @return a table: site_id, param,  year, month, value, source
-  
-  latitude<-as.numeric(site_i$Latitude)
-  longitude<-as.numeric(site_i$Longitude)
-  
-    # PREC data
-    setwd(paste0("~/Desktop/xcell/data_upload/data_climate/Chelsa1979_2013/Climatologies/",'prec'))
-    tibble(fl = list.files(pattern = '_V1.2_land.tif')) %>%
-      rowwise() %>%
-      mutate(value = raster::extract(raster::raster(fl), t(as.data.frame(c(longitude,latitude))), method="bilinear"),
-             fl   = gsub('CHELSA_|_V1.2_land.tif', '', fl))  %>%
-      separate(fl, c('param','month'), sep = '_') %>%
-      mutate_at(vars(month), funs(as.numeric)) ->
-      site.prec
-    site_i$Precip<-sum(site.prec$value)
-    
-    # Temp data
-    setwd(paste0("~/Desktop/xcell/data_upload/data_climate/Chelsa1979_2013/Climatologies/",'temp'))
-    tibble(fl = list.files( pattern = '_V1.2_land.tif')) %>%
-      rowwise() %>%
-      mutate( value = raster::extract(raster::raster(fl), t(as.data.frame(c(longitude,latitude))), method="bilinear"),
-              fl = gsub('CHELSA_|_1979-2013_V1.2_land.tif', '', fl)) %>%
-      separate(fl, c('param','month'), sep = '_') %>%
-      mutate_at(vars(month), funs(as.numeric)) ->
-      site.temp
-    site_i$Temp<-mean(site.temp$value)
-    setwd( "/Users/fonti/Desktop/xcell/xcell_db")
-    # retur results
-  return(site_i)
-}
+#' extract_climate_chelsa <- function(site_i) {
+#'   #' @description extract climate data from the 1km resolution chelsa climate data set 1979-2013
+#'   #' @param site.coord - a data frame that include the site information including latitude and longitude in WGS 84
+#'   #' @return a table: site_id, param,  year, month, value, source
+#'   
+#'   latitude<-as.numeric(site_i$Latitude)
+#'   longitude<-as.numeric(site_i$Longitude)
+#'   
+#'     # PREC data
+#'     setwd(paste0("~/Desktop/xcell/data_upload/data_climate/Chelsa1979_2013/Climatologies/",'prec'))
+#'     tibble(fl = list.files(pattern = '_V1.2_land.tif')) %>%
+#'       rowwise() %>%
+#'       mutate(value = raster::extract(raster::raster(fl), t(as.data.frame(c(longitude,latitude))), method="bilinear"),
+#'              fl   = gsub('CHELSA_|_V1.2_land.tif', '', fl))  %>%
+#'       separate(fl, c('param','month'), sep = '_') %>%
+#'       mutate_at(vars(month), funs(as.numeric)) ->
+#'       site.prec
+#'     site_i$Precip<-sum(site.prec$value)
+#'     
+#'     # Temp data
+#'     setwd(paste0("~/Desktop/xcell/data_upload/data_climate/Chelsa1979_2013/Climatologies/",'temp'))
+#'     tibble(fl = list.files( pattern = '_V1.2_land.tif')) %>%
+#'       rowwise() %>%
+#'       mutate( value = raster::extract(raster::raster(fl), t(as.data.frame(c(longitude,latitude))), method="bilinear"),
+#'               fl = gsub('CHELSA_|_1979-2013_V1.2_land.tif', '', fl)) %>%
+#'       separate(fl, c('param','month'), sep = '_') %>%
+#'       mutate_at(vars(month), funs(as.numeric)) ->
+#'       site.temp
+#'     site_i$Temp<-mean(site.temp$value)
+#'     setwd( "/Users/fonti/Desktop/xcell/xcell_db")
+#'     # retur results
+#'   return(site_i)
+#' }
 
-#  extract(raster("./CHELSA_temp_12_1979_V1.2.sdat"), site.coord[i, c('latitude', 'longitude')] , "bilinear")
+

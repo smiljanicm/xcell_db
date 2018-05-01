@@ -1,7 +1,7 @@
 
 # 0. Libraries ---------------------------------------------------
 
-library(DBI); library(readxl); library(stringr); library(tidyverse)
+library(raster); library(DBI); library(readxl); library(stringr); library(tidyverse) 
 
 source('pw.R')
 source('db_upload/0_functions.R')
@@ -48,7 +48,13 @@ site_a <- read_xlsx(paste0(file_dir,file_name), 'Site') %>% filter(!row_number()
   select(Country, Site_label) %>% spread(Country, Site_label)
 
 #' prepare climate temp and precip from chelsa
-site_i <- extract_climate_chelsa(site_i)
+#site_i <- extract_climate_chelsa(site_i)
+latitude<-as.numeric(site_i$Latitude)
+longitude<-as.numeric(site_i$Longitude)
+prec<- "~/Desktop/xcell/xcell_db/db_upload/data_climate/Chelsa1979_2013/CHELSA_bio10_12.tif"
+site_i$Precip<-raster::extract(raster::raster(prec), t(as.data.frame(c(longitude,latitude))), method="bilinear")
+temp<- "~/Desktop/xcell/xcell_db/db_upload/data_climate/Chelsa1979_2013/CHELSA_bio10_1.tif"
+site_i$Temp<-raster::extract(raster::raster(temp), t(as.data.frame(c(longitude,latitude))), method="bilinear")
 
 #' bind site information
 site.df <- bind_cols(site_i, site_a) %>% 
