@@ -15,6 +15,7 @@ file_name <- 'XC_CH_LTS22_NEW.xlsm'
 
 # 0. Additional settings --------------------------------------------------
 #' info help table
+person_info <- read_xlsx('db_upload/info_table.xlsx', 'person') %>% deframe()
 site_info <- read_xlsx('db_upload/info_table.xlsx', 'site') %>% deframe()
 
 #' constrains tables (alternative key)
@@ -32,7 +33,7 @@ site_param_fk_tbl <- tbl_x('site_param_fk') %>% select(site_param_id = id, param
 # 1.1 Person --------------------------------------------------------------
 read_xlsx(paste0(file_dir,file_name), 'Person') %>%
   filter(!row_number() %in% c(1:2)) %>%
-  select(last_name, first_name, email, webpage, phone_number = `phone-number`, institution_name = institution) %>%
+  select(last_name = Last_name, first_name = First_name, email = Email, webpage = Webpage, phone_number = `Phone_number`, institution_name = Institution) %>%
   inner_join(institution_fk_tbl, by = 'institution_name') %>%
   mutate(id = row_number()) %>%
   check_append_db(., 'person', constrains_db = constrains_db) %>%
@@ -54,6 +55,7 @@ site.df <- bind_cols(site_i, site_a) %>%
 # load the data
 site.df %>%
   mutate(id = row_number()) %>%
+  mutate(sampling_year = as.integer(sampling_year)) %>%
   check_append_db(., 'site', constrains_db = constrains_db) %>%
   append_data('site')
 

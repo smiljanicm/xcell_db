@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2018-05-01 14:46:59.841
+-- Last modification date: 2018-05-01 17:31:06.362
 
 -- tables
 -- Table: band
@@ -214,13 +214,12 @@ CREATE TABLE v1.sample (
     id serial  NOT NULL,
     tree_id int  NOT NULL,
     sample_label varchar(64)  NOT NULL,
-    subsample varchar(64)  NOT NULL,
     organ varchar(2)  NOT NULL,
-    CONSTRAINT wood_sample_ak_1 UNIQUE (tree_id, sample_label, subsample, organ) NOT DEFERRABLE  INITIALLY IMMEDIATE,
+    CONSTRAINT wood_sample_ak_1 UNIQUE (tree_id, sample_label, organ) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT sample_pk PRIMARY KEY (id)
 );
 
-CREATE INDEX wood_sample_idx_1 on v1.sample (id ASC,tree_id ASC,sample_label ASC,subsample ASC,organ ASC);
+CREATE INDEX wood_sample_idx_1 on v1.sample (id ASC,tree_id ASC,sample_label ASC,organ ASC);
 
 -- Table: sample_param
 CREATE TABLE v1.sample_param (
