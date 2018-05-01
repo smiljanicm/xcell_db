@@ -47,6 +47,9 @@ site_i <- read_xlsx(paste0(file_dir,file_name), 'Site', n_max = 4) %>% filter(!r
 site_a <- read_xlsx(paste0(file_dir,file_name), 'Site') %>% filter(!row_number() %in% c(1:10)) %>%
   select(Country, Site_label) %>% spread(Country, Site_label)
 
+#' prepare climate temp and precip from chelsa
+site_i <- extract_climate_chelsa(site_i)
+
 #' bind site information
 site.df <- bind_cols(site_i, site_a) %>% 
   rename_(.dots = site_info[site_info %in% colnames(.)]) %>%
