@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2018-05-01 13:50:50.032
+-- Last modification date: 2018-05-01 14:46:59.841
 
 -- tables
 -- Table: band
@@ -95,6 +95,7 @@ CREATE TABLE v1.institution_fk (
     street varchar(64)  NULL,
     postal_code varchar(64)  NULL,
     city varchar(64)  NOT NULL,
+    CONSTRAINT institution_fk_ak_1 UNIQUE (institution_name) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT institution_fk_pk PRIMARY KEY (institution_code)
 );
 
@@ -252,8 +253,6 @@ CREATE TABLE v1.site (
     longitude decimal(10,7)  NOT NULL,
     latitude decimal(10,7)  NOT NULL,
     elevation int  NOT NULL,
-    aspect int  NOT NULL,
-    slope int  NOT NULL,
     temp decimal(6,2)  NOT NULL,
     prec decimal(6,2)  NOT NULL,
     CONSTRAINT site_ak_1 UNIQUE (sampling_year, country_code, site_code) NOT DEFERRABLE  INITIALLY IMMEDIATE,
