@@ -1,9 +1,9 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2018-05-01 12:04:48.865
+-- Last modification date: 2018-05-01 13:50:50.032
 
 -- tables
 -- Table: band
-CREATE TABLE band (
+CREATE TABLE v1.band (
     id serial  NOT NULL,
     ring_id int  NOT NULL,
     dist int  NOT NULL,
@@ -13,10 +13,10 @@ CREATE TABLE band (
     CONSTRAINT band_pk PRIMARY KEY (id)
 );
 
-CREATE INDEX profile_idx_1 on band (ring_id ASC);
+CREATE INDEX profile_idx_1 on v1.band (ring_id ASC);
 
 -- Table: cell
-CREATE TABLE cell (
+CREATE TABLE v1.cell (
     id serial  NOT NULL,
     ring_id int  NOT NULL,
     x_cal decimal(10,4)  NOT NULL,
@@ -27,10 +27,10 @@ CREATE TABLE cell (
     CONSTRAINT cell_pk PRIMARY KEY (id)
 );
 
-CREATE INDEX cell_idx_1 on cell (ring_id ASC);
+CREATE INDEX cell_idx_1 on v1.cell (ring_id ASC);
 
 -- Table: comments
-CREATE TABLE comments (
+CREATE TABLE v1.comments (
     id serial  NOT NULL,
     site_id int  NOT NULL,
     person_id int  NOT NULL,
@@ -40,14 +40,14 @@ CREATE TABLE comments (
 );
 
 -- Table: country_fk
-CREATE TABLE country_fk (
+CREATE TABLE v1.country_fk (
     country_code varchar(2)  NOT NULL,
     country varchar(64)  NOT NULL,
     CONSTRAINT country_fk_pk PRIMARY KEY (country_code)
 );
 
 -- Table: global_table
-CREATE TABLE global_table (
+CREATE TABLE v1.global_table (
     id serial  NOT NULL,
     year int  NOT NULL,
     site_code varchar(5)  NOT NULL,
@@ -87,19 +87,19 @@ CREATE TABLE global_table (
 );
 
 -- Table: institution_fk
-CREATE TABLE institution_fk (
+CREATE TABLE v1.institution_fk (
     institution_code varchar(5)  NOT NULL,
     institution_name varchar(64)  NOT NULL,
     country_code varchar(2)  NOT NULL,
-    department varchar(64)  NULL,
-    street varchar(64)  NOT NULL,
+    department varchar(128)  NULL,
+    street varchar(64)  NULL,
     postal_code varchar(64)  NULL,
     city varchar(64)  NOT NULL,
     CONSTRAINT institution_fk_pk PRIMARY KEY (institution_code)
 );
 
 -- Table: meas_met_fk
-CREATE TABLE meas_met_fk (
+CREATE TABLE v1.meas_met_fk (
     id serial  NOT NULL,
     output varchar(64)  NOT NULL,
     hardware varchar(64)  NOT NULL,
@@ -109,18 +109,19 @@ CREATE TABLE meas_met_fk (
 );
 
 -- Table: meas_met_param_fk
-CREATE TABLE meas_met_param_fk (
+CREATE TABLE v1.meas_met_param_fk (
     id serial  NOT NULL,
     parameter varchar(64)  NOT NULL,
+    unit varchar(20)  NOT NULL,
     description text  NOT NULL,
     CONSTRAINT meas_met_param_fk_ak_1 UNIQUE (parameter) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT meas_met_param_fk_pk PRIMARY KEY (id)
 );
 
-CREATE INDEX meas_met_param_fk_idx_1 on meas_met_param_fk (parameter ASC,description ASC);
+CREATE INDEX meas_met_param_fk_idx_1 on v1.meas_met_param_fk (parameter ASC,description ASC);
 
 -- Table: meas_met_set
-CREATE TABLE meas_met_set (
+CREATE TABLE v1.meas_met_set (
     id serial  NOT NULL,
     meas_met_id int  NOT NULL,
     meas_met_param_id int  NOT NULL,
@@ -129,28 +130,28 @@ CREATE TABLE meas_met_set (
     CONSTRAINT meas_met_set_pk PRIMARY KEY (id)
 );
 
-CREATE INDEX meas_met_set_idx_1 on meas_met_set (meas_met_id ASC,meas_met_param_id ASC);
+CREATE INDEX meas_met_set_idx_1 on v1.meas_met_set (meas_met_id ASC,meas_met_param_id ASC);
 
 -- Table: meas_param_fk
-CREATE TABLE meas_param_fk (
+CREATE TABLE v1.meas_param_fk (
     id serial  NOT NULL,
-    parameter varchar(10)  NOT NULL,
-    unit varchar(10)  NOT NULL,
+    parameter varchar(32)  NOT NULL,
+    unit varchar(20)  NOT NULL,
     description text  NOT NULL,
     CONSTRAINT meas_param_fk_pk PRIMARY KEY (id)
 );
 
-CREATE INDEX tracheid_full_idx_1 on meas_param_fk (parameter ASC);
+CREATE INDEX tracheid_full_idx_1 on v1.meas_param_fk (parameter ASC);
 
 -- Table: organ_fk
-CREATE TABLE organ_fk (
+CREATE TABLE v1.organ_fk (
     organ varchar(2)  NOT NULL,
     description varchar(64)  NOT NULL,
     CONSTRAINT organ_fk_pk PRIMARY KEY (organ)
 );
 
 -- Table: person
-CREATE TABLE person (
+CREATE TABLE v1.person (
     id serial  NOT NULL,
     last_name varchar(64)  NOT NULL,
     first_name varchar(64)  NOT NULL,
@@ -162,10 +163,10 @@ CREATE TABLE person (
     CONSTRAINT person_pk PRIMARY KEY (id)
 );
 
-CREATE INDEX person_idx_1 on person (id ASC,last_name ASC,first_name ASC,institution_code ASC);
+CREATE INDEX person_idx_1 on v1.person (id ASC,last_name ASC,first_name ASC,institution_code ASC);
 
 -- Table: person_role
-CREATE TABLE person_role (
+CREATE TABLE v1.person_role (
     id serial  NOT NULL,
     site_id int  NOT NULL,
     person_id int  NOT NULL,
@@ -175,7 +176,7 @@ CREATE TABLE person_role (
 );
 
 -- Table: publication
-CREATE TABLE publication (
+CREATE TABLE v1.publication (
     id serial  NOT NULL,
     site_id int  NOT NULL,
     first_author_last_name varchar(25)  NOT NULL,
@@ -187,10 +188,10 @@ CREATE TABLE publication (
     CONSTRAINT publication_pk PRIMARY KEY (id)
 );
 
-CREATE INDEX publication_idx_1 on publication (id ASC);
+CREATE INDEX publication_idx_1 on v1.publication (id ASC);
 
 -- Table: ring
-CREATE TABLE ring (
+CREATE TABLE v1.ring (
     id serial  NOT NULL,
     subsample_id int  NOT NULL,
     year decimal(4,0)  NOT NULL,
@@ -198,17 +199,17 @@ CREATE TABLE ring (
     CONSTRAINT ring_pk PRIMARY KEY (id)
 );
 
-CREATE INDEX ring_idx_1 on ring (subsample_id ASC,year ASC);
+CREATE INDEX ring_idx_1 on v1.ring (subsample_id ASC,year ASC);
 
 -- Table: role_fk
-CREATE TABLE role_fk (
+CREATE TABLE v1.role_fk (
     id serial  NOT NULL,
     description varchar(64)  NOT NULL,
     CONSTRAINT role_fk_pk PRIMARY KEY (id)
 );
 
 -- Table: sample
-CREATE TABLE sample (
+CREATE TABLE v1.sample (
     id serial  NOT NULL,
     tree_id int  NOT NULL,
     sample_label varchar(64)  NOT NULL,
@@ -218,10 +219,10 @@ CREATE TABLE sample (
     CONSTRAINT sample_pk PRIMARY KEY (id)
 );
 
-CREATE INDEX wood_sample_idx_1 on sample (id ASC,tree_id ASC,sample_label ASC,subsample ASC,organ ASC);
+CREATE INDEX wood_sample_idx_1 on v1.sample (id ASC,tree_id ASC,sample_label ASC,subsample ASC,organ ASC);
 
 -- Table: sample_param
-CREATE TABLE sample_param (
+CREATE TABLE v1.sample_param (
     sample_id int  NOT NULL,
     sample_param_id int  NOT NULL,
     value varchar(124)  NOT NULL,
@@ -229,20 +230,20 @@ CREATE TABLE sample_param (
     CONSTRAINT sample_param_pk PRIMARY KEY (sample_id,sample_param_id)
 );
 
-CREATE INDEX sample_param_idx_1 on sample_param (sample_id ASC,sample_param_id ASC);
+CREATE INDEX sample_param_idx_1 on v1.sample_param (sample_id ASC,sample_param_id ASC);
 
 -- Table: sample_param_fk
-CREATE TABLE sample_param_fk (
+CREATE TABLE v1.sample_param_fk (
     id serial  NOT NULL,
     parameter varchar(32)  NOT NULL,
-    unit varchar(10)  NOT NULL,
+    unit varchar(20)  NOT NULL,
     description text  NOT NULL,
     CONSTRAINT sample_param_fk_ak_1 UNIQUE (parameter) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT sample_param_fk_pk PRIMARY KEY (id)
 );
 
 -- Table: site
-CREATE TABLE site (
+CREATE TABLE v1.site (
     id serial  NOT NULL,
     sampling_year int  NOT NULL,
     country_code varchar(2)  NOT NULL,
@@ -259,10 +260,10 @@ CREATE TABLE site (
     CONSTRAINT site_pk PRIMARY KEY (id)
 );
 
-CREATE INDEX site_idx_1 on site (id ASC,sampling_year ASC,country_code ASC,site_code ASC);
+CREATE INDEX site_idx_1 on v1.site (id ASC,sampling_year ASC,country_code ASC,site_code ASC);
 
 -- Table: site_param
-CREATE TABLE site_param (
+CREATE TABLE v1.site_param (
     site_id int  NOT NULL,
     site_param_id int  NOT NULL,
     value varchar(124)  NOT NULL,
@@ -271,7 +272,7 @@ CREATE TABLE site_param (
 );
 
 -- Table: site_param_fk
-CREATE TABLE site_param_fk (
+CREATE TABLE v1.site_param_fk (
     id serial  NOT NULL,
     parameter varchar(32)  NOT NULL,
     unit varchar(10)  NOT NULL,
@@ -281,10 +282,10 @@ CREATE TABLE site_param_fk (
 );
 
 -- Table: species_fk
-CREATE TABLE species_fk (
+CREATE TABLE v1.species_fk (
     species_code varchar(4)  NOT NULL,
-    species varchar(64)  NOT NULL,
-    common_name varchar(64)  NULL,
+    species varchar(128)  NOT NULL,
+    common_name varchar(128)  NULL,
     wood_type varchar(10)  NULL,
     leaf_habit varchar(9)  NULL,
     wood_plane varchar(14)  NULL,
@@ -292,7 +293,7 @@ CREATE TABLE species_fk (
 );
 
 -- Table: subsample
-CREATE TABLE subsample (
+CREATE TABLE v1.subsample (
     id serial  NOT NULL,
     sample_id int  NOT NULL,
     subpiece_label varchar(64)  NOT NULL,
@@ -302,10 +303,10 @@ CREATE TABLE subsample (
     CONSTRAINT subsample_pk PRIMARY KEY (id)
 );
 
-CREATE INDEX measure_info_idx_1 on subsample (sample_id ASC,meas_met_id ASC);
+CREATE INDEX measure_info_idx_1 on v1.subsample (sample_id ASC,meas_met_id ASC);
 
 -- Table: tree
-CREATE TABLE tree (
+CREATE TABLE v1.tree (
     id serial  NOT NULL,
     site_id int  NOT NULL,
     tree_label varchar(64)  NOT NULL,
@@ -314,10 +315,10 @@ CREATE TABLE tree (
     CONSTRAINT tree_pk PRIMARY KEY (id)
 );
 
-CREATE INDEX tree_idx_1 on tree (id ASC,site_id ASC,tree_label ASC,species_code ASC);
+CREATE INDEX tree_idx_1 on v1.tree (id ASC,site_id ASC,tree_label ASC,species_code ASC);
 
 -- Table: tree_param
-CREATE TABLE tree_param (
+CREATE TABLE v1.tree_param (
     tree_id int  NOT NULL,
     tree_param_id int  NOT NULL,
     value varchar(124)  NOT NULL,
@@ -325,20 +326,20 @@ CREATE TABLE tree_param (
     CONSTRAINT tree_param_pk PRIMARY KEY (tree_id,tree_param_id)
 );
 
-CREATE INDEX tree_param_idx_1 on tree_param (tree_id ASC,tree_param_id ASC);
+CREATE INDEX tree_param_idx_1 on v1.tree_param (tree_id ASC,tree_param_id ASC);
 
 -- Table: tree_param_fk
-CREATE TABLE tree_param_fk (
+CREATE TABLE v1.tree_param_fk (
     id serial  NOT NULL,
     parameter varchar(32)  NOT NULL,
-    unit varchar(10)  NOT NULL,
+    unit varchar(20)  NOT NULL,
     description text  NOT NULL,
     CONSTRAINT tree_param_fk_ak_1 UNIQUE (parameter) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT tree_param_fk_pk PRIMARY KEY (id)
 );
 
 -- Table: year
-CREATE TABLE year (
+CREATE TABLE v1.year (
     id serial  NOT NULL,
     ring_id int  NOT NULL,
     param_id int  NOT NULL,
@@ -347,13 +348,13 @@ CREATE TABLE year (
     CONSTRAINT year_pk PRIMARY KEY (id)
 );
 
-CREATE INDEX year_idx_1 on year (ring_id ASC);
+CREATE INDEX year_idx_1 on v1.year (ring_id ASC);
 
 -- foreign keys
 -- Reference: Archiving_wood_sample (table: subsample)
-ALTER TABLE subsample ADD CONSTRAINT Archiving_wood_sample
+ALTER TABLE v1.subsample ADD CONSTRAINT Archiving_wood_sample
     FOREIGN KEY (sample_id)
-    REFERENCES sample (id)
+    REFERENCES v1.sample (id)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
@@ -361,9 +362,9 @@ ALTER TABLE subsample ADD CONSTRAINT Archiving_wood_sample
 ;
 
 -- Reference: Cell_ring (table: band)
-ALTER TABLE band ADD CONSTRAINT Cell_ring
+ALTER TABLE v1.band ADD CONSTRAINT Cell_ring
     FOREIGN KEY (ring_id)
-    REFERENCES ring (id)
+    REFERENCES v1.ring (id)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
@@ -371,9 +372,9 @@ ALTER TABLE band ADD CONSTRAINT Cell_ring
 ;
 
 -- Reference: Copy_of_site_param_tree (table: tree_param)
-ALTER TABLE tree_param ADD CONSTRAINT Copy_of_site_param_tree
+ALTER TABLE v1.tree_param ADD CONSTRAINT Copy_of_site_param_tree
     FOREIGN KEY (tree_id)
-    REFERENCES tree (id)
+    REFERENCES v1.tree (id)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
@@ -381,9 +382,9 @@ ALTER TABLE tree_param ADD CONSTRAINT Copy_of_site_param_tree
 ;
 
 -- Reference: Copy_of_site_param_tree_param_fk (table: tree_param)
-ALTER TABLE tree_param ADD CONSTRAINT Copy_of_site_param_tree_param_fk
+ALTER TABLE v1.tree_param ADD CONSTRAINT Copy_of_site_param_tree_param_fk
     FOREIGN KEY (tree_param_id)
-    REFERENCES tree_param_fk (id)
+    REFERENCES v1.tree_param_fk (id)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
@@ -391,9 +392,9 @@ ALTER TABLE tree_param ADD CONSTRAINT Copy_of_site_param_tree_param_fk
 ;
 
 -- Reference: Core_Tree (table: sample)
-ALTER TABLE sample ADD CONSTRAINT Core_Tree
+ALTER TABLE v1.sample ADD CONSTRAINT Core_Tree
     FOREIGN KEY (tree_id)
-    REFERENCES tree (id)
+    REFERENCES v1.tree (id)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
@@ -401,9 +402,9 @@ ALTER TABLE sample ADD CONSTRAINT Core_Tree
 ;
 
 -- Reference: Core_type_fk (table: sample)
-ALTER TABLE sample ADD CONSTRAINT Core_type_fk
+ALTER TABLE v1.sample ADD CONSTRAINT Core_type_fk
     FOREIGN KEY (organ)
-    REFERENCES organ_fk (organ)
+    REFERENCES v1.organ_fk (organ)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
@@ -411,9 +412,9 @@ ALTER TABLE sample ADD CONSTRAINT Core_type_fk
 ;
 
 -- Reference: Tree_site (table: tree)
-ALTER TABLE tree ADD CONSTRAINT Tree_site
+ALTER TABLE v1.tree ADD CONSTRAINT Tree_site
     FOREIGN KEY (site_id)
-    REFERENCES site (id)
+    REFERENCES v1.site (id)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
@@ -421,9 +422,9 @@ ALTER TABLE tree ADD CONSTRAINT Tree_site
 ;
 
 -- Reference: Tree_species_fk (table: tree)
-ALTER TABLE tree ADD CONSTRAINT Tree_species_fk
+ALTER TABLE v1.tree ADD CONSTRAINT Tree_species_fk
     FOREIGN KEY (species_code)
-    REFERENCES species_fk (species_code)
+    REFERENCES v1.species_fk (species_code)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
@@ -431,9 +432,9 @@ ALTER TABLE tree ADD CONSTRAINT Tree_species_fk
 ;
 
 -- Reference: band_meas_param_fk (table: band)
-ALTER TABLE band ADD CONSTRAINT band_meas_param_fk
+ALTER TABLE v1.band ADD CONSTRAINT band_meas_param_fk
     FOREIGN KEY (param_id)
-    REFERENCES meas_param_fk (id)
+    REFERENCES v1.meas_param_fk (id)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
@@ -441,9 +442,9 @@ ALTER TABLE band ADD CONSTRAINT band_meas_param_fk
 ;
 
 -- Reference: cell_parameters_fk (table: cell)
-ALTER TABLE cell ADD CONSTRAINT cell_parameters_fk
+ALTER TABLE v1.cell ADD CONSTRAINT cell_parameters_fk
     FOREIGN KEY (param_id)
-    REFERENCES meas_param_fk (id)
+    REFERENCES v1.meas_param_fk (id)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
@@ -451,9 +452,9 @@ ALTER TABLE cell ADD CONSTRAINT cell_parameters_fk
 ;
 
 -- Reference: comments_person (table: comments)
-ALTER TABLE comments ADD CONSTRAINT comments_person
+ALTER TABLE v1.comments ADD CONSTRAINT comments_person
     FOREIGN KEY (person_id)
-    REFERENCES person (id)
+    REFERENCES v1.person (id)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
@@ -461,9 +462,9 @@ ALTER TABLE comments ADD CONSTRAINT comments_person
 ;
 
 -- Reference: comments_site (table: comments)
-ALTER TABLE comments ADD CONSTRAINT comments_site
+ALTER TABLE v1.comments ADD CONSTRAINT comments_site
     FOREIGN KEY (site_id)
-    REFERENCES site (id)
+    REFERENCES v1.site (id)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
@@ -471,9 +472,9 @@ ALTER TABLE comments ADD CONSTRAINT comments_site
 ;
 
 -- Reference: contributor_institution_fk (table: person)
-ALTER TABLE person ADD CONSTRAINT contributor_institution_fk
+ALTER TABLE v1.person ADD CONSTRAINT contributor_institution_fk
     FOREIGN KEY (institution_code)
-    REFERENCES institution_fk (institution_code)
+    REFERENCES v1.institution_fk (institution_code)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
@@ -481,9 +482,9 @@ ALTER TABLE person ADD CONSTRAINT contributor_institution_fk
 ;
 
 -- Reference: data_contribution_person_role (table: person_role)
-ALTER TABLE person_role ADD CONSTRAINT data_contribution_person_role
+ALTER TABLE v1.person_role ADD CONSTRAINT data_contribution_person_role
     FOREIGN KEY (role)
-    REFERENCES role_fk (id)
+    REFERENCES v1.role_fk (id)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
@@ -491,9 +492,9 @@ ALTER TABLE person_role ADD CONSTRAINT data_contribution_person_role
 ;
 
 -- Reference: data_owners_person (table: person_role)
-ALTER TABLE person_role ADD CONSTRAINT data_owners_person
+ALTER TABLE v1.person_role ADD CONSTRAINT data_owners_person
     FOREIGN KEY (person_id)
-    REFERENCES person (id)
+    REFERENCES v1.person (id)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
@@ -501,9 +502,9 @@ ALTER TABLE person_role ADD CONSTRAINT data_owners_person
 ;
 
 -- Reference: data_owners_site (table: person_role)
-ALTER TABLE person_role ADD CONSTRAINT data_owners_site
+ALTER TABLE v1.person_role ADD CONSTRAINT data_owners_site
     FOREIGN KEY (site_id)
-    REFERENCES site (id)
+    REFERENCES v1.site (id)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
@@ -511,9 +512,9 @@ ALTER TABLE person_role ADD CONSTRAINT data_owners_site
 ;
 
 -- Reference: institution_fk_country_fk (table: institution_fk)
-ALTER TABLE institution_fk ADD CONSTRAINT institution_fk_country_fk
+ALTER TABLE v1.institution_fk ADD CONSTRAINT institution_fk_country_fk
     FOREIGN KEY (country_code)
-    REFERENCES country_fk (country_code)
+    REFERENCES v1.country_fk (country_code)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
@@ -521,9 +522,9 @@ ALTER TABLE institution_fk ADD CONSTRAINT institution_fk_country_fk
 ;
 
 -- Reference: meas_met_set_meas_met_fk (table: meas_met_set)
-ALTER TABLE meas_met_set ADD CONSTRAINT meas_met_set_meas_met_fk
+ALTER TABLE v1.meas_met_set ADD CONSTRAINT meas_met_set_meas_met_fk
     FOREIGN KEY (meas_met_id)
-    REFERENCES meas_met_fk (id)
+    REFERENCES v1.meas_met_fk (id)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
@@ -531,9 +532,9 @@ ALTER TABLE meas_met_set ADD CONSTRAINT meas_met_set_meas_met_fk
 ;
 
 -- Reference: meas_met_set_meas_met_param_fk (table: meas_met_set)
-ALTER TABLE meas_met_set ADD CONSTRAINT meas_met_set_meas_met_param_fk
+ALTER TABLE v1.meas_met_set ADD CONSTRAINT meas_met_set_meas_met_param_fk
     FOREIGN KEY (meas_met_param_id)
-    REFERENCES meas_met_param_fk (id)
+    REFERENCES v1.meas_met_param_fk (id)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
@@ -541,9 +542,9 @@ ALTER TABLE meas_met_set ADD CONSTRAINT meas_met_set_meas_met_param_fk
 ;
 
 -- Reference: publication_site (table: publication)
-ALTER TABLE publication ADD CONSTRAINT publication_site
+ALTER TABLE v1.publication ADD CONSTRAINT publication_site
     FOREIGN KEY (site_id)
-    REFERENCES site (id)
+    REFERENCES v1.site (id)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
@@ -551,9 +552,9 @@ ALTER TABLE publication ADD CONSTRAINT publication_site
 ;
 
 -- Reference: ring_measure_info (table: ring)
-ALTER TABLE ring ADD CONSTRAINT ring_measure_info
+ALTER TABLE v1.ring ADD CONSTRAINT ring_measure_info
     FOREIGN KEY (subsample_id)
-    REFERENCES subsample (id)
+    REFERENCES v1.subsample (id)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
@@ -561,9 +562,9 @@ ALTER TABLE ring ADD CONSTRAINT ring_measure_info
 ;
 
 -- Reference: ring_year (table: year)
-ALTER TABLE year ADD CONSTRAINT ring_year
+ALTER TABLE v1.year ADD CONSTRAINT ring_year
     FOREIGN KEY (ring_id)
-    REFERENCES ring (id)
+    REFERENCES v1.ring (id)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
@@ -571,9 +572,9 @@ ALTER TABLE year ADD CONSTRAINT ring_year
 ;
 
 -- Reference: sample_param_sample (table: sample_param)
-ALTER TABLE sample_param ADD CONSTRAINT sample_param_sample
+ALTER TABLE v1.sample_param ADD CONSTRAINT sample_param_sample
     FOREIGN KEY (sample_id)
-    REFERENCES sample (id)
+    REFERENCES v1.sample (id)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
@@ -581,9 +582,9 @@ ALTER TABLE sample_param ADD CONSTRAINT sample_param_sample
 ;
 
 -- Reference: sample_param_sample_param_fk (table: sample_param)
-ALTER TABLE sample_param ADD CONSTRAINT sample_param_sample_param_fk
+ALTER TABLE v1.sample_param ADD CONSTRAINT sample_param_sample_param_fk
     FOREIGN KEY (sample_param_id)
-    REFERENCES sample_param_fk (id)
+    REFERENCES v1.sample_param_fk (id)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
@@ -591,9 +592,9 @@ ALTER TABLE sample_param ADD CONSTRAINT sample_param_sample_param_fk
 ;
 
 -- Reference: site_country_fk (table: site)
-ALTER TABLE site ADD CONSTRAINT site_country_fk
+ALTER TABLE v1.site ADD CONSTRAINT site_country_fk
     FOREIGN KEY (country_code)
-    REFERENCES country_fk (country_code)
+    REFERENCES v1.country_fk (country_code)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
@@ -601,9 +602,9 @@ ALTER TABLE site ADD CONSTRAINT site_country_fk
 ;
 
 -- Reference: site_param_site (table: site_param)
-ALTER TABLE site_param ADD CONSTRAINT site_param_site
+ALTER TABLE v1.site_param ADD CONSTRAINT site_param_site
     FOREIGN KEY (site_id)
-    REFERENCES site (id)
+    REFERENCES v1.site (id)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
@@ -611,9 +612,9 @@ ALTER TABLE site_param ADD CONSTRAINT site_param_site
 ;
 
 -- Reference: site_param_site_param_fk (table: site_param)
-ALTER TABLE site_param ADD CONSTRAINT site_param_site_param_fk
+ALTER TABLE v1.site_param ADD CONSTRAINT site_param_site_param_fk
     FOREIGN KEY (site_param_id)
-    REFERENCES site_param_fk (id)
+    REFERENCES v1.site_param_fk (id)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
@@ -621,9 +622,9 @@ ALTER TABLE site_param ADD CONSTRAINT site_param_site_param_fk
 ;
 
 -- Reference: subpiece_meas_met_fk (table: subsample)
-ALTER TABLE subsample ADD CONSTRAINT subpiece_meas_met_fk
+ALTER TABLE v1.subsample ADD CONSTRAINT subpiece_meas_met_fk
     FOREIGN KEY (meas_met_id)
-    REFERENCES meas_met_fk (id)
+    REFERENCES v1.meas_met_fk (id)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
@@ -631,9 +632,9 @@ ALTER TABLE subsample ADD CONSTRAINT subpiece_meas_met_fk
 ;
 
 -- Reference: subpiece_meas_met_set (table: subsample)
-ALTER TABLE subsample ADD CONSTRAINT subpiece_meas_met_set
+ALTER TABLE v1.subsample ADD CONSTRAINT subpiece_meas_met_set
     FOREIGN KEY (meas_met_set_id)
-    REFERENCES meas_met_set (id)
+    REFERENCES v1.meas_met_set (id)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
@@ -641,9 +642,9 @@ ALTER TABLE subsample ADD CONSTRAINT subpiece_meas_met_set
 ;
 
 -- Reference: tracheid_full_ring (table: cell)
-ALTER TABLE cell ADD CONSTRAINT tracheid_full_ring
+ALTER TABLE v1.cell ADD CONSTRAINT tracheid_full_ring
     FOREIGN KEY (ring_id)
-    REFERENCES ring (id)
+    REFERENCES v1.ring (id)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
@@ -651,9 +652,9 @@ ALTER TABLE cell ADD CONSTRAINT tracheid_full_ring
 ;
 
 -- Reference: year_meas_param_fk (table: year)
-ALTER TABLE year ADD CONSTRAINT year_meas_param_fk
+ALTER TABLE v1.year ADD CONSTRAINT year_meas_param_fk
     FOREIGN KEY (param_id)
-    REFERENCES meas_param_fk (id)
+    REFERENCES v1.meas_param_fk (id)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 

@@ -11,8 +11,7 @@ library(tidyverse)
 
 # 2. Create a connection to the DB ----------------------------------------
 source('pw.R')
-
-
+sch <- 'v1' #schema name
 
 # 3. Get a general information about the DB -----------------------------
 #--/ List availale tables
@@ -23,11 +22,21 @@ dbListFields(dbcon, "institution_fk")
 # 4. upload data to the FK-tables ----------------------------------------------
 sheetsNameList <- excel_sheets("db_create/xcell_fk_tables.xlsx")
   
-  for (i in sheetsNameList) {       
-    print(i)
-    sheet<-read_excel("db_create/xcell_fk_tables.xlsx", sheet = i)
-    dbWriteTable(conn = dbcon, 
-                 name = i, # name of the table that you want to modify
+for (i in sheetsNameList) {       
+  print(i)
+  
+  #' remove data in db
+  db_n <- tbl_x(i) %>% dplyr::summarize(n()) %>% dplyr::pull()
+  if(db_n > 0){
+    DBI::dbExecute(dbcon, paste0("truncate ", sch, ".", i, ' cascade'))  
+  }
+  
+  #' read new data
+  sheet<-read_excel("db_create/xcell_fk_tables.xlsx", sheet = i)
+    
+  #' write new data
+  dbWriteTable(conn = dbcon, 
+                 name = c(sch,i), # name of the table that you want to modify
                  value = sheet, # data you want to add
                  overwrite = FALSE, # you don't want to overwrite a table, just append
                  append = TRUE, # since the table already exist you just want to append it
