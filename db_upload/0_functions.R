@@ -1,3 +1,34 @@
+
+# DATA PREPARATION FUNCTIONS ----------------------------------------------
+
+extract_clim <- function(long, lat, f = '/Users/fonti/Desktop/xcell/xcell_db/db_upload/info/chelsa_clim.tif'){
+  #' @description extract the temperature and precipitation from the raster
+  #' @param long longiture in wgs84
+  #' @param lat latitude in wgs84
+  #' @return a data frame with two columns
+  raster::extract(raster::brick(f), tibble(long, lat), method="bilinear") %>% 
+    as.data.frame() %>%
+    set_names(c('temp', 'prec'))
+}
+
+constr_name <- function(t){
+  #' @description get the columns for the constrains
+  
+  constr_short[names(constr_short) %in% t]
+  
+}
+
+read_file <- function(t){
+  
+  ts <- get(paste0(t, '_info'))
+  
+  read_xlsx(paste0(file_dir,file_name), t) %>%
+    filter(!row_number() %in% c(1:2)) %>%
+    rename_(.dots = ts[ts %in% colnames(.)])
+}
+
+# UPLOAD FUNCTIONS --------------------------------------------------------
+
 #' Get the database constrains, on unique observations
 #'
 #' @param dbcon a DBI connection
@@ -38,7 +69,7 @@ db_get_constrains <- function(dbcon, sch = 'v1'){
 #' already in DB and keep id's for that part, and add the new ones
 check_append_db <- function(d_table, table.name, sch = 'v1', constrains_db){
   #-- which table and it's constrains
-  col_unique <- dplyr::filter(constrains_db, table %in% table.name) %>% dplyr::pull(constrains)
+  col_unique <- dplyr::filter(constrains_db, table %in% table.name) %>% dplyr::pull(constrains) %>% unique() # remove unique after db reapload
   
   # test if db is non empty
   db_n <- tbl_x(table.name, sch) %>% dplyr::summarize(n()) %>% dplyr::pull()
@@ -107,40 +138,3 @@ get_id <- function(d_table, table.name, sch = 'v1', constrains_db){
   ) %>%
     collect()
 }
-
-
-#' extract_climate_chelsa <- function(site_i) {
-#'   #' @description extract climate data from the 1km resolution chelsa climate data set 1979-2013
-#'   #' @param site.coord - a data frame that include the site information including latitude and longitude in WGS 84
-#'   #' @return a table: site_id, param,  year, month, value, source
-#'   
-#'   latitude<-as.numeric(site_i$Latitude)
-#'   longitude<-as.numeric(site_i$Longitude)
-#'   
-#'     # PREC data
-#'     setwd(paste0("~/Desktop/xcell/data_upload/data_climate/Chelsa1979_2013/Climatologies/",'prec'))
-#'     tibble(fl = list.files(pattern = '_V1.2_land.tif')) %>%
-#'       rowwise() %>%
-#'       mutate(value = raster::extract(raster::raster(fl), t(as.data.frame(c(longitude,latitude))), method="bilinear"),
-#'              fl   = gsub('CHELSA_|_V1.2_land.tif', '', fl))  %>%
-#'       separate(fl, c('param','month'), sep = '_') %>%
-#'       mutate_at(vars(month), funs(as.numeric)) ->
-#'       site.prec
-#'     site_i$Precip<-sum(site.prec$value)
-#'     
-#'     # Temp data
-#'     setwd(paste0("~/Desktop/xcell/data_upload/data_climate/Chelsa1979_2013/Climatologies/",'temp'))
-#'     tibble(fl = list.files( pattern = '_V1.2_land.tif')) %>%
-#'       rowwise() %>%
-#'       mutate( value = raster::extract(raster::raster(fl), t(as.data.frame(c(longitude,latitude))), method="bilinear"),
-#'               fl = gsub('CHELSA_|_1979-2013_V1.2_land.tif', '', fl)) %>%
-#'       separate(fl, c('param','month'), sep = '_') %>%
-#'       mutate_at(vars(month), funs(as.numeric)) ->
-#'       site.temp
-#'     site_i$Temp<-mean(site.temp$value)
-#'     setwd( "/Users/fonti/Desktop/xcell/xcell_db")
-#'     # retur results
-#'   return(site_i)
-#' }
-
-

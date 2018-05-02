@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2018-05-01 17:31:06.362
+-- Last modification date: 2018-05-02 15:13:00.435
 
 -- tables
 -- Table: band
@@ -226,7 +226,6 @@ CREATE TABLE v1.sample_param (
     sample_id int  NOT NULL,
     sample_param_id int  NOT NULL,
     value varchar(124)  NOT NULL,
-    CONSTRAINT sample_param_ak_1 UNIQUE (sample_id, sample_param_id) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT sample_param_pk PRIMARY KEY (sample_id,sample_param_id)
 );
 
@@ -265,7 +264,6 @@ CREATE TABLE v1.site_param (
     site_id int  NOT NULL,
     site_param_id int  NOT NULL,
     value varchar(124)  NOT NULL,
-    CONSTRAINT site_param_ak_1 UNIQUE (site_id, site_param_id) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT site_param_pk PRIMARY KEY (site_id,site_param_id)
 );
 
@@ -320,7 +318,6 @@ CREATE TABLE v1.tree_param (
     tree_id int  NOT NULL,
     tree_param_id int  NOT NULL,
     value varchar(124)  NOT NULL,
-    CONSTRAINT tree_param_ak_1 UNIQUE (tree_param_id, tree_id) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT tree_param_pk PRIMARY KEY (tree_id,tree_param_id)
 );
 
