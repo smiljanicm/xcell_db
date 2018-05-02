@@ -84,7 +84,7 @@ tree.df <- read_file('tree') %>%
 
 
 tree.df %>%
-  select(site_id, tree_label, species_code) %>%
+  select(site_id, selection("tree", "main")) %>%
   mutate(id = row_number()) %>%
   check_append_db(., 'tree',constrains_db = constrains_db) %>%
   append_data('tree')
@@ -95,7 +95,7 @@ tree_id_d <- get_id(tree.df, 'tree', constrains_db = constrains_db) %>% select(t
 # 1.5 Tree parameters -----------------------------------------------------
 
 tree.df %>%
-  select(tree_label, species_code, wood_type, leaf_habit, wood_plane, dbh, height, age, status_code) %>%
+  select(tree_label, species_code, selection("tree", "param")) %>%
   gather(parameter, value, -tree_label, -species_code) %>%
   inner_join(tree_id_d) %>%
   select(tree_id, parameter, value) %>%
@@ -111,7 +111,7 @@ sample.df <- read_file('sample') %>%
   inner_join(organ_fk_tbl)
 
 sample.df %>%
-  select(tree_id, sample_label, organ) %>%
+  select(tree_id, selection("sample", "main")) %>%
   mutate(id = row_number()) %>%
   check_append_db(., 'sample',constrains_db = constrains_db) %>%
   append_data('sample')
@@ -122,7 +122,7 @@ sample_id_d <- get_id(sample.df, 'sample', constrains_db = constrains_db) %>% se
 # 1.7 Sample parameters ---------------------------------------------------
 
 sample.df %>%
-  select(sample_label, sample_preparation, cutting_plane, sampling_h, apex_dist, sample_thickness) %>%
+  select(sample_label, selection("sample", "param")) %>%
   gather(parameter, value, -sample_label) %>%
   inner_join(sample_id_d) %>%
   select(sample_id, parameter, value) %>%

@@ -13,7 +13,7 @@ extract_clim <- function(long, lat, f = '/Users/fonti/Desktop/xcell/xcell_db/db_
 
 constr_name <- function(t){
   #' @description get the columns for the constrains
-  
+  #' @param t table to which the constrains are searched 
   constr_short[names(constr_short) %in% t]
   
 }
@@ -26,6 +26,16 @@ read_file <- function(t){
     filter(!row_number() %in% c(1:2)) %>%
     rename_(.dots = ts[ts %in% colnames(.)])
 }
+
+selection <- function(table, search) {
+  #' @description get the columns for the table from the info file
+  #' @param table table to which the columns are searched
+  #' @param search main = for the main table ; param for the param table
+  TBL<-read_xlsx('db_upload/info/info_table.xlsx', table)
+  sel<-TBL$db_name[which(TBL[,'tbl']==search)]
+  return(sel)
+}
+
 
 # UPLOAD FUNCTIONS --------------------------------------------------------
 
