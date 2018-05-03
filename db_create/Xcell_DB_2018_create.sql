@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2018-05-02 15:13:00.435
+-- Last modification date: 2018-05-03 15:31:16.502
 
 -- tables
 -- Table: band
@@ -123,15 +123,13 @@ CREATE INDEX meas_met_param_fk_idx_1 on v1.meas_met_param_fk (parameter ASC,desc
 
 -- Table: meas_met_set
 CREATE TABLE v1.meas_met_set (
-    id serial  NOT NULL,
-    meas_met_id int  NOT NULL,
+    subsample_id int  NOT NULL,
     meas_met_param_id int  NOT NULL,
     value varchar(124)  NOT NULL,
-    CONSTRAINT meas_met_set_ak_1 UNIQUE (meas_met_id, meas_met_param_id, value) NOT DEFERRABLE  INITIALLY IMMEDIATE,
-    CONSTRAINT meas_met_set_pk PRIMARY KEY (id)
+    CONSTRAINT meas_met_set_pk PRIMARY KEY (subsample_id,meas_met_param_id,value)
 );
 
-CREATE INDEX meas_met_set_idx_1 on v1.meas_met_set (meas_met_id ASC,meas_met_param_id ASC);
+CREATE INDEX meas_met_set_idx_1 on v1.meas_met_set (meas_met_param_id ASC);
 
 -- Table: meas_param_fk
 CREATE TABLE v1.meas_param_fk (
@@ -294,8 +292,8 @@ CREATE TABLE v1.subsample (
     sample_id int  NOT NULL,
     subpiece_label varchar(64)  NOT NULL,
     meas_met_id int  NOT NULL,
-    meas_met_set_id int  NOT NULL,
-    CONSTRAINT measure_info_ak_1 UNIQUE (sample_id, meas_met_id, meas_met_set_id) NOT DEFERRABLE  INITIALLY IMMEDIATE,
+    meas_date date  NOT NULL,
+    CONSTRAINT measure_info_ak_1 UNIQUE (sample_id, subpiece_label, meas_met_id, meas_date) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT subsample_pk PRIMARY KEY (id)
 );
 
@@ -516,20 +514,20 @@ ALTER TABLE v1.institution_fk ADD CONSTRAINT institution_fk_country_fk
     INITIALLY IMMEDIATE
 ;
 
--- Reference: meas_met_set_meas_met_fk (table: meas_met_set)
-ALTER TABLE v1.meas_met_set ADD CONSTRAINT meas_met_set_meas_met_fk
-    FOREIGN KEY (meas_met_id)
-    REFERENCES v1.meas_met_fk (id)
+-- Reference: meas_met_set_meas_met_param_fk (table: meas_met_set)
+ALTER TABLE v1.meas_met_set ADD CONSTRAINT meas_met_set_meas_met_param_fk
+    FOREIGN KEY (meas_met_param_id)
+    REFERENCES v1.meas_met_param_fk (id)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;
 
--- Reference: meas_met_set_meas_met_param_fk (table: meas_met_set)
-ALTER TABLE v1.meas_met_set ADD CONSTRAINT meas_met_set_meas_met_param_fk
-    FOREIGN KEY (meas_met_param_id)
-    REFERENCES v1.meas_met_param_fk (id)
+-- Reference: meas_met_set_subsample (table: meas_met_set)
+ALTER TABLE v1.meas_met_set ADD CONSTRAINT meas_met_set_subsample
+    FOREIGN KEY (subsample_id)
+    REFERENCES v1.subsample (id)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
@@ -620,16 +618,6 @@ ALTER TABLE v1.site_param ADD CONSTRAINT site_param_site_param_fk
 ALTER TABLE v1.subsample ADD CONSTRAINT subpiece_meas_met_fk
     FOREIGN KEY (meas_met_id)
     REFERENCES v1.meas_met_fk (id)
-    ON DELETE  RESTRICT 
-    ON UPDATE  CASCADE 
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
-;
-
--- Reference: subpiece_meas_met_set (table: subsample)
-ALTER TABLE v1.subsample ADD CONSTRAINT subpiece_meas_met_set
-    FOREIGN KEY (meas_met_set_id)
-    REFERENCES v1.meas_met_set (id)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 

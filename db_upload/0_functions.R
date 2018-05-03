@@ -27,12 +27,19 @@ read_file <- function(t){
     rename_(.dots = ts[ts %in% colnames(.)])
 }
 
+read_info <- function(t = 'person', f = 'db_upload/info/info_table.xlsx'){
+  
+  read_xlsx(f, t) %>%  deframe()
+}
+
+
 selection <- function(table, search) {
   #' @description get the columns for the table from the info file
   #' @param table table to which the columns are searched
   #' @param search main = for the main table ; param for the param table
-  TBL<-read_xlsx('db_upload/info/info_table.xlsx', table)
-  sel<-TBL$db_name[which(TBL[,'tbl']==search)]
+  xtbl <- read_xlsx('db_upload/info/info_table.xlsx', table)
+  sel <- filter(xtbl, tbl %in% search) %>% pull(db_name)
+    
   return(sel)
 }
 
