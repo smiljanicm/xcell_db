@@ -1,30 +1,26 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2018-05-03 15:31:16.502
+-- Last modification date: 2018-05-04 09:44:07.046
 
 -- tables
 -- Table: band
 CREATE TABLE v1.band (
-    id serial  NOT NULL,
     ring_id int  NOT NULL,
     dist int  NOT NULL,
     param_id int  NOT NULL,
     value decimal(10,4)  NOT NULL,
-    CONSTRAINT profile_ak_1 UNIQUE (ring_id, dist, param_id) NOT DEFERRABLE  INITIALLY IMMEDIATE,
-    CONSTRAINT band_pk PRIMARY KEY (id)
+    CONSTRAINT band_pk PRIMARY KEY (ring_id,dist,param_id)
 );
 
 CREATE INDEX profile_idx_1 on v1.band (ring_id ASC);
 
 -- Table: cell
 CREATE TABLE v1.cell (
-    id serial  NOT NULL,
     ring_id int  NOT NULL,
     x_cal decimal(10,4)  NOT NULL,
     y_cal decimal(10,4)  NOT NULL,
     param_id int  NOT NULL,
     value decimal(10,4)  NOT NULL,
-    CONSTRAINT cell_ak_1 UNIQUE (ring_id, x_cal, y_cal, param_id) NOT DEFERRABLE  INITIALLY IMMEDIATE,
-    CONSTRAINT cell_pk PRIMARY KEY (id)
+    CONSTRAINT cell_pk PRIMARY KEY (ring_id,x_cal,y_cal,param_id)
 );
 
 CREATE INDEX cell_idx_1 on v1.cell (ring_id ASC);
@@ -333,12 +329,10 @@ CREATE TABLE v1.tree_param_fk (
 
 -- Table: year
 CREATE TABLE v1.year (
-    id serial  NOT NULL,
     ring_id int  NOT NULL,
     param_id int  NOT NULL,
     value decimal(10,4)  NOT NULL,
-    CONSTRAINT year_ak_1 UNIQUE (ring_id, param_id, value) NOT DEFERRABLE  INITIALLY IMMEDIATE,
-    CONSTRAINT year_pk PRIMARY KEY (id)
+    CONSTRAINT year_pk PRIMARY KEY (ring_id,param_id)
 );
 
 CREATE INDEX year_idx_1 on v1.year (ring_id ASC);

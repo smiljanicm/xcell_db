@@ -18,18 +18,22 @@ constr_name <- function(t){
   
 }
 
+rename_cols <- function(., c_table){
+  plyr::rename(., c_table[names(c_table) %in% colnames(.)])
+}
+
 read_file <- function(t){
   
   ts <- get(paste0(t, '_info'))
   
   read_xlsx(paste0(file_dir,file_name), t) %>%
     filter(!row_number() %in% c(1:2)) %>%
-    rename_(.dots = ts[ts %in% colnames(.)])
+    rename_cols(ts)
 }
 
 read_info <- function(t = 'person', f = 'db_upload/info/info_table.xlsx'){
   
-  read_xlsx(f, t) %>%  deframe()
+  read_xlsx(f, t) %>% select(xcel_name, db_name) %>%  deframe()
 }
 
 
@@ -155,3 +159,113 @@ get_id <- function(d_table, table.name, sch = 'v1', constrains_db){
   ) %>%
     collect()
 }
+
+
+# READ MEASUREMENTS -------------------------------------------------------
+
+load_roxas_measurements <- function( file_dir = NULL, subsample_id = subsample_id_d ){
+  #' @description function load each of the excel file (output of the roxas), combine them together and remove duplicates
+  #' @param file_dir - directory where all the files are stored
+  #' @param sample_id - a data frame with at least two columns containing sample_label and data_filename. By default is new.measurement_info
+  #' @return a list of three tables: annual table, cell table and settings table
+  
+  if(is.null(file_dir)) stop('please provide the location of the files')
+  if(is.null(subsample_id)) stop('please provide the measurement information table')
+  
+  f_list <- list.files(file_dir, pattern = 'Output.xlsx', recursive = T, full.names = T)
+  
+  # output files
+  year <- tibble()
+  cell <- tibble()
+  setting <- tibble()
+  
+  
+  
+  for(fl in f_list){
+    
+    cat(paste0('Proccessing file - ', fl, '\n'))
+    
+    rx_d_f_id <- read_xlsx(fl, "Overall summary", n_max = 1) %>% 
+      colnames() %>% 
+      gsub('OVERALL SUMMARY  --  ','',.) %>% 
+      paste0(.,'_Output.xlsx')
+    
+    rx_year <- read_xlsx(fl, "Annual rings", skip = 2) %>% 
+      filter(row_number() < which(is.na(Year))[1]) %>% 
+      mutate_all(funs(as.numeric)) %>% 
+      mutate_all(funs(ifelse(. == -999, NA, .))) %>% 
+      rename_cols(year_info) %>%
+      select(year = Year, intersect(colnames(.), year_info)) %>%
+      mutate(data_filename = rx_d_f_id)
+    
+    rx_cell <- read_xlsx(fl, "Cells", skip = 2) %>% 
+      dplyr::select(-contains('X__1'),-contains('**********')) %>% 
+      rename_cols(cell_info) %>%
+      select(year = Year, intersect(colnames(.), cell_info)) %>%
+      mutate_all(funs(as.numeric)) %>% 
+      mutate_all(funs(ifelse(. == -999, NA, .))) %>% 
+      mutate(data_filename = rx_d_f_id)
+    
+    rx_setting <- read_xlsx(fl, "ROXAS settings", skip = 2) %>%  
+      set_names(c('id','value', 'variable')) %>%
+      filter(!is.na(variable)) %>%
+      mutate(variable = gsub('<- ', '', variable)) %>%
+      dplyr::select(-id) %>% 
+      spread(variable, value) %>% 
+      rename_cols(settings_info) %>%
+      select(intersect(colnames(.), settings_info)) %>%
+      mutate(data_filename = rx_d_f_id)
+    
+    year <- bind_rows(year, rx_year)
+    cell <- bind_rows(cell, rx_cell)
+    setting <- bind_rows(setting, rx_setting)
+  }
+  
+  #- files that didn't match
+  
+  dontmatch <- anti_join(distinct(year, data_filename), subsample_id, by = c('data_filename'))
+  
+  if(nrow(dontmatch) > 0){
+    cat("\n *****CAUTION***** SOME FILES DON'T MATCH!!!")
+  }
+  
+  #--/ find duplicates
+  unique_samples_rx <- cell %>%
+    distinct(year, data_filename) %>%
+    inner_join(subsample_id, by = 'data_filename') %>%
+    group_by(sample_id, year, data_filename) %>%
+    summarise(n = n()) %>%
+    group_by(sample_id, year) %>%
+    filter(n == max(n)) %>%
+    ungroup() %>%
+    dplyr::select(-n, -sample_id) 
+  
+  
+  #--/ select only unique files
+  year <- inner_join(year, unique_samples_rx, by = c('data_filename', 'year'))
+  cell <- inner_join(cell, unique_samples_rx, by = c('data_filename', 'year'))
+  setting <- inner_join(setting, unique_samples_rx %>% distinct(data_filename),  by =c('data_filename'))
+  
+  #- reshape all the files
+  year <- year %>% 
+    gather(parameter, value, -year, -data_filename) %>%
+    filter(!is.na(value))
+  
+  cell <- cell %>% 
+    mutate(drad = ((4 * cwtrad) / rtsr) + 2 * cwtrad,
+           dtan = ((4 * cwttan) / rtsr) + 2 * cwttan) %>%
+    gather(parameter, value, -year, -data_filename, -x_cal, -y_cal) %>%
+    mutate_at(vars(x_cal, y_cal), funs(round(., 4))) %>%
+    filter(!is.na(value))
+    
+    
+  setting <- setting %>% 
+    gather(parameter, value, -data_filename) %>%
+    filter(!is.na(value))
+  
+  return(list(setting = setting,
+              year = year,
+              cell = cell,
+              dontmatch = dontmatch))
+}
+
