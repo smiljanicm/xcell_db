@@ -3,7 +3,7 @@
 
 extract_clim <- function(long, lat, f = '/Users/fonti/Desktop/xcell/xcell_db/db_upload/info/chelsa_clim.tif'){
   #' @description extract the temperature and precipitation from the raster
-  #' @param long longiture in wgs84
+  #' @param long longitude in wgs84
   #' @param lat latitude in wgs84
   #' @return a data frame with two columns
   raster::extract(raster::brick(f), tibble(long, lat), method="bilinear") %>% 

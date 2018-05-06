@@ -8,10 +8,10 @@ source('db_upload/0_functions.R')
 
 
 # 0. load the data --------------------------------------------------------
-#file_dir <- 'db_upload/data/XC_CH_LTS22/'
-#file_name <- 'XC_CH_LTS22.xlsm'
-file_dir <- 'db_upload/data/XC_RU_Shira/'
-file_name <- 'XC_RU_Shira.xlsm'
+file_dir <- 'db_upload/data/XC_CH_LTS22/'
+file_name <- 'XC_CH_LTS22.xlsm'
+#file_dir <- 'db_upload/data/XC_RU_Shira/'
+#file_name <- 'XC_RU_Shira.xlsm'
 
 
 
@@ -66,8 +66,9 @@ site.df <- bind_cols(site_i, site_a) %>%
   mutate_at(vars(sampling_year, longitude, latitude), funs(as.numeric(.)))
 
 #' add the climate information
-site.df <- site.df %>% select(-temp, -prec) %>% bind_cols(extract_clim(site.df$latitude, site.df$longitude))
-
+site.df <- site.df %>% select(-temp, -prec) %>% 
+  bind_cols(extract_clim(site.df$longitude, site.df$latitude)) %>% 
+  mutate(temp = temp/10)
 
 # load the data
 site.df %>%
