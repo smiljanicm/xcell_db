@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2018-05-04 09:44:07.046
+-- Last modification date: 2018-05-06 06:38:03.554
 
 -- tables
 -- Table: band
@@ -178,7 +178,7 @@ CREATE TABLE v1.publication (
     title text  NOT NULL,
     year decimal(4,0)  NOT NULL,
     journal varchar(64)  NOT NULL,
-    doi text  NOT NULL,
+    doi varchar(64)  NOT NULL,
     CONSTRAINT publication_ak_1 UNIQUE (site_id, doi) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT publication_pk PRIMARY KEY (id)
 );
@@ -208,7 +208,7 @@ CREATE TABLE v1.sample (
     id serial  NOT NULL,
     tree_id int  NOT NULL,
     sample_label varchar(64)  NOT NULL,
-    organ varchar(2)  NOT NULL,
+    organ varchar(6)  NOT NULL,
     CONSTRAINT wood_sample_ak_1 UNIQUE (tree_id, sample_label, organ) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT sample_pk PRIMARY KEY (id)
 );
