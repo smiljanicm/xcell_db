@@ -8,8 +8,11 @@ source('db_upload/0_functions.R')
 
 
 # 0. load the data --------------------------------------------------------
-file_dir <- 'db_upload/data/XC_CH_LTS22/'
-file_name <- 'XC_CH_LTS22_NEW.xlsm'
+#file_dir <- 'db_upload/data/XC_CH_LTS22/'
+#file_name <- 'XC_CH_LTS22.xlsm'
+file_dir <- 'db_upload/data/XC_RU_Shira/'
+file_name <- 'XC_RU_Shira.xlsm'
+
 
 
 
@@ -63,7 +66,7 @@ site.df <- bind_cols(site_i, site_a) %>%
   mutate_at(vars(sampling_year, longitude, latitude), funs(as.numeric(.)))
 
 #' add the climate information
-site.df <- site.df %>% select(-temp, -prec) %>% bind_cols(extract_clim(site.df$longitude, site.df$latitude))
+site.df <- site.df %>% select(-temp, -prec) %>% bind_cols(extract_clim(site.df$latitude, site.df$longitude))
 
 
 # load the data
@@ -91,6 +94,7 @@ tree.df <- read_file('tree') %>%
 
 tree.df %>%
   select(site_id, selection("tree", "main")) %>%
+  filter(!is.na(tree_label)) %>%
   mutate(id = row_number()) %>%
   check_append_db(., 'tree',constrains_db = constrains_db) %>%
   append_data('tree')
@@ -137,10 +141,7 @@ sample.df %>%
   check_append_db(., 'sample_param',constrains_db = constrains_db) %>%
   append_data('sample_param')
 
-
 meas_met_id_d <- get_id(sample.df, 'meas_met_fk', constrains_db = constrains_db) %>% pull(id) %>% unique()
-
-
 
 
 # 1.8 Subsample -----------------------------------------------------------
@@ -157,7 +158,6 @@ subsample.df %>%
   append_data('subsample')
 
 subsample_id_d <- get_id(subsample.df, 'subsample', constrains_db = constrains_db) %>% select(subsample_id = id, data_filename, constr_name('subsample'))
-
 
 
 # 1.9 read measurements ---------------------------------------------------
@@ -212,6 +212,7 @@ meas_d$cell %>%
   inner_join(ring_id_d, by = c("year", "subsample_id")) %>%
   inner_join(meas_param_fk_tbl, by = 'parameter') %>%
   check_append_db(., 'cell',constrains_db = constrains_db) %>%
+  filter(value!="Inf")  %>%
   append_data('cell')
 
 

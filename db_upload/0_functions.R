@@ -191,7 +191,7 @@ load_roxas_measurements <- function( file_dir = NULL, subsample_id = subsample_i
       paste0(.,'_Output.xlsx')
     
     rx_year <- read_xlsx(fl, "Annual rings", skip = 2) %>% 
-      filter(row_number() < which(is.na(Year))[1]) %>% 
+      filter(row_number() < which(is.na(Year))[1], CNo != 0) %>% 
       mutate_all(funs(as.numeric)) %>% 
       mutate_all(funs(ifelse(. == -999, NA, .))) %>% 
       rename_cols(year_info) %>%
