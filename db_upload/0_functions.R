@@ -214,6 +214,7 @@ load_roxas_measurements <- function( file_dir = NULL, subsample_id = subsample_i
       spread(variable, value) %>% 
       rename_cols(settings_info) %>%
       select(intersect(colnames(.), settings_info)) %>%
+      mutate(meas_date = paste0(substr(meas_date,7,10),"-",substr(meas_date,4,5),"-",substr(meas_date,1,2))) %>%
       mutate(data_filename = rx_d_f_id)
     
     year <- bind_rows(year, rx_year)
