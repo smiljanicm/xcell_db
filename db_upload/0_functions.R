@@ -198,7 +198,7 @@ load_roxas_measurements <- function( file_dir = NULL, subsample_id = subsample_i
       select(year = Year, intersect(colnames(.), year_info)) %>%
       mutate(data_filename = rx_d_f_id)
     
-    rx_cell <- read_xlsx(fl, "Cells", skip = 2) %>% 
+    rx_cell <- read_xlsx(fl, excel_sheets(fl)[3], skip = 2) %>% 
       dplyr::select(-contains('X__1'),-contains('**********')) %>% 
       rename_cols(cell_info) %>%
       select(year = Year, intersect(colnames(.), cell_info)) %>%
@@ -252,9 +252,14 @@ load_roxas_measurements <- function( file_dir = NULL, subsample_id = subsample_i
     gather(parameter, value, -year, -data_filename) %>%
     filter(!is.na(value))
   
-  cell <- cell %>% 
-    mutate(drad = ((4 * cwtrad) / rtsr) + 2 * cwtrad,
-           dtan = ((4 * cwttan) / rtsr) + 2 * cwttan) %>%
+  
+  if('cwtrad' %in% colnames(cell)) {
+    cell <- cell %>% 
+      mutate(drad = ((4 * cwtrad) / rtsr) + 2 * cwtrad,
+           dtan = ((4 * cwttan) / rtsr) + 2 * cwttan) 
+    }
+  
+  cell <- cell %>%
     gather(parameter, value, -year, -data_filename, -x_cal, -y_cal) %>%
     mutate_at(vars(x_cal, y_cal), funs(round(., 4))) %>%
     filter(!is.na(value))

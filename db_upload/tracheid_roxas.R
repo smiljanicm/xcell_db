@@ -8,11 +8,20 @@ source('db_upload/0_functions.R')
 
 
 # 0. load the data --------------------------------------------------------
-file_dir <- 'db_upload/data/XC_CH_LTS22/'
-file_name <- 'XC_CH_LTS22.xlsm'
+#file_dir <- 'db_upload/data/XC_CH_LTS22/'
+#file_name <- 'XC_CH_LTS22.xlsm'
 #file_dir <- 'db_upload/data/XC_RU_Shira/'
 #file_name <- 'XC_RU_Shira.xlsm'
-
+#file_dir <- 'db_upload/data/XC_CH_LTS19/'
+#file_name <- 'XC_CH_LTS19.xlsm'
+#file_dir <-  'db_upload/data/XC_CH_LTN13/'
+#file_name <- 'XC_CH_LTN13.xlsm'
+#file_dir <-  'db_upload/data/XC_IT_CRO12/'
+#file_name <- 'XC_IT_CRO12.xlsm'
+#file_dir <-  'db_upload/data/XC_IT_CRO16/'
+#file_name <- 'XC_IT_CRO16.xlsm'
+file_dir <-  'db_upload/data/XC_IT_CRO21/'
+file_name <- 'XC_IT_CRO21.xlsm'
 
 
 
@@ -213,7 +222,7 @@ meas_d$cell %>%
   inner_join(ring_id_d, by = c("year", "subsample_id")) %>%
   inner_join(meas_param_fk_tbl, by = 'parameter') %>%
   check_append_db(., 'cell',constrains_db = constrains_db) %>%
-  filter(value!="Inf")  %>%
+  filter(value!="Inf", !is.na(x_cal),!is.na(y_cal))  %>%
   append_data('cell')
 
 
