@@ -17,7 +17,7 @@ CREATE INDEX profile_idx_1 on v1.band (ring_id ASC);
 CREATE TABLE v1.cell (
     ring_id int  NOT NULL,
     x_cal decimal(10,4)  NOT NULL,
-    y_cal decimal(10,4)  NOT NULL,
+    y_cal decimal(12,4)  NOT NULL,
     param_id int  NOT NULL,
     value decimal(10,4)  NOT NULL,
     CONSTRAINT cell_pk PRIMARY KEY (ring_id,x_cal,y_cal,param_id)

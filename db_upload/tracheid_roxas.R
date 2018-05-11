@@ -20,9 +20,11 @@ source('db_upload/0_functions.R')
 #file_name <- 'XC_IT_CRO12.xlsm'
 #file_dir <-  'db_upload/data/XC_IT_CRO16/'
 #file_name <- 'XC_IT_CRO16.xlsm'
-file_dir <-  'db_upload/data/XC_IT_CRO21/'
-file_name <- 'XC_IT_CRO21.xlsm'
+#file_dir <-  'db_upload/data/XC_IT_CRO21/'
+#file_name <- 'XC_IT_CRO21.xlsm'
 
+file_dir <-  'db_upload/data/XC_TR_MURQ/'
+file_name <- 'XC_TR_MURQ.xlsm'
 
 
 # 0. Additional settings --------------------------------------------------
