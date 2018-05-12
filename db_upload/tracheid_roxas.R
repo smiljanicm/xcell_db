@@ -23,9 +23,14 @@ source('db_upload/0_functions.R')
 #file_dir <-  'db_upload/data/XC_IT_CRO21/'
 #file_name <- 'XC_IT_CRO21.xlsm'
 
-file_dir <-  'db_upload/data/XC_TR_MURQ/'
-file_name <- 'XC_TR_MURQ.xlsm'
-
+#file_dir <-  'db_upload/data/XC_TR_MURQ/'
+#file_name <- 'XC_TR_MURQ.xlsm'
+#file_dir <- 'db_upload/data/XC_TR_MURF/'
+#file_name <- 'XC_TR_MURF.xlsm'
+file_dir <-  'db_upload/data//XC_CH_ZHUrd/'
+file_name <- 'XC_CH_ZHUrd.xlsm'
+#file_dir <-  'db_upload/data//XC_CH_ZHShl/'
+#file_name <- 'XC_CH_ZHShl.xlsm'
 
 # 0. Additional settings --------------------------------------------------
 #' info help table
