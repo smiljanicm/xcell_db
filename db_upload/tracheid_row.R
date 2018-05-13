@@ -22,17 +22,6 @@ source('db_upload/0_functions.R')
 #file_name <- 'XC_IT_CRO16.xlsm'
 #file_dir <-  'db_upload/data/XC_IT_CRO21/'
 #file_name <- 'XC_IT_CRO21.xlsm'
-#file_dir <-  'db_upload/data/XC_RU_AKH/'     
-#file_name <- 'XC_RU_AKH.xlsm'
-#file_dir <-  'db_upload/data/XC_FI_NFI/'      # Only the first 10 trees out of 29 are up-loaded
-#file_name <- 'XC_FI_NFI.xlsm'
-#file_dir <-  'db_upload/data/XC_ES_Zara/'     # There are double years: not sure what happens in the DB
-#file_name <- 'XC_ES_Zara.xlsm'
-#file_dir <-  'db_upload/data/XC_IT_NAP/'      # Only partially uploaded. To update for ROXAS.txt files
-#file_name <- 'XC_IT_NAP.xlsm'
-#file_dir <-  'db_upload/data/XC_CH-PFYN/'     # Not up-loaded yet but metadatafile ready
-#file_name <- 'XC_CH-PFYN.xlsm'
-
 
 #file_dir <-  'db_upload/data/XC_TR_MURQ/'
 #file_name <- 'XC_TR_MURQ.xlsm'
@@ -42,6 +31,78 @@ source('db_upload/0_functions.R')
 #file_name <- 'XC_CH_ZHUrd.xlsm'
 #file_dir <-  'db_upload/data/XC_CH_ZHShl/'
 #file_name <- 'XC_CH_ZHShl.xlsm'
+
+file_dir <- 'db_upload/data/XC_DE_SILH/'
+file_name <- 'XC_DE_SILH.xlsm'
+#file_dir <- 'db_upload/data/XC_DE_SILM/'
+#file_name <- 'XC_DE_SILM.xlsm'
+#file_dir <- 'db_upload/data/XC_DE_SILL/'
+#file_name <- 'XC_DE_SILL.xlsm'
+#file_dir <- 'db_upload/data/XC_DE_LIL/'
+#file_name <- 'XC_DE_LIL.xlsm'
+#file_dir <- 'db_upload/data/XC_DE_SCH/'
+#file_name <- 'XC_DE_SCH.xlsm'
+#file_dir <- 'db_upload/data/XC_RU_ALT/'
+#file_name <- 'XC_RU_ALT.xlsm'
+#file_dir <- 'db_upload/data/XC_RU_IND/'
+#file_name <- 'XC_RU_IND.xlsm'
+#file_dir <- 'db_upload/data/XC_RU_IND2/'
+#file_name <- 'XC_RU_IND2.xlsm'
+#file_dir <- 'db_upload/data/XC_RU_NAN/'
+#file_name <- 'XC_RU_NAN.xlsm'
+#file_dir <- 'db_upload/data/XC_RU_GOF/'
+#file_name <- 'XC_RU_GOF.xlsm'
+#file_dir <- 'db_upload/data/XC_RU_LAK/'
+#file_name <- 'XC_RU_LAK.xlsm'
+#file_dir <- 'db_upload/data/XC_DE_HEI/'
+#file_name <- 'XC_DE_HEI.xlsm'
+#file_dir <- 'db_upload/data/XC_IT_REN/'
+#file_name <- 'XC_IT_REN.xlsm'
+#file_dir <- 'db_upload/data/XC_SE_FLA/'
+#file_name <- 'XC_SE_FLA.xlsm'
+#file_dir <- 'db_upload/data/XC_RU_Tura/'
+#file_name <- 'XC_RU_Tura.xlsm'
+#file_dir <- 'db_upload/data/XC_RU_ZOT/'
+#file_name <- 'XC_RU_ZOT.xlsm'
+#file_dir <- 'db_upload/data/XC_RU_YAK/'
+#file_name <- 'XC_RU_YAK.xlsm'
+#file_dir <- 'db_upload/data/XC_RU_TAY/'
+#file_name <- 'XC_RU_TAY.xlsm'
+#file_dir <- 'db_upload/data/XC_RU_KOTL/'
+#file_name <- 'XC_RU_KOTL.xlsm'
+#file_dir <- 'db_upload/data/XC_RU_KOTH/'
+#file_name <- 'XC_RU_KOTH.xlsm'
+#file_dir <- 'db_upload/data/XC_RU_KAN/'
+#file_name <- 'XC_RU_KAN.xlsm'
+#file_dir <- 'db_upload/data/XC_US_CHI/'
+#file_name <- 'XC_US_CHI.xlsm'
+#file_dir <- 'db_upload/data/XC_RU_KAK/'
+#file_name <- 'XC_RU_KAK.xlsm'
+#file_dir <- 'db_upload/data/XC_ES_SOR/'
+#file_name <- 'XC_ES_SOR.xlsm'
+#file_dir <- 'db_upload/data/XC_ES_PAL/'
+#file_name <- 'XC_ES_PAL.xlsm'
+#file_dir <- 'db_upload/data/XC_ES_ENG/'
+#file_name <- 'XC_ES_ENG.xlsm'
+#file_dir <- 'db_upload/data/XC_ES_ARC/'
+#file_name <- 'XC_ES_ARC.xlsm'
+#file_dir <- 'db_upload/data/XC_ES_PRA/'
+#file_name <- 'XC_ES_PRA.xlsm'
+#file_dir <- 'db_upload/data/XC_ES_LToba/'
+#file_name <- 'XC_ES_LToba.xlsm'
+#file_dir <- 'db_upload/data/XC_CH_LTN08/'
+#file_name <- 'XC_CH_LTN08.xlsm'
+#file_dir <- 'db_upload/data/XC_FR_C_As/'
+#file_name <- 'XC_FR_C_As.xlsm'
+#file_dir <- 'db_upload/data/XC_FR_C_Can/'
+#file_name <- 'XC_FR_C_Can.xlsm'
+#file_dir <- 'db_upload/data/XC_FR_C_Cap/'
+#file_name <- 'XC_FR_C_Cap.xlsm'
+#file_dir <- 'db_upload/data/XC_FR_C_Pin/'
+#file_name <- 'XC_FR_C_Pin.xlsm'
+#file_dir <- 'db_upload/data/XC_DE_POTS/'
+#file_name <- 'XC_DE_POTS.xlsm'
+
 
 
 # 0. Additional settings --------------------------------------------------
@@ -110,7 +171,6 @@ site.df %>%
   select(site_id = id, setdiff(colnames(.), dbListFields(dbcon, c('v1', "site")))) %>%
   gather(parameter, value, -site_id) %>%
   inner_join(site_param_fk_tbl, by = 'parameter') %>%
-  filter(!is.na(value)) %>%
   check_append_db(., 'site_param', constrains_db = constrains_db) %>%
   append_data('site_param')
 
@@ -189,29 +249,31 @@ subsample.df %>%
 
 subsample_id_d <- get_id(subsample.df, 'subsample', constrains_db = constrains_db) %>% select(subsample_id = id, data_filename, constr_name('subsample'))
 
-
-# 1.9 read measurements ---------------------------------------------------
-
-meas_d <- load_roxas_measurements(file_dir = file_dir, subsample_id = subsample_id_d)
-
-meas_d$dontmatch
-
-# 2.0 Subsample parameters ------------------------------------------------
-meas_met_rx <- meas_d$setting %>%
-  inner_join(subsample_id_d, by = c('data_filename')) %>%
-  select(subsample_id, parameter, value)
-
-
 subsample.df %>%
   inner_join(subsample_id_d, by = c("subpiece_label", "sample_id", "meas_date", "meas_met_id", 'data_filename')) %>%
   select(subsample_id, selection("subsample", "param")) %>%
   gather(parameter, value, -subsample_id) %>%
-  filter(!is.na(value))%>%
-  anti_join(distinct(meas_met_rx, subsample_id, parameter), by = c('subsample_id', 'parameter')) %>%
-  bind_rows(meas_met_rx) %>%
+  filter(!is.na(value)) %>%
+#  anti_join(distinct(meas_met_rx, subsample_id, parameter), by = c('subsample_id', 'parameter')) %>%
+#  bind_rows(meas_met_rx) %>%
   inner_join(meas_met_param_fk_tbl, by = 'parameter') %>%
   check_append_db(., 'meas_met_set',constrains_db = constrains_db) %>%
   append_data('meas_met_set')
+
+
+# 1.9 read measurements ---------------------------------------------------
+
+#meas_d <- load_roxas_measurements(file_dir = file_dir, subsample_id = subsample_id_d)
+meas_d <- load_txt_measurements(file_dir = file_dir, subsample_id = subsample_id_d)
+
+meas_d$dontmatch
+
+# 2.0 Subsample parameters ------------------------------------------------
+# meas_met_rx <- meas_d$setting %>%
+#  inner_join(subsample_id_d, by = c('data_filename')) %>%
+#  select(subsample_id, parameter, value)
+
+
 
 
 # 2.1 Ring table ----------------------------------------------------------
@@ -238,12 +300,11 @@ year.db %>%
 
 # 2.3. Cell table ---------------------------------------------------------
 meas_d$cell %>%
-  filter(value >= -1000000, !is.na(x_cal),!is.na(y_cal))  %>%
   inner_join(subsample_id_d, by = c('data_filename')) %>%
   inner_join(ring_id_d, by = c("year", "subsample_id")) %>%
   inner_join(meas_param_fk_tbl, by = 'parameter') %>%
   check_append_db(., 'cell',constrains_db = constrains_db) %>%
-  filter(value!="Inf") %>%
+  filter(value!="Inf", !is.na(x_cal),!is.na(y_cal))  %>%
   append_data('cell')
 
 

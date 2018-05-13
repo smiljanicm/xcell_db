@@ -161,6 +161,52 @@ get_id <- function(d_table, table.name, sch = 'v1', constrains_db){
 }
 
 
+# READ FILES -------------------------------------------------------
+
+read.TXT_FR<-function(fl=fl, data=data)  {   
+  #' @description function to load each of the txt file (output of the roxas) from the UniFreiburg data type
+  #' @param fl - directory of the file
+  #' @param data - a data table 
+  #' @return a table data with a selection of data from the txt.files
+  data <- #bind_rows(data,
+                    as.tbl(read.table(textConnection(gsub(";", "\t", readLines(fl))),header=TRUE)) %>%
+                      mutate(subpiece_label = TREE_ID,
+                             y_cal = TRW,
+                             x_cal = x,
+                             row = ROW,
+                             position = CELL_ID, 
+                             Year = as.numeric(YEAR),
+                             cwtrad = CWT,
+                             cwtle = CWT_left, 
+                             cwtri = CWT_right,
+                             ldrad = LD) %>% 
+                      dplyr::select(subpiece_label,y_cal,x_cal,row,position,Year,cwtrad,cwtle,cwtri,ldrad) %>% 
+                      mutate(data_filename = gsub('.*[/]','',fl)) %>%
+                      group_by(data_filename, Year) %>%
+                      ungroup()
+  #)
+}
+
+read.TXT_RU<-function(fl=fl, data=data)  {
+  #' @description function to load each of the txt file (output of the roxas) from the RUSSIAN (TRACHEID) data type
+  #' @param fl - directory of the file
+  #' @param data - a data table 
+  #' @return a table data with a selection of data from the txt.files
+  data <- bind_rows(data,
+                    as.tbl(read.table(fl,header=TRUE,sep="\t")) %>% ## FOR LIL
+                      mutate(row = Row,
+                             position = Position, 
+                             year = as.numeric(Year),
+                             cwtrad = CWT,
+                             ldrad = LD) %>% 
+                      dplyr::select(-Row,-Position,-Year,-LD,-CWT,-LUM,-CWA) %>% 
+                      mutate(data_filename = gsub('.*[/]','',fl)) %>%
+                      group_by(data_filename, year) %>%
+                      ungroup()
+  )
+}
+
+
 # READ MEASUREMENTS -------------------------------------------------------
 
 load_roxas_measurements <- function( file_dir = NULL, subsample_id = subsample_id_d ){
@@ -274,4 +320,102 @@ load_roxas_measurements <- function( file_dir = NULL, subsample_id = subsample_i
               cell = cell,
               dontmatch = dontmatch))
 }
+
+
+
+load_txt_measurements <- function( file_dir = NULL, subsample_id = subsample_id_d ){
+  #' @description function load each of the txt file (output from software with row measurements), combine them together and remove duplicates
+  #' @param file_dir - directory where all the files are stored
+  #' @param sample_id - a data frame with at least two columns containing sample_label and data_filename. By default is new.measurement_info
+  #' @return a list of three tables: annual table, cell table and settings table
+  
+  if(is.null(file_dir)) stop('please provide the location of the files')
+  if(is.null(subsample_id)) stop('please provide the measurement information table')
+  
+  f_list <- list.files(file_dir, pattern = ".txt", recursive = T, full.names = T)
+  
+  # output files
+  data <- tibble()
+  year <- tibble()
+  cell <- tibble()
+
+  for(fl in f_list){
+    
+    cat(paste0('Proccessing file - ', fl, '\n'))
+    
+    data <- read.TXT_FR(fl,data) 
+    
+    tx_year <- data %>% 
+      group_by(data_filename,Year) %>%
+      summarise(ring_width = max(y_cal))  %>%
+      mutate_all(funs(as.numeric)) %>% 
+      mutate_all(funs(ifelse(. == -999, NA, .))) %>% 
+      rename_cols(year_info) %>%
+      select(year = Year, intersect(colnames(.), year_info))
+    # %>% ggplot() + geom_line(aes(year,ring_width, col=data_filename)) 
+    
+    tx_cell <- data %>%
+      group_by(data_filename) %>%
+      rename_cols(cell_info) %>%
+      select(year = Year, intersect(colnames(.), cell_info)) %>%
+      mutate_all(funs(as.numeric)) %>% 
+      mutate_all(funs(ifelse(. == -999, NA, .)))
+    
+    year <- bind_rows(year, tx_year)
+    cell <- bind_rows(cell, tx_cell)
+  }
+  
+  #- files that didn't match
+  
+  dontmatch <- anti_join(distinct(year, data_filename), subsample_id, by = c('data_filename'))
+  
+  if(nrow(dontmatch) > 0){
+    cat("\n *****CAUTION***** SOME FILES DON'T MATCH!!!")
+  }
+  
+  #--/ find duplicates
+  unique_samples_tx <- cell %>%
+    distinct(year, data_filename) %>%
+    inner_join(subsample_id, by = 'data_filename') %>%
+    group_by(sample_id, year, data_filename) %>%
+    summarise(n = n()) %>%
+    group_by(sample_id, year) %>%
+    filter(n == max(n)) %>%
+    ungroup() %>%
+    dplyr::select(-n, -sample_id) 
+  
+  #--/ find duplicates
+  # unique_cells_tx <- cell %>%
+  #   distinct(year, data_filename, row, position) %>%
+  #   inner_join(subsample_id, by = 'data_filename') %>%
+  #   group_by(sample_id, year, data_filename,row, position) %>%
+  #   summarise(n = n()) %>%
+  #   group_by(sample_id, year) %>%
+  #   filter(n == max(n)) %>%
+  #   ungroup() %>%
+  #   dplyr::select(-n, -sample_id) 
+
+    
+  #--/ select only unique files
+  year <- inner_join(year, unique_samples_tx, by = c('data_filename', 'year'))
+  cell <- inner_join(cell, unique_samples_tx, by = c('data_filename', 'year'))
+  
+  #- reshape all the files
+  year <- year %>% 
+    gather(parameter, value, -year, -data_filename) %>%
+    filter(!is.na(value))
+  
+  
+  cell <- cell %>%
+    gather(parameter, value, -year, -data_filename, -x_cal, -y_cal) %>%
+    mutate_at(vars(x_cal, y_cal), funs(round(., 4))) %>%
+    filter(!is.na(value))
+  
+  
+  
+  return(list(year = year,
+              cell = cell,
+              dontmatch = dontmatch))
+}
+
 
