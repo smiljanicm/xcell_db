@@ -26,12 +26,18 @@ source('db_upload/0_functions.R')
 #file_name <- 'XC_RU_AKH.xlsm'
 #file_dir <-  'db_upload/data/XC_FI_NFI/'      # Only the first 10 trees out of 29 are up-loaded
 #file_name <- 'XC_FI_NFI.xlsm'
-#file_dir <-  'db_upload/data/XC_ES_Zara/'     # There are double years: not sure what happens in the DB
-#file_name <- 'XC_ES_Zara.xlsm'
+file_dir <-  'db_upload/data/XC_ES_Zara/'     # There are double years: not sure what happens in the DB
+file_name <- 'XC_ES_Zara.xlsm'
 #file_dir <-  'db_upload/data/XC_IT_NAP/'      # Only partially uploaded. To update for ROXAS.txt files
 #file_name <- 'XC_IT_NAP.xlsm'
 #file_dir <-  'db_upload/data/XC_CH-PFYN/'     # Not up-loaded yet but metadatafile ready
 #file_name <- 'XC_CH-PFYN.xlsm'
+#file_dir <-  'db_upload/data/XC_MN_MALT/'     # No x an y coordinates ...
+#file_name <- 'XC_MN_MALT.xlsm'
+#file_dir <-  'db_upload/data/XC_MN_TALT/'     # No x an y coordinates ...
+#file_name <- 'XC_MN_TALT.xlsm'
+#file_dir <-  'db_upload/data/XC_DE-ORE/'      # No x an y coordinates ...
+#file_name <- 'XC_DE-ORE.xlsm'
 
 
 #file_dir <-  'db_upload/data/XC_TR_MURQ/'

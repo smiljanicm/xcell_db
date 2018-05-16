@@ -32,10 +32,10 @@ source('db_upload/0_functions.R')
 #file_dir <-  'db_upload/data/XC_CH_ZHShl/'
 #file_name <- 'XC_CH_ZHShl.xlsm'
 
-file_dir <- 'db_upload/data/XC_DE_SILH/'
-file_name <- 'XC_DE_SILH.xlsm'
-#file_dir <- 'db_upload/data/XC_DE_SILM/'
-#file_name <- 'XC_DE_SILM.xlsm'
+#file_dir <- 'db_upload/data/XC_DE_SILH/'
+#file_name <- 'XC_DE_SILH.xlsm'
+file_dir <- 'db_upload/data/XC_DE_SILM/'        # cells not up-loaded due to issue with duplicates! row should be a column and not a parameter
+file_name <- 'XC_DE_SILM.xlsm'
 #file_dir <- 'db_upload/data/XC_DE_SILL/'
 #file_name <- 'XC_DE_SILL.xlsm'
 #file_dir <- 'db_upload/data/XC_DE_LIL/'
@@ -102,6 +102,10 @@ file_name <- 'XC_DE_SILH.xlsm'
 #file_name <- 'XC_FR_C_Pin.xlsm'
 #file_dir <- 'db_upload/data/XC_DE_POTS/'
 #file_name <- 'XC_DE_POTS.xlsm'
+#file_dir <- 'db_upload/data/XC_SE_Torne/'
+#file_name <- 'XC_SE_Torne.xlsm'
+#file_dir <- 'db_upload/data/XC_CH_LENS/'
+#file_name <- 'XC_CH_LENS.xlsm'
 
 
 
@@ -254,8 +258,8 @@ subsample.df %>%
   select(subsample_id, selection("subsample", "param")) %>%
   gather(parameter, value, -subsample_id) %>%
   filter(!is.na(value)) %>%
-#  anti_join(distinct(meas_met_rx, subsample_id, parameter), by = c('subsample_id', 'parameter')) %>%
-#  bind_rows(meas_met_rx) %>%
+  #  anti_join(distinct(meas_met_rx, subsample_id, parameter), by = c('subsample_id', 'parameter')) %>%
+  #  bind_rows(meas_met_rx) %>%
   inner_join(meas_met_param_fk_tbl, by = 'parameter') %>%
   check_append_db(., 'meas_met_set',constrains_db = constrains_db) %>%
   append_data('meas_met_set')
@@ -299,12 +303,27 @@ year.db %>%
 
 
 # 2.3. Cell table ---------------------------------------------------------
+# meas_d$cell %>%
+#   filter(!is.na(x_cal),!is.na(y_cal))  %>%
+#   group_by(data_filename,  year,   y_cal,   x_cal, parameter) %>%
+#   filter(n() > 1) %>%
+#   mutate(id = 1:n()) %>%
+#   ungroup() %>%
+#   spread(parameter, value) %>%
+#   arrange(x_cal, y_cal)
+# 
+#   summarise(n = n()) %>%
+#   group_by(data_filename, year) %>%
+#   filter(n == 2) 
+
 meas_d$cell %>%
-  inner_join(subsample_id_d, by = c('data_filename')) %>%
+  filter(!is.na(x_cal),!is.na(y_cal))  %>%
+  group_by(data_filename,  year,   y_cal,   x_cal, parameter) %>%  inner_join(subsample_id_d, by = c('data_filename')) %>%
   inner_join(ring_id_d, by = c("year", "subsample_id")) %>%
   inner_join(meas_param_fk_tbl, by = 'parameter') %>%
+  ungroup() %>% 
   check_append_db(., 'cell',constrains_db = constrains_db) %>%
-  filter(value!="Inf", !is.na(x_cal),!is.na(y_cal))  %>%
+  filter(value!="Inf")  %>%
   append_data('cell')
 
 
