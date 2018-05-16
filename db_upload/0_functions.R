@@ -432,3 +432,93 @@ load_txt_measurements <- function( file_dir = NULL, subsample_id = subsample_id_
 }
 
 
+
+
+load_xray_measurements <- function( file_dir = NULL, subsample_id = subsample_id_d ){
+  #' @description function load each of the txt file (output from software with row measurements), combine them together and remove duplicates
+  #' @param file_dir - directory where all the files are stored
+  #' @param sample_id - a data frame with at least two columns containing sample_label and data_filename. By default is new.measurement_info
+  #' @return a list of three tables: annual table, cell table and settings table
+  
+  if(is.null(file_dir)) stop('please provide the location of the files')
+  if(is.null(subsample_id)) stop('please provide the measurement information table')
+  
+  f_list <- list.files(file_dir, pattern = "\\.t", recursive = T, full.names = T)
+  
+  # output files
+  data <- tibble()
+  year <- tibble()
+  cell <- tibble()
+  
+  for(fl in f_list){
+    
+    cat(paste0('Proccessing file - ', fl, '\n'))
+    
+   data<-read_tsv(fl,skip=13, col_names=FALSE) %>% 
+          mutate_all(funs(gsub('D:|J:|X:|Y:|,S:e|,S:s|,S:d', '', .))) %>%   
+          separate(X1,c('id','density','zero','X','Y','A','year'), sep=',') %>% 
+          filter(!is.na(X)) %>% 
+          dplyr::select(-zero,-A) %>% 
+          mutate_all(as.numeric) %>%
+          mutate(x_cal = X, y_cal = Y) %>%
+          mutate(data_filename = gsub('.*[/]','',fl)) %>%
+          group_by(data_filename, year) %>%
+          arrange(id) %>%
+          mutate(dist = row_number()*10) %>%
+          ungroup()
+    
+    tx_year <- data %>% 
+      group_by(data_filename,year, x_cal, y_cal) %>%
+      summarise(ring_width = max(dist))  %>%
+      mutate_all(funs(as.numeric)) %>% 
+      rename_cols(year_info) %>%
+      select(data_filename, year = year, intersect(colnames(.), year_info))
+    # %>% ggplot() + geom_line(aes(year,ring_width, col=data_filename)) 
+    
+    tx_cell <- data %>%
+      group_by(data_filename) %>%
+#      rename_cols(cell_info) %>%
+      select(data_filename, year = year, intersect(colnames(.), cell_info)) %>%
+      mutate_all(funs(as.numeric)) %>% 
+      mutate_all(funs(ifelse(. == -999, NA, .)))
+    
+    year <- bind_rows(year, tx_year)
+    cell <- bind_rows(cell, tx_cell)
+  }
+  
+  #- files that didn't match
+  
+  dontmatch <- anti_join(distinct(year, data_filename), subsample_id, by = c('data_filename'))
+  
+  if(nrow(dontmatch) > 0){
+    cat("\n *****CAUTION***** SOME FILES DON'T MATCH!!!")
+  }
+  
+  #--/ find duplicates
+  unique_samples_tx <- cell %>%
+    distinct(year, data_filename,x_cal, y_cal) %>%
+    inner_join(subsample_id, by = 'data_filename') %>%
+    group_by(sample_id, year, data_filename) %>%
+    summarise(n = n()) %>%
+    group_by(sample_id, year) %>%
+    filter(n == max(n)) %>%
+    ungroup() %>%
+    dplyr::select(-n, -sample_id) 
+  
+  #--/ select only unique files
+  year <- inner_join(year, unique_samples_tx, by = c('data_filename', 'year'))
+  cell <- inner_join(cell, unique_samples_tx, by = c('data_filename', 'year'))
+  
+  #- reshape all the files
+  year <- year %>% 
+    gather(parameter, value, -year, -data_filename) %>%
+    filter(!is.na(value))
+  
+  cell <- cell %>%
+    gather(parameter, value, -year, -data_filename, -x_cal, -y_cal) %>%
+    filter(!is.na(value))
+  
+  return(list(year = year,
+              cell = cell,
+              dontmatch = dontmatch))
+}

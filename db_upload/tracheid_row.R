@@ -34,10 +34,10 @@ source('db_upload/0_functions.R')
 
 #file_dir <- 'db_upload/data/XC_DE_SILH/'
 #file_name <- 'XC_DE_SILH.xlsm'
-file_dir <- 'db_upload/data/XC_DE_SILM/'        # cells not up-loaded due to issue with duplicates! row should be a column and not a parameter
-file_name <- 'XC_DE_SILM.xlsm'
-#file_dir <- 'db_upload/data/XC_DE_SILL/'
-#file_name <- 'XC_DE_SILL.xlsm'
+#file_dir <- 'db_upload/data/XC_DE_SILM/'        
+#file_name <- 'XC_DE_SILM.xlsm'
+file_dir <- 'db_upload/data/XC_DE_SILL/'
+file_name <- 'XC_DE_SILL.xlsm'
 #file_dir <- 'db_upload/data/XC_DE_LIL/'
 #file_name <- 'XC_DE_LIL.xlsm'
 #file_dir <- 'db_upload/data/XC_DE_SCH/'
@@ -106,6 +106,13 @@ file_name <- 'XC_DE_SILM.xlsm'
 #file_name <- 'XC_SE_Torne.xlsm'
 #file_dir <- 'db_upload/data/XC_CH_LENS/'
 #file_name <- 'XC_CH_LENS.xlsm'
+#file_dir <- 'db_upload/data/XC_FR_DABR/'
+#file_name <- 'XC_FR_DABR.xlsm'
+#file_dir <- 'db_upload/data/XC_FR_DGRA/'
+#file_name <- 'XC_FR_DGRA.xlsm'
+#file_dir <- 'db_upload/data/XC_FR_DWAL/'
+#file_name <- 'XC_FR_DWAL.xlsm'
+
 
 
 
@@ -267,8 +274,7 @@ subsample.df %>%
 
 # 1.9 read measurements ---------------------------------------------------
 
-#meas_d <- load_roxas_measurements(file_dir = file_dir, subsample_id = subsample_id_d)
-meas_d <- load_txt_measurements(file_dir = file_dir, subsample_id = subsample_id_d)
+meas_d <- load_xray_measurements(file_dir = file_dir, subsample_id = subsample_id_d)
 
 meas_d$dontmatch
 
