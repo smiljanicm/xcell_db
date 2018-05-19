@@ -1,4 +1,5 @@
 
+
 # 0. Libraries ---------------------------------------------------
 
 library(raster); library(DBI); library(readxl); library(stringr); library(tidyverse) 
@@ -8,42 +9,18 @@ source('db_upload/0_functions.R')
 
 
 # 0. load the data --------------------------------------------------------
-#file_dir <- 'db_upload/data/XC_CH_LTS22/'
-#file_name <- 'XC_CH_LTS22.xlsm'
-#file_dir <- 'db_upload/data/XC_RU_Shira/'
-#file_name <- 'XC_RU_Shira.xlsm'
-#file_dir <- 'db_upload/data/XC_CH_LTS19/'
-#file_name <- 'XC_CH_LTS19.xlsm'
-#file_dir <-  'db_upload/data/XC_CH_LTN13/'
-#file_name <- 'XC_CH_LTN13.xlsm'
-#file_dir <-  'db_upload/data/XC_IT_CRO12/'
-#file_name <- 'XC_IT_CRO12.xlsm'
-#file_dir <-  'db_upload/data/XC_IT_CRO16/'
-#file_name <- 'XC_IT_CRO16.xlsm'
-#file_dir <-  'db_upload/data/XC_IT_CRO21/'
-#file_name <- 'XC_IT_CRO21.xlsm'
-
-#file_dir <-  'db_upload/data/XC_TR_MURQ/'
-#file_name <- 'XC_TR_MURQ.xlsm'
-#file_dir <- 'db_upload/data/XC_TR_MURF/'
-#file_name <- 'XC_TR_MURF.xlsm'
-#file_dir <-  'db_upload/data/XC_CH_ZHUrd/'
-#file_name <- 'XC_CH_ZHUrd.xlsm'
-#file_dir <-  'db_upload/data/XC_CH_ZHShl/'
-#file_name <- 'XC_CH_ZHShl.xlsm'
-
-#file_dir <- 'db_upload/data/XC_DE_SILH/'
+#file_dir <- 'db_upload/data/XC_DE_SILH/'   # read.TXT_FR
 #file_name <- 'XC_DE_SILH.xlsm'
-#file_dir <- 'db_upload/data/XC_DE_SILM/'        
+#file_dir <- 'db_upload/data/XC_DE_SILM/'   # read.TXT_FR     
 #file_name <- 'XC_DE_SILM.xlsm'
-file_dir <- 'db_upload/data/XC_DE_SILL/'
-file_name <- 'XC_DE_SILL.xlsm'
+#file_dir <- 'db_upload/data/XC_DE_SILL/'   # read.TXT_FR
+#file_name <- 'XC_DE_SILL.xlsm'
 #file_dir <- 'db_upload/data/XC_DE_LIL/'
 #file_name <- 'XC_DE_LIL.xlsm'
 #file_dir <- 'db_upload/data/XC_DE_SCH/'
 #file_name <- 'XC_DE_SCH.xlsm'
-#file_dir <- 'db_upload/data/XC_RU_ALT/'
-#file_name <- 'XC_RU_ALT.xlsm'
+file_dir <- 'db_upload/data/XC_RU_ALT/'
+file_name <- 'XC_RU_ALT.xlsm'
 #file_dir <- 'db_upload/data/XC_RU_IND/'
 #file_name <- 'XC_RU_IND.xlsm'
 #file_dir <- 'db_upload/data/XC_RU_IND2/'
@@ -244,7 +221,6 @@ sample.df %>%
 
 meas_met_id_d <- get_id(sample.df, 'meas_met_fk', constrains_db = constrains_db) %>% pull(id) %>% unique()
 
-
 # 1.8 Subsample -----------------------------------------------------------
 subsample.df <- read_file('subsample') %>%
   inner_join(sample_id_d, by = "sample_label") %>%
@@ -274,7 +250,7 @@ subsample.df %>%
 
 # 1.9 read measurements ---------------------------------------------------
 
-meas_d <- load_xray_measurements(file_dir = file_dir, subsample_id = subsample_id_d)
+meas_d <- load_txt_measurements(file_dir = file_dir, subsample_id = subsample_id_d)
 
 meas_d$dontmatch
 

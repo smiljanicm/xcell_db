@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2018-05-06 06:38:03.554
+-- Last modification date: 2018-05-17 11:12:50.065
 
 -- tables
 -- Table: band
@@ -11,7 +11,7 @@ CREATE TABLE v1.band (
     CONSTRAINT band_pk PRIMARY KEY (ring_id,dist,param_id)
 );
 
-CREATE INDEX profile_idx_1 on v1.band (ring_id ASC);
+CREATE INDEX profile_idx_1 on v1.band (param_id ASC,ring_id ASC);
 
 -- Table: cell
 CREATE TABLE v1.cell (
@@ -23,7 +23,7 @@ CREATE TABLE v1.cell (
     CONSTRAINT cell_pk PRIMARY KEY (ring_id,x_cal,y_cal,param_id)
 );
 
-CREATE INDEX cell_idx_1 on v1.cell (ring_id ASC);
+CREATE INDEX cell_idx_1 on v1.cell (param_id ASC,ring_id ASC);
 
 -- Table: comments
 CREATE TABLE v1.comments (
@@ -44,42 +44,41 @@ CREATE TABLE v1.country_fk (
 
 -- Table: global_table
 CREATE TABLE v1.global_table (
-    id serial  NOT NULL,
-    year int  NOT NULL,
-    site_code varchar(5)  NOT NULL,
-    site_label varchar(64)  NOT NULL,
-    country_code varchar(2)  NOT NULL,
-    longitude decimal(10,7)  NOT NULL,
-    latitude decimal(10,7)  NOT NULL,
-    elevation int  NOT NULL,
-    temp decimal(6,2)  NOT NULL,
-    prec decimal(6,2)  NOT NULL,
-    species_code varchar(4)  NOT NULL,
-    target_proxy varchar(64)  NOT NULL,
-    cell_type varchar(64)  NOT NULL,
-    organ varchar(64)  NOT NULL,
-    system varchar(10)  NOT NULL,
-    software varchar(10)  NOT NULL,
-    contact_last_name varchar(64)  NOT NULL,
-    contact_first_name varchar(64)  NOT NULL,
-    contact_email varchar(64)  NOT NULL,
-    contact_institution_code varchar(5)  NOT NULL,
-    n_trees int  NOT NULL,
-    n_radii int  NOT NULL,
-    n_rings int  NOT NULL,
-    "from" int  NOT NULL,
-    "to" int  NOT NULL,
-    trw decimal(8,2)  NOT NULL,
-    eww decimal(8,2)  NULL,
-    lww decimal(8,2)  NULL,
-    density decimal(10,4)  NULL,
-    ldrad decimal(6,2)  NULL,
-    ldtan decimal(6,2)  NULL,
-    cwtrad decimal(6,2)  NULL,
-    cwttan decimal(6,2)  NULL,
-    lum decimal(10,4)  NULL,
-    cwa decimal(10,4)  NULL,
-    CONSTRAINT global_table_pk PRIMARY KEY (id)
+   site_code varchar(5)  NOT NULL,
+   year int  NOT NULL,
+   site_label varchar(64)  NOT NULL,
+   manip varchar(5)  NOT NULL,
+   country_code varchar(2)  NOT NULL,
+   longitude decimal(10,7)  NOT NULL,
+   latitude decimal(10,7)  NOT NULL,
+   elevation int  NOT NULL,
+   temp decimal(6,2)  NOT NULL,
+   prec decimal(6,2)  NOT NULL,
+   species_code varchar(4)  NOT NULL,
+   wood_type varchar(124)  NOT NULL,
+   leaf_habit varchar(124)  NOT NULL,
+   wood_plane varchar(124)  NOT NULL,
+   organ varchar(2)  NOT NULL,
+   output varchar(64)  NOT NULL,
+   hardware varchar(64)  NOT NULL,
+   software varchar(64)  NOT NULL,
+   last_name varchar(64)  NOT NULL,
+   first_name varchar(64)  NOT NULL,
+   email varchar(64)  NOT NULL,
+   institution_code varchar(5)  NOT NULL,
+   n_trees int  NOT NULL,
+   n_radii int  NOT NULL,
+   n_rings int  NOT NULL,
+   "from" int  NOT NULL,
+   "to" int  NOT NULL,
+   ring_width decimal(10,4)  NULL,
+   la decimal(10,4)  NULL,
+   ldrad decimal(10,4)  NULL,
+   ldtan decimal(10,4)  NULL,
+   cwtrad decimal(10,4)  NULL,
+   cwttan decimal(10,4)  NULL,
+   cwa decimal(10,4)  NULL,
+   CONSTRAINT global_table_pk PRIMARY KEY (site_code,year,species_code,organ,output,hardware,software)
 );
 
 -- Table: institution_fk
@@ -194,7 +193,7 @@ CREATE TABLE v1.ring (
     CONSTRAINT ring_pk PRIMARY KEY (id)
 );
 
-CREATE INDEX ring_idx_1 on v1.ring (subsample_id ASC,year ASC);
+CREATE INDEX ring_idx_1 on v1.ring (subsample_id ASC,year ASC,id ASC);
 
 -- Table: role_fk
 CREATE TABLE v1.role_fk (
@@ -223,7 +222,7 @@ CREATE TABLE v1.sample_param (
     CONSTRAINT sample_param_pk PRIMARY KEY (sample_id,sample_param_id)
 );
 
-CREATE INDEX sample_param_idx_1 on v1.sample_param (sample_id ASC,sample_param_id ASC);
+CREATE INDEX sample_param_idx_1 on v1.sample_param (sample_param_id ASC);
 
 -- Table: sample_param_fk
 CREATE TABLE v1.sample_param_fk (
@@ -261,6 +260,8 @@ CREATE TABLE v1.site_param (
     CONSTRAINT site_param_pk PRIMARY KEY (site_id,site_param_id)
 );
 
+CREATE INDEX site_param_idx_1 on v1.site_param (site_param_id ASC);
+
 -- Table: site_param_fk
 CREATE TABLE v1.site_param_fk (
     id serial  NOT NULL,
@@ -293,7 +294,7 @@ CREATE TABLE v1.subsample (
     CONSTRAINT subsample_pk PRIMARY KEY (id)
 );
 
-CREATE INDEX measure_info_idx_1 on v1.subsample (sample_id ASC,meas_met_id ASC);
+CREATE INDEX measure_info_idx_1 on v1.subsample (sample_id ASC,meas_met_id ASC,id ASC);
 
 -- Table: tree
 CREATE TABLE v1.tree (
@@ -315,7 +316,7 @@ CREATE TABLE v1.tree_param (
     CONSTRAINT tree_param_pk PRIMARY KEY (tree_id,tree_param_id)
 );
 
-CREATE INDEX tree_param_idx_1 on v1.tree_param (tree_id ASC,tree_param_id ASC);
+CREATE INDEX tree_param_idx_1 on v1.tree_param (tree_param_id ASC);
 
 -- Table: tree_param_fk
 CREATE TABLE v1.tree_param_fk (
@@ -335,7 +336,7 @@ CREATE TABLE v1.year (
     CONSTRAINT year_pk PRIMARY KEY (ring_id,param_id)
 );
 
-CREATE INDEX year_idx_1 on v1.year (ring_id ASC);
+CREATE INDEX year_idx_1 on v1.year (param_id ASC,ring_id ASC);
 
 -- foreign keys
 -- Reference: Archiving_wood_sample (table: subsample)

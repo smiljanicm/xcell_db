@@ -8,31 +8,33 @@ source('db_upload/0_functions.R')
 
 
 # 0. load the data --------------------------------------------------------
-#file_dir <- 'db_upload/data/XC_CH_LTS22/'
-#file_name <- 'XC_CH_LTS22.xlsm'
-#file_dir <- 'db_upload/data/XC_RU_Shira/'
+#file_dir <- 'db_upload/data/XC_RU_Shira/'        # ok!
 #file_name <- 'XC_RU_Shira.xlsm'
-#file_dir <- 'db_upload/data/XC_CH_LTS19/'
+#file_dir <- 'db_upload/data/XC_CH_LTS22/'        # ok!, 30 double years 
+#file_name <- 'XC_CH_LTS22.xlsm'
+#file_dir <- 'db_upload/data/XC_CH_LTS19/'        # ok!, 33 double years 
 #file_name <- 'XC_CH_LTS19.xlsm'
-#file_dir <-  'db_upload/data/XC_CH_LTN13/'
+#file_dir <-  'db_upload/data/XC_CH_LTN13/'       # ok!, 33 double years
 #file_name <- 'XC_CH_LTN13.xlsm'
-#file_dir <-  'db_upload/data/XC_IT_CRO12/'
+#file_dir <-  'db_upload/data/XC_IT_CRO12/'       # ok!, 157 double years
 #file_name <- 'XC_IT_CRO12.xlsm'
-#file_dir <-  'db_upload/data/XC_IT_CRO16/'
+#file_dir <-  'db_upload/data/XC_IT_CRO16/'       # ok!, 249 double years
 #file_name <- 'XC_IT_CRO16.xlsm'
-#file_dir <-  'db_upload/data/XC_IT_CRO21/'
+#file_dir <-  'db_upload/data/XC_IT_CRO21/'       # ok!, 265 double years
 #file_name <- 'XC_IT_CRO21.xlsm'
-#file_dir <-  'db_upload/data/XC_RU_AKH/'     
+#file_dir <-  'db_upload/data/XC_RU_AKH/'         # ok!, 144 double years
 #file_name <- 'XC_RU_AKH.xlsm'
-#file_dir <-  'db_upload/data/XC_FI_NFI/'      # Only the first 10 trees out of 29 are up-loaded
+#file_dir <-  'db_upload/data/XC_FI_NFI/'         # ok!, 396 double years # Only the first 10 trees out of 29 are up-loaded
 #file_name <- 'XC_FI_NFI.xlsm'
-file_dir <-  'db_upload/data/XC_ES_Zara/'     # There are double years: not sure what happens in the DB
-file_name <- 'XC_ES_Zara.xlsm'
-#file_dir <-  'db_upload/data/XC_IT_NAP/'      # Only partially uploaded. To update for ROXAS.txt files
+#file_dir <-  'db_upload/data/XC_ES_Zara/'        # ok!, 61 double years
+#file_name <- 'XC_ES_Zara.xlsm'
+#file_dir <-  'db_upload/data/XC_IT_NAP/'         # ok!, 104 double years
 #file_name <- 'XC_IT_NAP.xlsm'
-#file_dir <-  'db_upload/data/XC_CH-PFYN/'     # Not up-loaded yet but metadatafile ready
-#file_name <- 'XC_CH-PFYN.xlsm'
-#file_dir <-  'db_upload/data/XC_MN_MALT/'     # No x an y coordinates ...
+#file_dir <-  'db_upload/data/XC_CH_PFYN/'     
+#file_name <- 'XC_CH_PFYN.xlsm'
+file_dir <-  'db_upload/data/XC_IT_CRO2L/'     
+file_name <- 'XC_IT_CRO2L.xlsm'
+#file_dir <-  'db_upload/data/XC_MN_MALT/'     # No x and y coordinates ...
 #file_name <- 'XC_MN_MALT.xlsm'
 #file_dir <-  'db_upload/data/XC_MN_TALT/'     # No x an y coordinates ...
 #file_name <- 'XC_MN_TALT.xlsm'
@@ -48,6 +50,10 @@ file_name <- 'XC_ES_Zara.xlsm'
 #file_name <- 'XC_CH_ZHUrd.xlsm'
 #file_dir <-  'db_upload/data/XC_CH_ZHShl/'
 #file_name <- 'XC_CH_ZHShl.xlsm'
+#file_dir <-  'db_upload/data/XC_IL_BZH/'
+#file_name <- 'XC_IL_BZH.xlsm'
+#file_dir <-  'db_upload/data/XC_IL_ABA/'
+#file_name <- 'XC_IL_ABA.xlsm'
 
 
 # 0. Additional settings --------------------------------------------------
