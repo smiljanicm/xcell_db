@@ -89,6 +89,12 @@ file_name <- 'XC_RU_ALT.xlsm'
 #file_name <- 'XC_FR_DGRA.xlsm'
 #file_dir <- 'db_upload/data/XC_FR_DWAL/'
 #file_name <- 'XC_FR_DWAL.xlsm'
+#file_dir <-  'db_upload/data/XC_MN_MALT/'     # No x and y coordinates ...
+#file_name <- 'XC_MN_MALT.xlsm'
+#file_dir <-  'db_upload/data/XC_MN_TALT/'     # No x an y coordinates ...
+#file_name <- 'XC_MN_TALT.xlsm'
+#file_dir <-  'db_upload/data/XC_DE-ORE/'      # No x an y coordinates ...
+#file_name <- 'XC_DE-ORE.xlsm'
 
 
 

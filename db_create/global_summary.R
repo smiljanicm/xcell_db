@@ -25,14 +25,16 @@ union(
   right_join(tbl_x('tree') %>% select(tree_id=id, site_id,species_code) %>% 
             right_join(tbl_x('tree_param') %>% filter(tree_param_id %in% c(5)) %>%  mutate(manip=value) %>% select(tree_id,manip,-value), by="tree_id") , by="tree_id") %>%
   group_by(site_id, organ, meas_met_id, species_code, param_id, manip) %>%
-  summarise(value = mean(value, na.rm = T),
+  summarise(value = mean(value, na.rm = T),                    
             from = min(from, na.rm = T),
             to = max(to, na.rm = T),
             n_rings = sum(n_rings, na.rm = T),
             n_radii = n_distinct(sample_id),
             n_trees = n_distinct(tree_id)) %>%
   group_by(site_id, organ, meas_met_id, species_code) %>%
-  mutate(n_rings = max(n_rings, na.rm = T),
+  mutate(n_trees = max(n_trees, na.rm = T),   #### the max's are to avoid doubles # Check why they occur!!!!
+         n_radii = max(n_radii, na.rm = T),
+         n_rings = max(n_rings, na.rm = T),
          from = min(from, na.rm = T),
          to = max(to, na.rm = T)) %>%
   ungroup() %>%
@@ -50,6 +52,11 @@ union(
          species_code, wood_type, leaf_habit, wood_plane, organ, output, hardware, software, 
          last_name, first_name, email, institution_code, 
          n_trees, n_radii, n_rings, from, to, ring_width,la,ldrad,ldtan,cwtrad,cwttan,cwa) %>% collect()  -> A #eww, lww
+
+# Last corrections
+# A$wood_type[c(13,21,22)]<-"angiosperm"
+# A$leaf_habit[c(13,21,22)]<-"deciduous"
+# A$wood_plane[c(13,21,22)]<-"ring-porous"
 
 A %>%
   append_data(., 'global_table')

@@ -78,8 +78,9 @@ CREATE TABLE v1.global_table (
    cwtrad decimal(10,4)  NULL,
    cwttan decimal(10,4)  NULL,
    cwa decimal(10,4)  NULL,
-   CONSTRAINT global_table_pk PRIMARY KEY (site_code,year,species_code,organ,output,hardware,software)
+   CONSTRAINT global_table_pk PRIMARY KEY (site_code,year,manip,species_code,organ,output,hardware,software)
 );
+
 
 -- Table: institution_fk
 CREATE TABLE v1.institution_fk (

@@ -284,7 +284,8 @@ load_roxas_measurements <- function( file_dir = NULL, subsample_id = subsample_i
       set_names(c('id','value', 'variable')) %>%
       filter(!is.na(variable)) %>%
       mutate(variable = gsub('<- ', '', variable)) %>%
-      dplyr::select(-id) %>% 
+      dplyr::select(-id)   %>% 
+      dplyr::filter(., !grepl('Maximum tangential cell wall thickness of ', variable)) %>% 
       spread(variable, value) %>% 
       rename_cols(settings_info) %>%
       select(intersect(colnames(.), settings_info)) %>%
@@ -379,8 +380,8 @@ load_txt_measurements <- function( file_dir = NULL, subsample_id = subsample_id_
     
     cat(paste0('Proccessing file - ', fl, '\n'))
     
-    #data <- read.TXT_FR(fl,data) 
-    data <- read.TXT_RU(fl,data) 
+    data <- read.TXT_FR(fl,data) 
+    #data <- read.TXT_RU(fl,data) 
     
     tx_year <- data %>% 
       group_by(data_filename,Year) %>%

@@ -30,29 +30,23 @@ source('db_upload/0_functions.R')
 #file_name <- 'XC_ES_Zara.xlsm'
 #file_dir <-  'db_upload/data/XC_IT_NAP/'         # ok!, 104 double years
 #file_name <- 'XC_IT_NAP.xlsm'
-#file_dir <-  'db_upload/data/XC_CH_PFYN/'     
+#file_dir <-  'db_upload/data/XC_CH_PFYN/'        #!! Maybe redo, 234 double years 
 #file_name <- 'XC_CH_PFYN.xlsm'
-file_dir <-  'db_upload/data/XC_IT_CRO2L/'     
-file_name <- 'XC_IT_CRO2L.xlsm'
-#file_dir <-  'db_upload/data/XC_MN_MALT/'     # No x and y coordinates ...
-#file_name <- 'XC_MN_MALT.xlsm'
-#file_dir <-  'db_upload/data/XC_MN_TALT/'     # No x an y coordinates ...
-#file_name <- 'XC_MN_TALT.xlsm'
-#file_dir <-  'db_upload/data/XC_DE-ORE/'      # No x an y coordinates ...
-#file_name <- 'XC_DE-ORE.xlsm'
+#file_dir <-  'db_upload/data/XC_IT_CRO2L/'       # ok!, 282 double years
+#file_name <- 'XC_IT_CRO2L.xlsm'
 
 
-#file_dir <-  'db_upload/data/XC_TR_MURQ/'
+#file_dir <-  'db_upload/data/XC_TR_MURQ/'         #!! NAs introduced by coercion when reading data files
 #file_name <- 'XC_TR_MURQ.xlsm'
-#file_dir <- 'db_upload/data/XC_TR_MURF/'
+#file_dir <- 'db_upload/data/XC_TR_MURF/'          # ok!, 38 double years
 #file_name <- 'XC_TR_MURF.xlsm'
-#file_dir <-  'db_upload/data/XC_CH_ZHUrd/'
+#file_dir <-  'db_upload/data/XC_CH_ZHUrd/'        # ok!, 96 double years
 #file_name <- 'XC_CH_ZHUrd.xlsm'
-#file_dir <-  'db_upload/data/XC_CH_ZHShl/'
+#file_dir <-  'db_upload/data/XC_CH_ZHShl/'        # ok!
 #file_name <- 'XC_CH_ZHShl.xlsm'
-#file_dir <-  'db_upload/data/XC_IL_BZH/'
-#file_name <- 'XC_IL_BZH.xlsm'
-#file_dir <-  'db_upload/data/XC_IL_ABA/'
+#file_dir <-  'db_upload/data/XC_IL_BZR/'          # ok!, 19 double years
+#file_name <- 'XC_IL_BZR.xlsm'
+#file_dir <-  'db_upload/data/XC_IL_ABA/'          #!! NAs introduced by coercion when reading data files
 #file_name <- 'XC_IL_ABA.xlsm'
 
 
