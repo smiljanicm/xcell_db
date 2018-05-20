@@ -53,6 +53,10 @@ union(
          last_name, first_name, email, institution_code, 
          n_trees, n_radii, n_rings, from, to, ring_width,la,ldrad,ldtan,cwtrad,cwttan,cwa) %>% collect()  -> A #eww, lww
 
+
+
+#dbExecute(dbcon, 'DELETE FROM v1.global_table')
+
 # Last corrections
 # A$wood_type[c(13,21,22)]<-"angiosperm"
 # A$leaf_habit[c(13,21,22)]<-"deciduous"

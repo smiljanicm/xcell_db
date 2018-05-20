@@ -9,33 +9,33 @@ source('db_upload/0_functions.R')
 
 
 # 0. load the data --------------------------------------------------------
-#file_dir <- 'db_upload/data/XC_DE_SILH/'   # read.TXT_FR
+#file_dir <- 'db_upload/data/XC_DE_SILH/'          # read.TXT_FR, ok!
 #file_name <- 'XC_DE_SILH.xlsm'
-#file_dir <- 'db_upload/data/XC_DE_SILM/'   # read.TXT_FR     
+#file_dir <- 'db_upload/data/XC_DE_SILM/'          # read.TXT_FR, ok!     
 #file_name <- 'XC_DE_SILM.xlsm'
-#file_dir <- 'db_upload/data/XC_DE_SILL/'   # read.TXT_FR
+#file_dir <- 'db_upload/data/XC_DE_SILL/'          # read.TXT_FR, ok!
 #file_name <- 'XC_DE_SILL.xlsm'
-#file_dir <- 'db_upload/data/XC_DE_LIL/'
+#file_dir <- 'db_upload/data/XC_DE_LIL/'           # read.TXT_RU, ok!
 #file_name <- 'XC_DE_LIL.xlsm'
-#file_dir <- 'db_upload/data/XC_DE_SCH/'
+#file_dir <- 'db_upload/data/XC_DE_SCH/'           # read.TXT_RU, ok!
 #file_name <- 'XC_DE_SCH.xlsm'
-file_dir <- 'db_upload/data/XC_RU_ALT/'
-file_name <- 'XC_RU_ALT.xlsm'
-#file_dir <- 'db_upload/data/XC_RU_IND/'
+#file_dir <- 'db_upload/data/XC_RU_ALT/'           # read.TXT_RU, ok!
+#file_name <- 'XC_RU_ALT.xlsm'
+#file_dir <- 'db_upload/data/XC_RU_IND/'           # read.TXT_RU, ok!
 #file_name <- 'XC_RU_IND.xlsm'
-#file_dir <- 'db_upload/data/XC_RU_IND2/'
+#file_dir <- 'db_upload/data/XC_RU_IND2/'          # read.TXT_RU, ok!
 #file_name <- 'XC_RU_IND2.xlsm'
-#file_dir <- 'db_upload/data/XC_RU_NAN/'
+#file_dir <- 'db_upload/data/XC_RU_NAN/'           # read.TXT_RU, ok!
 #file_name <- 'XC_RU_NAN.xlsm'
-#file_dir <- 'db_upload/data/XC_RU_GOF/'
+#file_dir <- 'db_upload/data/XC_RU_GOF/'           # read.TXT_RU, ok!
 #file_name <- 'XC_RU_GOF.xlsm'
-#file_dir <- 'db_upload/data/XC_RU_LAK/'
+#file_dir <- 'db_upload/data/XC_RU_LAK/'           # read.TXT_RU, ok!
 #file_name <- 'XC_RU_LAK.xlsm'
-#file_dir <- 'db_upload/data/XC_DE_HEI/'
-#file_name <- 'XC_DE_HEI.xlsm'
+file_dir <- 'db_upload/data/XC_DE_HEI/'
+file_name <- 'XC_DE_HEI.xlsm'
 #file_dir <- 'db_upload/data/XC_IT_REN/'
 #file_name <- 'XC_IT_REN.xlsm'
-#file_dir <- 'db_upload/data/XC_SE_FLA/'
+#file_dir <- 'db_upload/data/XC_SE_FLA/'           # Cell not uploaded
 #file_name <- 'XC_SE_FLA.xlsm'
 #file_dir <- 'db_upload/data/XC_RU_Tura/'
 #file_name <- 'XC_RU_Tura.xlsm'
@@ -165,6 +165,7 @@ site.df %>%
   select(site_id = id, setdiff(colnames(.), dbListFields(dbcon, c('v1', "site")))) %>%
   gather(parameter, value, -site_id) %>%
   inner_join(site_param_fk_tbl, by = 'parameter') %>%
+  filter(!is.na(value)) %>%
   check_append_db(., 'site_param', constrains_db = constrains_db) %>%
   append_data('site_param')
 
@@ -306,10 +307,9 @@ year.db %>%
 
 meas_d$cell %>%
   filter(!is.na(x_cal),!is.na(y_cal))  %>%
-  group_by(data_filename,  year,   y_cal,   x_cal, parameter) %>%  inner_join(subsample_id_d, by = c('data_filename')) %>%
+  inner_join(subsample_id_d, by = c('data_filename')) %>%
   inner_join(ring_id_d, by = c("year", "subsample_id")) %>%
-  inner_join(meas_param_fk_tbl, by = 'parameter') %>%
-  ungroup() %>% 
+  inner_join(meas_param_fk_tbl, by = 'parameter') %>% 
   check_append_db(., 'cell',constrains_db = constrains_db) %>%
   filter(value!="Inf")  %>%
   append_data('cell')

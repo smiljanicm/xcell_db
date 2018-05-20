@@ -116,21 +116,31 @@ db_get_constrains <- function(dbcon, sch = 'v1'){
 
 #' Function first check if some id's need to be renamed: check if there are data
 #' already in DB and keep id's for that part, and add the new ones
+
 check_append_db <- function(d_table, table.name, sch = 'v1', constrains_db){
   #-- which table and it's constrains
   col_unique <- dplyr::filter(constrains_db, table %in% table.name) %>% dplyr::pull(constrains) %>% unique() # remove unique after db reapload
   
   # test if db is non empty
-  db_n <- tbl_x(table.name, sch) %>% dplyr::summarize(n()) %>% dplyr::pull()
+  db_n <- tbl_x(table.name, sch) %>% head(1) %>% collect() %>% nrow()
   
   if(db_n > 0) {
     
-    d_table <- dplyr::anti_join(
-      d_table,
-      dplyr::distinct_(tbl_x(table.name, sch), .dots = col_unique),
+    # find which already in the database
+    d_table_t <- select(d_table, col_unique)
+    
+    d_table_t <- dplyr::inner_join(
+      dplyr::select_(tbl_x(table.name, sch), .dots = col_unique),
+      d_table_t,
       by = col_unique,
-      copy = TRUE, auto_index = F
-    )
+      copy = T, auto_index = TRUE) %>% 
+      collect() 
+    
+    # join with the other data
+    if(nrow(d_table_t) > 0){
+      d_table <- dplyr::anti_join(d_table, d_table_t, by = col_unique)
+    }
+    
   }
   
   if(any(colnames(d_table) %in% 'id')){
@@ -141,8 +151,7 @@ check_append_db <- function(d_table, table.name, sch = 'v1', constrains_db){
       
       # compare which data already in db, and replace the id's for all
       d_table %>%
-        dplyr::collect() %>%
-        mutate(id = row_number() + db_n,
+        mutate(id = row_number() + max.id,
                id = as.integer(id))->
         d_table
     }else{
@@ -152,6 +161,7 @@ check_append_db <- function(d_table, table.name, sch = 'v1', constrains_db){
   
   return(d_table)
 }
+
 
 
 append_data <- function(d_table, table.name, sch = 'v1'){
@@ -192,7 +202,6 @@ get_id <- function(d_table, table.name, sch = 'v1', constrains_db){
     collect()
 }
 
-
 # READ FILES -------------------------------------------------------
 
 read.TXT_FR<-function(fl=fl, data=data)  {   
@@ -203,15 +212,17 @@ read.TXT_FR<-function(fl=fl, data=data)  {
   data <- as.tbl(read.table(textConnection(gsub(";", "\t", readLines(fl))),header=TRUE)) %>%
     mutate(subpiece_label = TREE_ID,
            y_cal = TRW,
-           x_cal = x,
+           x_cal = ROW,
            row = ROW,
            position = CELL_ID, 
            Year = as.numeric(YEAR),
            cwtrad = CWT,
            cwtle = CWT_left, 
            cwtri = CWT_right,
-           ldrad = LD) %>% 
-    dplyr::select(subpiece_label,y_cal,x_cal,row,position,Year,cwtrad,cwtle,cwtri,ldrad) %>% 
+           ldrad = LD,
+           rdist = x,
+           dist = TRW) %>% 
+    dplyr::select(subpiece_label,y_cal,x_cal,row,position,Year,cwtrad,cwtle,cwtri,ldrad,rdist,dist) %>% 
     mutate(data_filename = gsub('.*[/]','',fl)) %>%
     group_by(data_filename, Year) %>%
     ungroup()
@@ -225,12 +236,14 @@ read.TXT_RU<-function(fl=fl, data=data)  {
   data <- as.tbl(read.table(fl,header=TRUE,sep="\t")) %>% ## FOR LIL
                       mutate(row = Row,
                              position = Position, 
-#                             year = Year,
+                             Year = Year,
                              cwtrad = CWT,
-                             ldrad = LD) %>% 
+                             ldrad = LD,
+                             x_cal = Row,) %>% 
                       dplyr::select(-Row,-Position,-LD,-CWT,-LUM,-CWA) %>% 
                       mutate(data_filename = gsub('.*[/]','',fl)) %>%
                       group_by(data_filename, Year) %>%
+                      mutate(y_cal = cumsum(ldrad+2*cwtrad)) %>%
                       ungroup()
 }
 
@@ -380,12 +393,12 @@ load_txt_measurements <- function( file_dir = NULL, subsample_id = subsample_id_
     
     cat(paste0('Proccessing file - ', fl, '\n'))
     
-    data <- read.TXT_FR(fl,data) 
-    #data <- read.TXT_RU(fl,data) 
+    #data <- read.TXT_FR(fl,data) 
+    data <- read.TXT_RU(fl,data) 
     
     tx_year <- data %>% 
       group_by(data_filename,Year) %>%
-      summarise(ring_width = max(TRW))  %>%
+      summarise(ring_width = max(y_cal))  %>%
       mutate_all(funs(as.numeric)) %>% 
       mutate_all(funs(ifelse(. == -999, NA, .))) %>% 
       rename_cols(year_info) %>%
@@ -393,7 +406,7 @@ load_txt_measurements <- function( file_dir = NULL, subsample_id = subsample_id_
     # %>% ggplot() + geom_line(aes(year,ring_width, col=data_filename)) 
     
     tx_cell <- data %>%
-      mutate(x_cal = row*100, y_cal= Dist ) %>%   # here we differentiate the x-coordinates to avoid duplicates between rows 
+      # mutate(x_cal = row*100, y_cal= Dist ) %>%   # here we differentiate the x-coordinates to avoid duplicates between rows 
       group_by(data_filename) %>%
       rename_cols(cell_info) %>%
       select(data_filename, year = Year, intersect(colnames(.), cell_info)) %>%
