@@ -224,7 +224,7 @@ read.TXT_FR<-function(fl=fl, data=data)  {
            dist = TRW) %>% 
     dplyr::select(subpiece_label,y_cal,x_cal,row,position,Year,cwtrad,cwtle,cwtri,ldrad,rdist,dist) %>% 
     mutate(data_filename = gsub('.*[/]','',fl)) %>%
-    group_by(data_filename, Year) %>%
+    group_by(data_filename, Year, row) %>%
     ungroup()
 }
 
@@ -239,14 +239,68 @@ read.TXT_RU<-function(fl=fl, data=data)  {
                              Year = Year,
                              cwtrad = CWT,
                              ldrad = LD,
-                             x_cal = Row,) %>% 
+                             x_cal = Row) %>% 
                       dplyr::select(-Row,-Position,-LD,-CWT,-LUM,-CWA) %>% 
                       mutate(data_filename = gsub('.*[/]','',fl)) %>%
-                      group_by(data_filename, Year) %>%
+                      group_by(data_filename, Year, row) %>%
                       mutate(y_cal = cumsum(ldrad+2*cwtrad)) %>%
                       ungroup()
 }
 
+read.TXT_POT<-function(fl=fl, data=data)  {
+  #' @description function to load each of the txt file (output of the roxas) from the RUSSIAN (TRACHEID) data type
+  #' @param fl - directory of the file
+  #' @param data - a data table 
+  #' @return a table data with a selection of data from the txt.files
+  data <- as.tbl(read.table(fl,header=TRUE,sep="\t")) %>% ## FOR LIL
+    mutate(Year = Year,
+           cwtrad = CWT,
+           ldrad = LD,
+           x_cal = TPos,
+           y_cal = RPos) %>% 
+    dplyr::select(-Row,-Position,-LD,-CWT,-LUM,-CWA) %>% 
+    mutate(data_filename = gsub('.*[/]','',fl))
+}
+
+
+read.TXT_SEC<-function(fl=fl, data=data)  {
+  #' @description function to load each of the txt file (output of the roxas) from the RUSSIAN (TRACHEID) data type
+  #' @param fl - directory of the file
+  #' @param data - a data table 
+  #' @return a table data with a selection of data from the txt.files
+  data <- as.tbl(read.table(fl,header=TRUE,sep="\t")) %>% ## FOR LIL
+    mutate(row = Row,
+           sector = BandPos, 
+           position = BandPos,
+           Year = Year,
+           cwtrad = CWT,
+           ldrad = LD,
+           x_cal = 1) %>% 
+    dplyr::select(-Row,-Position,-LD,-CWT,-LUM,-CWA) %>% 
+    mutate(data_filename = gsub('.*[/]','',fl)) %>%
+    group_by(data_filename, Year, row) %>%
+    mutate(y_cal = cumsum(ldrad+2*cwtrad)) %>%
+    ungroup()
+}
+
+read.TXT_CHI<-function(fl=fl, data=data)  {
+  #' @description function to load each of the txt file (output of the roxas) from the RUSSIAN (TRACHEID) data type
+  #' @param fl - directory of the file
+  #' @param data - a data table 
+  #' @return a table data with a selection of data from the txt.files
+  data <- as.tbl(read.table(fl,header=TRUE,sep="\t")) %>% ## FOR LIL
+    mutate(row = Row,
+           position = Position, 
+           Year = Year,
+           cwtrad = CWT,
+           drad = D,
+           x_cal = Row) %>% 
+    dplyr::select(-Row,-Position,-LD,-CWT,-LUM,-CWA) %>% 
+    mutate(data_filename = gsub('.*[/]','',fl)) %>%
+    group_by(data_filename, Year, row) %>%
+    mutate(y_cal = cumsum(drad)) %>%
+    ungroup()
+}
 
 # READ MEASUREMENTS -------------------------------------------------------
 
@@ -395,6 +449,9 @@ load_txt_measurements <- function( file_dir = NULL, subsample_id = subsample_id_
     
     #data <- read.TXT_FR(fl,data) 
     data <- read.TXT_RU(fl,data) 
+    #data <- read.TXT_CHI(fl,data) 
+    #data <- read.TXT_SEC(fl,data) 
+    #data <- read.TXT_POT(fl,data) 
     
     tx_year <- data %>% 
       group_by(data_filename,Year) %>%

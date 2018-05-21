@@ -9,92 +9,94 @@ source('db_upload/0_functions.R')
 
 
 # 0. load the data --------------------------------------------------------
-#file_dir <- 'db_upload/data/XC_DE_SILH/'          # read.TXT_FR, ok!
+#file_dir <- 'db_upload/data/XC_DE_SILH/'          # *read.TXT_FR, ok!
 #file_name <- 'XC_DE_SILH.xlsm'
-#file_dir <- 'db_upload/data/XC_DE_SILM/'          # read.TXT_FR, ok!     
+#file_dir <- 'db_upload/data/XC_DE_SILM/'          # *read.TXT_FR, ok!     
 #file_name <- 'XC_DE_SILM.xlsm'
-#file_dir <- 'db_upload/data/XC_DE_SILL/'          # read.TXT_FR, ok!
+#file_dir <- 'db_upload/data/XC_DE_SILL/'          # *read.TXT_FR, ok!
 #file_name <- 'XC_DE_SILL.xlsm'
-#file_dir <- 'db_upload/data/XC_DE_LIL/'           # read.TXT_RU, ok!
+#file_dir <- 'db_upload/data/XC_DE_LIL/'           # *read.TXT_RU, ok!
 #file_name <- 'XC_DE_LIL.xlsm'
-#file_dir <- 'db_upload/data/XC_DE_SCH/'           # read.TXT_RU, ok!
+#file_dir <- 'db_upload/data/XC_DE_SCH/'           # *read.TXT_RU, ok!
 #file_name <- 'XC_DE_SCH.xlsm'
-#file_dir <- 'db_upload/data/XC_RU_ALT/'           # read.TXT_RU, ok!
+#file_dir <- 'db_upload/data/XC_RU_ALT/'           # *read.TXT_RU, ok!
 #file_name <- 'XC_RU_ALT.xlsm'
-#file_dir <- 'db_upload/data/XC_RU_IND/'           # read.TXT_RU, ok!
+#file_dir <- 'db_upload/data/XC_RU_IND/'           # *read.TXT_RU, ok!
 #file_name <- 'XC_RU_IND.xlsm'
-#file_dir <- 'db_upload/data/XC_RU_IND2/'          # read.TXT_RU, ok!
+#file_dir <- 'db_upload/data/XC_RU_IND2/'          # *read.TXT_RU, ok!
 #file_name <- 'XC_RU_IND2.xlsm'
-#file_dir <- 'db_upload/data/XC_RU_NAN/'           # read.TXT_RU, ok!
+#file_dir <- 'db_upload/data/XC_RU_NAN/'           # *read.TXT_RU, ok!
 #file_name <- 'XC_RU_NAN.xlsm'
-#file_dir <- 'db_upload/data/XC_RU_GOF/'           # read.TXT_RU, ok!
+#file_dir <- 'db_upload/data/XC_RU_GOF/'           # *read.TXT_RU, ok!
 #file_name <- 'XC_RU_GOF.xlsm'
-#file_dir <- 'db_upload/data/XC_RU_LAK/'           # read.TXT_RU, ok!
+#file_dir <- 'db_upload/data/XC_RU_LAK/'           # *read.TXT_RU, ok!
 #file_name <- 'XC_RU_LAK.xlsm'
-file_dir <- 'db_upload/data/XC_DE_HEI/'
-file_name <- 'XC_DE_HEI.xlsm'
-#file_dir <- 'db_upload/data/XC_IT_REN/'
+#file_dir <- 'db_upload/data/XC_DE_HEI/'           # *read.TXT_RU, ok!
+#file_name <- 'XC_DE_HEI.xlsm'
+#file_dir <- 'db_upload/data/XC_IT_REN/'           # *read.TXT_RU, ok!
 #file_name <- 'XC_IT_REN.xlsm'
-#file_dir <- 'db_upload/data/XC_SE_FLA/'           # Cell not uploaded
+#file_dir <- 'db_upload/data/XC_SE_FLA/'           # *read.TXT_RU, ok!
 #file_name <- 'XC_SE_FLA.xlsm'
-#file_dir <- 'db_upload/data/XC_RU_Tura/'
+#file_dir <- 'db_upload/data/XC_RU_Tura/'          # *read.TXT_RU, ok!
 #file_name <- 'XC_RU_Tura.xlsm'
-#file_dir <- 'db_upload/data/XC_RU_ZOT/'
+#file_dir <- 'db_upload/data/XC_RU_ZOT/'           # *read.TXT_RU, ok!
 #file_name <- 'XC_RU_ZOT.xlsm'
-#file_dir <- 'db_upload/data/XC_RU_YAK/'
+#file_dir <- 'db_upload/data/XC_RU_YAK/'           # *read.TXT_RU, ok!
 #file_name <- 'XC_RU_YAK.xlsm'
-#file_dir <- 'db_upload/data/XC_RU_TAY/'
+#file_dir <- 'db_upload/data/XC_RU_TAY/'           # *read.TXT_RU, ok!
 #file_name <- 'XC_RU_TAY.xlsm'
-#file_dir <- 'db_upload/data/XC_RU_KOTL/'
+#file_dir <- 'db_upload/data/XC_RU_KOTL/'          # *read.TXT_RU, ok!
 #file_name <- 'XC_RU_KOTL.xlsm'
-#file_dir <- 'db_upload/data/XC_RU_KOTH/'
+#file_dir <- 'db_upload/data/XC_RU_KOTH/'          # *read.TXT_RU, ok!
 #file_name <- 'XC_RU_KOTH.xlsm'
-#file_dir <- 'db_upload/data/XC_RU_KAN/'
+#file_dir <- 'db_upload/data/XC_RU_KAN/'           # *read.TXT_RU, ok!
 #file_name <- 'XC_RU_KAN.xlsm'
-#file_dir <- 'db_upload/data/XC_US_CHI/'
+#file_dir <- 'db_upload/data/XC_US_CHI/'           # *read.TXT_CHI, ok!
 #file_name <- 'XC_US_CHI.xlsm'
-#file_dir <- 'db_upload/data/XC_RU_KAK/'
+#file_dir <- 'db_upload/data/XC_RU_KAK/'           # *read.TXT_RU, ok!  #### *read first with wrong read file!!!!
 #file_name <- 'XC_RU_KAK.xlsm'
-#file_dir <- 'db_upload/data/XC_ES_SOR/'
+#file_dir <- 'db_upload/data/XC_ES_SOR/'           # *read.TXT_RU, ok!
 #file_name <- 'XC_ES_SOR.xlsm'
-#file_dir <- 'db_upload/data/XC_ES_PAL/'
+#file_dir <- 'db_upload/data/XC_ES_PAL/'           # read.TXT_RU, ok!
 #file_name <- 'XC_ES_PAL.xlsm'
-#file_dir <- 'db_upload/data/XC_ES_ENG/'
+#file_dir <- 'db_upload/data/XC_ES_ENG/'           # read.TXT_RU, ok!
 #file_name <- 'XC_ES_ENG.xlsm'
-#file_dir <- 'db_upload/data/XC_ES_ARC/'
+#file_dir <- 'db_upload/data/XC_ES_ARC/'           # read.TXT_RU, ok!
 #file_name <- 'XC_ES_ARC.xlsm'
-#file_dir <- 'db_upload/data/XC_ES_PRA/'
+#file_dir <- 'db_upload/data/XC_ES_PRA/'           # read.TXT_RU, ok!
 #file_name <- 'XC_ES_PRA.xlsm'
-#file_dir <- 'db_upload/data/XC_ES_LToba/'
+#file_dir <- 'db_upload/data/XC_ES_LToba/'         # read.TXT_RU, ok!
 #file_name <- 'XC_ES_LToba.xlsm'
-#file_dir <- 'db_upload/data/XC_CH_LTN08/'
+#file_dir <- 'db_upload/data/XC_CH_LTN08/'         # read.TXT_RU, ok!
 #file_name <- 'XC_CH_LTN08.xlsm'
-#file_dir <- 'db_upload/data/XC_FR_C_As/'
+#file_dir <- 'db_upload/data/XC_FR_C_As/'          # *read.TXT_SEC, ok!  #### *read first with wrong read file!!!!
 #file_name <- 'XC_FR_C_As.xlsm'
-#file_dir <- 'db_upload/data/XC_FR_C_Can/'
+#file_dir <- 'db_upload/data/XC_FR_C_Can/'         # read.TXT_SEC, ok!
 #file_name <- 'XC_FR_C_Can.xlsm'
-#file_dir <- 'db_upload/data/XC_FR_C_Cap/'
+#file_dir <- 'db_upload/data/XC_FR_C_Cap/'         # read.TXT_SEC, ok!
 #file_name <- 'XC_FR_C_Cap.xlsm'
-#file_dir <- 'db_upload/data/XC_FR_C_Pin/'
+#file_dir <- 'db_upload/data/XC_FR_C_Pin/'         # read.TXT_SEC, ok!
 #file_name <- 'XC_FR_C_Pin.xlsm'
-#file_dir <- 'db_upload/data/XC_DE_POTS/'
-#file_name <- 'XC_DE_POTS.xlsm'
-#file_dir <- 'db_upload/data/XC_SE_Torne/'
-#file_name <- 'XC_SE_Torne.xlsm'
-#file_dir <- 'db_upload/data/XC_CH_LENS/'
+#file_dir <- 'db_upload/data/XC_CA_BON/'           # read.TXT_RU, ok!
+#file_name <- 'XC_CA_BON.xlsm'
+#file_dir <- 'db_upload/data/XC_CH_LENS/'           # read.TXT_RU, ok!
 #file_name <- 'XC_CH_LENS.xlsm'
-#file_dir <- 'db_upload/data/XC_FR_DABR/'
+#file_dir <- 'db_upload/data/XC_FR_DABR/'           # read.TXT_RU, ok!
 #file_name <- 'XC_FR_DABR.xlsm'
-#file_dir <- 'db_upload/data/XC_FR_DGRA/'
+#file_dir <- 'db_upload/data/XC_FR_DGRA/'           # read.TXT_RU, ok!
 #file_name <- 'XC_FR_DGRA.xlsm'
-#file_dir <- 'db_upload/data/XC_FR_DWAL/'
+#file_dir <- 'db_upload/data/XC_FR_DWAL/'           # read.TXT_RU, ok!
 #file_name <- 'XC_FR_DWAL.xlsm'
-#file_dir <-  'db_upload/data/XC_MN_MALT/'     # No x and y coordinates ...
+#file_dir <-  'db_upload/data/XC_MN_MALT/'          # No x and y coordinates ...
 #file_name <- 'XC_MN_MALT.xlsm'
-#file_dir <-  'db_upload/data/XC_MN_TALT/'     # No x an y coordinates ...
+#file_dir <-  'db_upload/data/XC_MN_TALT/'          # No x an y coordinates ...
 #file_name <- 'XC_MN_TALT.xlsm'
-#file_dir <-  'db_upload/data/XC_DE-ORE/'      # No x an y coordinates ...
+#file_dir <-  'db_upload/data/XC_DE-ORE/'           # No x an y coordinates ...
 #file_name <- 'XC_DE-ORE.xlsm'
+#file_dir <- 'db_upload/data/XC_DE_POTS/'           ##### TO REDO!!! Should be a tracheid full!!!
+#file_name <- 'XC_DE_POTS.xlsm'
+#file_dir <- 'db_upload/data/XC_SE_Torne/'          ##### TO REDO!!! Should be a tracheid full!!!
+#file_name <- 'XC_SE_Torne.xlsm'
 
 
 
