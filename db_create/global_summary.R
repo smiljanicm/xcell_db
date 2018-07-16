@@ -63,10 +63,41 @@ tbl_x('cell') %>%
 Sys.time() - strs
 
 
+A[which(A$site_code=="SCH"),"ring_width"]<-A[which(A$site_code=="SCH"),"ring_width"]/5
+A[which(A$site_code=="LIL"),"ring_width"]<-A[which(A$site_code=="LIL"),"ring_width"]/5
+A[which(A$site_code=="SILH"),"ring_width"]<-A[which(A$site_code=="SILH"),"ring_width"]/5
+A[which(A$site_code=="SILM"),"ring_width"]<-A[which(A$site_code=="SILM"),"ring_width"]/5
+A[which(A$site_code=="SILL"),"ring_width"]<-A[which(A$site_code=="SILL"),"ring_width"]/5
+A[which(A$site_code=="ALT"),"ring_width"]<-A[which(A$site_code=="ALT"),"ring_width"]/5
+A[which(A$site_code=="IND"),"ring_width"]<-A[which(A$site_code=="IND"),"ring_width"]/5
+A[which(A$site_code=="IND2"),"ring_width"]<-A[which(A$site_code=="IND2"),"ring_width"]/5
+A[which(A$site_code=="NAN"),"ring_width"]<-A[which(A$site_code=="NAN"),"ring_width"]/5
+A[which(A$site_code=="GOF"),"ring_width"]<-A[which(A$site_code=="GOF"),"ring_width"]/5
+A[which(A$site_code=="LAK"),"ring_width"]<-A[which(A$site_code=="LAK"),"ring_width"]/5
+A[which(A$site_code=="Hei"),"ring_width"]<-A[which(A$site_code=="Hei"),"ring_width"]/5
+A[which(A$site_code=="REN"),"ring_width"]<-A[which(A$site_code=="REN"),"ring_width"]/5
+A[which(A$site_code=="FLA"),"ring_width"]<-A[which(A$site_code=="FLA"),"ring_width"]/5
+A[which(A$site_code=="Tura"),"ring_width"]<-A[which(A$site_code=="Tura"),"ring_width"]/3
+A[which(A$site_code=="ZOT"),"ring_width"]<-A[which(A$site_code=="ZOT"),"ring_width"]/3
+A[which(A$site_code=="YAK"),"ring_width"]<-A[which(A$site_code=="YAK"),"ring_width"]/5
+A[which(A$site_code=="TAY"),"ring_width"]<-A[which(A$site_code=="TAY"),"ring_width"]/5
+A[which(A$site_code=="KOTH"),"ring_width"]<-A[which(A$site_code=="KOTH"),"ring_width"]/5
+A[which(A$site_code=="KOTH"),"ring_width"]<-A[which(A$site_code=="KOTH"),"ring_width"]/5
+A[which(A$site_code=="KAN"),"ring_width"]<-A[which(A$site_code=="KAN"),"ring_width"]/5
+A[which(A$site_code=="CHI"),"ring_width"]<-A[which(A$site_code=="CHI"),"ring_width"]/5
+A[which(A$site_code=="SOR"),"ring_width"]<-A[which(A$site_code=="SOR"),"ring_width"]/5
+A[which(A$site_code=="KAK"),"ring_width"]<-A[which(A$site_code=="KAK"),"ring_width"]/5
+
+A[11,"wood_type"]<-"gymnosperm"
+A[11,"leaf_habit"]<-"evergreen"
+A[11,"wood_plane"]<-"conifer"
+
 #dbExecute(dbcon, 'DELETE FROM v1.global_table')
 
 
-A[-10,] %>%
+
+
+A %>%
   append_data(., 'global_table')
 
 
