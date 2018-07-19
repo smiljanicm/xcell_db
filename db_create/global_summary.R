@@ -6,6 +6,38 @@ library(tidyverse)
 source('pw.R')
 source('db_upload/0_functions.R')
 
+
+# Ring summary ------------------------------------------------------------
+
+
+tbl_x('cell') %>% 
+  #head(10000) %>%
+  anti_join( distinct(tbl_x('ring_summary'), ring_id, param_id), by = c('ring_id', 'param_id')) %>%
+  select(-x_cal,-y_cal)  %>%  
+  group_by(ring_id, param_id) %>%
+  summarise(value = mean(value, na.rm = T)) %>%
+  union( 
+    tbl_x('year') %>% anti_join( distinct(tbl_x('ring_summary'), ring_id, param_id), by = c('ring_id', 'param_id'))
+    ) %>%
+  union(
+    tbl_x('cell') %>% 
+      head(10000) %>%
+      anti_join( distinct(tbl_x('ring_summary'), ring_id, param_id), by = c('ring_id', 'param_id')) %>%
+      group_by(ring_id) %>%
+      summarise(value = n_distinct(paste0(x_cal,y_cal))) %>%
+      mutate(param_id = 50)
+  ) %>%
+  inner_join(tbl_x('ring'), by = c('ring_id' = 'id')) %>%
+  select(subsample_id, ring_id, year, param_id, value)->
+  ring_summary_sql
+
+strs <- Sys.time()
+  ring_summary_sql
+Sys.time() - strs
+
+ring_summary_sql %>% dbplyr::sql_render() %>% write_lines('db_create/ring_summary_sql.txt')
+
+
 # Global table ------------------------------------------------------------
 
 strs <- Sys.time()
