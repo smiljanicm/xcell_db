@@ -1,18 +1,7 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2018-05-17 11:12:50.065
+-- Last modification date: 2018-07-19 13:49:31.516
 
 -- tables
--- Table: band
-CREATE TABLE v1.band (
-    ring_id int  NOT NULL,
-    dist int  NOT NULL,
-    param_id int  NOT NULL,
-    value decimal(10,4)  NOT NULL,
-    CONSTRAINT band_pk PRIMARY KEY (ring_id,dist,param_id)
-);
-
-CREATE INDEX profile_idx_1 on v1.band (param_id ASC,ring_id ASC);
-
 -- Table: cell
 CREATE TABLE v1.cell (
     ring_id int  NOT NULL,
@@ -44,43 +33,42 @@ CREATE TABLE v1.country_fk (
 
 -- Table: global_table
 CREATE TABLE v1.global_table (
-   site_code varchar(5)  NOT NULL,
-   year int  NOT NULL,
-   site_label varchar(64)  NOT NULL,
-   manip varchar(5)  NOT NULL,
-   country_code varchar(2)  NOT NULL,
-   longitude decimal(10,7)  NOT NULL,
-   latitude decimal(10,7)  NOT NULL,
-   elevation int  NOT NULL,
-   temp decimal(6,2)  NOT NULL,
-   prec decimal(6,2)  NOT NULL,
-   species_code varchar(4)  NOT NULL,
-   wood_type varchar(124)  NOT NULL,
-   leaf_habit varchar(124)  NOT NULL,
-   wood_plane varchar(124)  NOT NULL,
-   organ varchar(2)  NOT NULL,
-   output varchar(64)  NOT NULL,
-   hardware varchar(64)  NOT NULL,
-   software varchar(64)  NOT NULL,
-   last_name varchar(64)  NOT NULL,
-   first_name varchar(64)  NOT NULL,
-   email varchar(64)  NOT NULL,
-   institution_code varchar(5)  NOT NULL,
-   n_trees int  NOT NULL,
-   n_radii int  NOT NULL,
-   n_rings int  NOT NULL,
-   "from" int  NOT NULL,
-   "to" int  NOT NULL,
-   ring_width decimal(10,4)  NULL,
-   la decimal(10,4)  NULL,
-   ldrad decimal(10,4)  NULL,
-   ldtan decimal(10,4)  NULL,
-   cwtrad decimal(10,4)  NULL,
-   cwttan decimal(10,4)  NULL,
-   cwa decimal(10,4)  NULL,
-   CONSTRAINT global_table_pk PRIMARY KEY (site_code,year,manip,species_code,organ,output,hardware,software)
+    site_code varchar(5)  NOT NULL,
+    year int  NOT NULL,
+    site_label varchar(64)  NOT NULL,
+    manip varchar(5)  NOT NULL,
+    country_code varchar(2)  NOT NULL,
+    longitude decimal(10,7)  NOT NULL,
+    latitude decimal(10,7)  NOT NULL,
+    elevation int  NOT NULL,
+    temp decimal(6,2)  NOT NULL,
+    prec decimal(6,2)  NOT NULL,
+    species_code varchar(4)  NOT NULL,
+    wood_type varchar(124)  NOT NULL,
+    leaf_habit varchar(124)  NOT NULL,
+    wood_plane varchar(124)  NOT NULL,
+    organ varchar(2)  NOT NULL,
+    output varchar(64)  NOT NULL,
+    hardware varchar(64)  NOT NULL,
+    software varchar(64)  NOT NULL,
+    last_name varchar(64)  NOT NULL,
+    first_name varchar(64)  NOT NULL,
+    email varchar(64)  NOT NULL,
+    institution_code varchar(5)  NOT NULL,
+    n_trees int  NOT NULL,
+    n_radii int  NOT NULL,
+    n_rings int  NOT NULL,
+    "from" int  NOT NULL,
+    "to" int  NOT NULL,
+    ring_width decimal(10,4)  NULL,
+    la decimal(10,4)  NULL,
+    ldrad decimal(10,4)  NULL,
+    ldtan decimal(10,4)  NULL,
+    cwtrad decimal(10,4)  NULL,
+    cwttan decimal(10,4)  NULL,
+    cwa decimal(10,4)  NULL,
+    CONSTRAINT global_table_pk PRIMARY KEY (site_code,year,manip,species_code,organ,output,hardware,software)
 );
-
 
 -- Table: institution_fk
 CREATE TABLE v1.institution_fk (
@@ -344,17 +332,7 @@ CREATE INDEX year_idx_1 on v1.year (param_id ASC,ring_id ASC);
 ALTER TABLE v1.subsample ADD CONSTRAINT Archiving_wood_sample
     FOREIGN KEY (sample_id)
     REFERENCES v1.sample (id)
-    ON DELETE  RESTRICT 
-    ON UPDATE  CASCADE 
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
-;
-
--- Reference: Cell_ring (table: band)
-ALTER TABLE v1.band ADD CONSTRAINT Cell_ring
-    FOREIGN KEY (ring_id)
-    REFERENCES v1.ring (id)
-    ON DELETE  RESTRICT 
+    ON DELETE  CASCADE 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
@@ -364,7 +342,7 @@ ALTER TABLE v1.band ADD CONSTRAINT Cell_ring
 ALTER TABLE v1.tree_param ADD CONSTRAINT Copy_of_site_param_tree
     FOREIGN KEY (tree_id)
     REFERENCES v1.tree (id)
-    ON DELETE  RESTRICT 
+    ON DELETE  CASCADE 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
@@ -384,7 +362,7 @@ ALTER TABLE v1.tree_param ADD CONSTRAINT Copy_of_site_param_tree_param_fk
 ALTER TABLE v1.sample ADD CONSTRAINT Core_Tree
     FOREIGN KEY (tree_id)
     REFERENCES v1.tree (id)
-    ON DELETE  RESTRICT 
+    ON DELETE  CASCADE 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
@@ -404,7 +382,7 @@ ALTER TABLE v1.sample ADD CONSTRAINT Core_type_fk
 ALTER TABLE v1.tree ADD CONSTRAINT Tree_site
     FOREIGN KEY (site_id)
     REFERENCES v1.site (id)
-    ON DELETE  RESTRICT 
+    ON DELETE  CASCADE 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
@@ -414,16 +392,6 @@ ALTER TABLE v1.tree ADD CONSTRAINT Tree_site
 ALTER TABLE v1.tree ADD CONSTRAINT Tree_species_fk
     FOREIGN KEY (species_code)
     REFERENCES v1.species_fk (species_code)
-    ON DELETE  RESTRICT 
-    ON UPDATE  CASCADE 
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
-;
-
--- Reference: band_meas_param_fk (table: band)
-ALTER TABLE v1.band ADD CONSTRAINT band_meas_param_fk
-    FOREIGN KEY (param_id)
-    REFERENCES v1.meas_param_fk (id)
     ON DELETE  RESTRICT 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
@@ -454,7 +422,7 @@ ALTER TABLE v1.comments ADD CONSTRAINT comments_person
 ALTER TABLE v1.comments ADD CONSTRAINT comments_site
     FOREIGN KEY (site_id)
     REFERENCES v1.site (id)
-    ON DELETE  RESTRICT 
+    ON DELETE  CASCADE 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
@@ -494,7 +462,7 @@ ALTER TABLE v1.person_role ADD CONSTRAINT data_owners_person
 ALTER TABLE v1.person_role ADD CONSTRAINT data_owners_site
     FOREIGN KEY (site_id)
     REFERENCES v1.site (id)
-    ON DELETE  RESTRICT 
+    ON DELETE  CASCADE 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
@@ -524,7 +492,7 @@ ALTER TABLE v1.meas_met_set ADD CONSTRAINT meas_met_set_meas_met_param_fk
 ALTER TABLE v1.meas_met_set ADD CONSTRAINT meas_met_set_subsample
     FOREIGN KEY (subsample_id)
     REFERENCES v1.subsample (id)
-    ON DELETE  RESTRICT 
+    ON DELETE  CASCADE 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
@@ -534,7 +502,7 @@ ALTER TABLE v1.meas_met_set ADD CONSTRAINT meas_met_set_subsample
 ALTER TABLE v1.publication ADD CONSTRAINT publication_site
     FOREIGN KEY (site_id)
     REFERENCES v1.site (id)
-    ON DELETE  RESTRICT 
+    ON DELETE  CASCADE 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
@@ -544,7 +512,7 @@ ALTER TABLE v1.publication ADD CONSTRAINT publication_site
 ALTER TABLE v1.ring ADD CONSTRAINT ring_measure_info
     FOREIGN KEY (subsample_id)
     REFERENCES v1.subsample (id)
-    ON DELETE  RESTRICT 
+    ON DELETE  CASCADE 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
@@ -554,7 +522,7 @@ ALTER TABLE v1.ring ADD CONSTRAINT ring_measure_info
 ALTER TABLE v1.year ADD CONSTRAINT ring_year
     FOREIGN KEY (ring_id)
     REFERENCES v1.ring (id)
-    ON DELETE  RESTRICT 
+    ON DELETE  CASCADE 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
@@ -564,7 +532,7 @@ ALTER TABLE v1.year ADD CONSTRAINT ring_year
 ALTER TABLE v1.sample_param ADD CONSTRAINT sample_param_sample
     FOREIGN KEY (sample_id)
     REFERENCES v1.sample (id)
-    ON DELETE  RESTRICT 
+    ON DELETE  CASCADE 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
@@ -594,7 +562,7 @@ ALTER TABLE v1.site ADD CONSTRAINT site_country_fk
 ALTER TABLE v1.site_param ADD CONSTRAINT site_param_site
     FOREIGN KEY (site_id)
     REFERENCES v1.site (id)
-    ON DELETE  RESTRICT 
+    ON DELETE  CASCADE 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
@@ -624,7 +592,7 @@ ALTER TABLE v1.subsample ADD CONSTRAINT subpiece_meas_met_fk
 ALTER TABLE v1.cell ADD CONSTRAINT tracheid_full_ring
     FOREIGN KEY (ring_id)
     REFERENCES v1.ring (id)
-    ON DELETE  RESTRICT 
+    ON DELETE  CASCADE 
     ON UPDATE  CASCADE 
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE

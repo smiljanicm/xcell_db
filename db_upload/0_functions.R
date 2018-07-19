@@ -136,8 +136,12 @@ check_append_db <- function(d_table, table.name, sch = 'v1', constrains_db){
         d_table_t <- tbl_x(table.name, sch) %>% 
           filter(ring_id %in% r_id) %>%
           select(-value) %>%
-          collect() %>%
-          inner_join(d_table, by = col_unique)
+          collect()
+        
+        if(nrow(d_table_t) > 0 ){
+          d_table_t <- inner_join(d_table_t, d_table, by = col_unique)
+        }
+          
         
       }else{
         

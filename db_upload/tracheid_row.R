@@ -138,6 +138,7 @@ read_file('person')  %>%
   check_append_db(., 'person', constrains_db = constrains_db) %>%
   append_data('person')
 
+
 # 1.2 Site ----------------------------------------------------------------
 #' prepare the data
 site_i <- read_xlsx(paste0(file_dir,file_name), 'site', n_max = 4) %>% filter(!row_number() %in% c(1:2)) 
@@ -173,6 +174,36 @@ site.df %>%
 
 
 site_id_d <- get_id(site.df, 'site', constrains_db = constrains_db) %>% pull(id)
+
+# 2.4. Person_role table --------------------------------------------------
+person.df <- read_file('person')  %>%
+  inner_join(institution_fk_tbl, by = 'institution_name') 
+
+person_id_d <- get_id(person.df, 'person', constrains_db = constrains_db) %>% select(person_id = id, constr_name('person'))
+
+read_file('person') %>%
+  select(role,last_name,first_name) %>%
+  inner_join(.,person_id_d, by = c("last_name", "first_name")) %>%
+  mutate(site_id = site_id_d) %>%
+  mutate(role = case_when(role == 'Contact and Data owner' ~ 1,
+                          role == 'Data owner' ~ 2,
+                          role == 'Contact' ~ 3)) %>%
+  select(-last_name,-first_name,-institution_code) %>%
+  mutate(id = row_number()) %>%
+  check_append_db(., 'person_role', constrains_db = constrains_db) %>%
+  append_data('person_role')
+
+
+# 2.5. Publication table --------------------------------------------------
+publication.df <- read_file('publication') %>%
+  filter(!is.na(first_author_last_name)) %>%
+  select(-X__1) %>%
+  mutate(site_id = site_id_d)
+
+publication.df %>%
+  mutate(id = row_number()) %>%
+  check_append_db(., 'publication',constrains_db = constrains_db) %>%
+  append_data('publication')
 
 # 1.4 Tree ----------------------------------------------------------------
 tree.df <- read_file('tree') %>%
@@ -259,7 +290,7 @@ subsample.df %>%
 
 # 1.9 read measurements ---------------------------------------------------
 
-meas_d <- load_txt_measurements(file_dir = file_dir, subsample_id = subsample_id_d, file_type = 'FR')
+meas_d <- load_txt_measurements(file_dir = file_dir, subsample_id = subsample_id_d, file_type = 'RU')
 
 meas_d$dontmatch
 
@@ -314,33 +345,5 @@ meas_d$cell %>%
   append_data('cell')
 
 
-# 2.4. Person_role table --------------------------------------------------
-person.df <- read_file('person')  %>%
-  inner_join(institution_fk_tbl, by = 'institution_name') 
 
-person_id_d <- get_id(person.df, 'person', constrains_db = constrains_db) %>% select(person_id = id, constr_name('person'))
-
-read_file('person') %>%
-  select(role,last_name,first_name) %>%
-  inner_join(.,person_id_d, by = c("last_name", "first_name")) %>%
-  mutate(site_id = site_id_d) %>%
-  mutate(role = case_when(role == 'Contact and Data owner' ~ 1,
-                          role == 'Data owner' ~ 2,
-                          role == 'Contact' ~ 3)) %>%
-  select(-last_name,-first_name,-institution_code) %>%
-  mutate(id = row_number()) %>%
-  check_append_db(., 'person_role', constrains_db = constrains_db) %>%
-  append_data('person_role')
-
-
-# 2.5. Publication table --------------------------------------------------
-publication.df <- read_file('publication') %>%
-  filter(!is.na(first_author_last_name)) %>%
-  select(-X__1) %>%
-  mutate(site_id = site_id_d)
-
-publication.df %>%
-  mutate(id = row_number()) %>%
-  check_append_db(., 'publication',constrains_db = constrains_db) %>%
-  append_data('publication')
 
