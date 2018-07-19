@@ -1,0 +1,427 @@
+SELECT "site_id", "site_code", "year", "site_label", "manip", "country_code", "longitude", "latitude", "elevation", "temp", "prec", "species_code", "wood_type", "leaf_habit", "wood_plane", "organ", "output", "hardware", "software", "last_name", "first_name", "email", "institution_code", "n_trees", "n_radii", "n_rings", "n_obs", "from", "to", "ring_width", "la", "ldrad", "ldtan", "cwtrad", "cwttan", "cwa"
+FROM (SELECT *
+FROM (SELECT "TBL_LEFT"."site_id" AS "site_id", "TBL_LEFT"."organ" AS "organ", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."species_code" AS "species_code", "TBL_LEFT"."manip" AS "manip", "TBL_LEFT"."cwa" AS "cwa", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."n_radii" AS "n_radii", "TBL_LEFT"."n_trees" AS "n_trees", "TBL_LEFT"."cwtrad" AS "cwtrad", "TBL_LEFT"."cwttan" AS "cwttan", "TBL_LEFT"."la" AS "la", "TBL_LEFT"."ldrad" AS "ldrad", "TBL_LEFT"."ldtan" AS "ldtan", "TBL_LEFT"."n_obs" AS "n_obs", "TBL_LEFT"."ring_width" AS "ring_width", "TBL_LEFT"."year" AS "year", "TBL_LEFT"."site_code" AS "site_code", "TBL_LEFT"."site_label" AS "site_label", "TBL_LEFT"."country_code" AS "country_code", "TBL_LEFT"."longitude" AS "longitude", "TBL_LEFT"."latitude" AS "latitude", "TBL_LEFT"."elevation" AS "elevation", "TBL_LEFT"."temp" AS "temp", "TBL_LEFT"."prec" AS "prec", "TBL_LEFT"."wood_type" AS "wood_type", "TBL_LEFT"."leaf_habit" AS "leaf_habit", "TBL_LEFT"."wood_plane" AS "wood_plane", "TBL_LEFT"."output" AS "output", "TBL_LEFT"."hardware" AS "hardware", "TBL_LEFT"."software" AS "software", "TBL_LEFT"."person_id" AS "person_id", "TBL_RIGHT"."last_name" AS "last_name", "TBL_RIGHT"."first_name" AS "first_name", "TBL_RIGHT"."email" AS "email", "TBL_RIGHT"."institution_code" AS "institution_code"
+  FROM (SELECT "TBL_LEFT"."site_id" AS "site_id", "TBL_LEFT"."organ" AS "organ", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."species_code" AS "species_code", "TBL_LEFT"."manip" AS "manip", "TBL_LEFT"."cwa" AS "cwa", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."n_radii" AS "n_radii", "TBL_LEFT"."n_trees" AS "n_trees", "TBL_LEFT"."cwtrad" AS "cwtrad", "TBL_LEFT"."cwttan" AS "cwttan", "TBL_LEFT"."la" AS "la", "TBL_LEFT"."ldrad" AS "ldrad", "TBL_LEFT"."ldtan" AS "ldtan", "TBL_LEFT"."n_obs" AS "n_obs", "TBL_LEFT"."ring_width" AS "ring_width", "TBL_LEFT"."year" AS "year", "TBL_LEFT"."site_code" AS "site_code", "TBL_LEFT"."site_label" AS "site_label", "TBL_LEFT"."country_code" AS "country_code", "TBL_LEFT"."longitude" AS "longitude", "TBL_LEFT"."latitude" AS "latitude", "TBL_LEFT"."elevation" AS "elevation", "TBL_LEFT"."temp" AS "temp", "TBL_LEFT"."prec" AS "prec", "TBL_LEFT"."wood_type" AS "wood_type", "TBL_LEFT"."leaf_habit" AS "leaf_habit", "TBL_LEFT"."wood_plane" AS "wood_plane", "TBL_LEFT"."output" AS "output", "TBL_LEFT"."hardware" AS "hardware", "TBL_LEFT"."software" AS "software", "TBL_RIGHT"."person_id" AS "person_id"
+  FROM (SELECT "TBL_LEFT"."site_id" AS "site_id", "TBL_LEFT"."organ" AS "organ", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."species_code" AS "species_code", "TBL_LEFT"."manip" AS "manip", "TBL_LEFT"."cwa" AS "cwa", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."n_radii" AS "n_radii", "TBL_LEFT"."n_trees" AS "n_trees", "TBL_LEFT"."cwtrad" AS "cwtrad", "TBL_LEFT"."cwttan" AS "cwttan", "TBL_LEFT"."la" AS "la", "TBL_LEFT"."ldrad" AS "ldrad", "TBL_LEFT"."ldtan" AS "ldtan", "TBL_LEFT"."n_obs" AS "n_obs", "TBL_LEFT"."ring_width" AS "ring_width", "TBL_LEFT"."year" AS "year", "TBL_LEFT"."site_code" AS "site_code", "TBL_LEFT"."site_label" AS "site_label", "TBL_LEFT"."country_code" AS "country_code", "TBL_LEFT"."longitude" AS "longitude", "TBL_LEFT"."latitude" AS "latitude", "TBL_LEFT"."elevation" AS "elevation", "TBL_LEFT"."temp" AS "temp", "TBL_LEFT"."prec" AS "prec", "TBL_LEFT"."wood_type" AS "wood_type", "TBL_LEFT"."leaf_habit" AS "leaf_habit", "TBL_LEFT"."wood_plane" AS "wood_plane", "TBL_RIGHT"."output" AS "output", "TBL_RIGHT"."hardware" AS "hardware", "TBL_RIGHT"."software" AS "software"
+  FROM (SELECT "TBL_LEFT"."site_id" AS "site_id", "TBL_LEFT"."organ" AS "organ", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."species_code" AS "species_code", "TBL_LEFT"."manip" AS "manip", "TBL_LEFT"."cwa" AS "cwa", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."n_radii" AS "n_radii", "TBL_LEFT"."n_trees" AS "n_trees", "TBL_LEFT"."cwtrad" AS "cwtrad", "TBL_LEFT"."cwttan" AS "cwttan", "TBL_LEFT"."la" AS "la", "TBL_LEFT"."ldrad" AS "ldrad", "TBL_LEFT"."ldtan" AS "ldtan", "TBL_LEFT"."n_obs" AS "n_obs", "TBL_LEFT"."ring_width" AS "ring_width", "TBL_LEFT"."year" AS "year", "TBL_LEFT"."site_code" AS "site_code", "TBL_LEFT"."site_label" AS "site_label", "TBL_LEFT"."country_code" AS "country_code", "TBL_LEFT"."longitude" AS "longitude", "TBL_LEFT"."latitude" AS "latitude", "TBL_LEFT"."elevation" AS "elevation", "TBL_LEFT"."temp" AS "temp", "TBL_LEFT"."prec" AS "prec", "TBL_RIGHT"."wood_type" AS "wood_type", "TBL_RIGHT"."leaf_habit" AS "leaf_habit", "TBL_RIGHT"."wood_plane" AS "wood_plane"
+  FROM (SELECT "TBL_LEFT"."site_id" AS "site_id", "TBL_LEFT"."organ" AS "organ", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."species_code" AS "species_code", "TBL_LEFT"."manip" AS "manip", "TBL_LEFT"."cwa" AS "cwa", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."n_radii" AS "n_radii", "TBL_LEFT"."n_trees" AS "n_trees", "TBL_LEFT"."cwtrad" AS "cwtrad", "TBL_LEFT"."cwttan" AS "cwttan", "TBL_LEFT"."la" AS "la", "TBL_LEFT"."ldrad" AS "ldrad", "TBL_LEFT"."ldtan" AS "ldtan", "TBL_LEFT"."n_obs" AS "n_obs", "TBL_LEFT"."ring_width" AS "ring_width", "TBL_RIGHT"."year" AS "year", "TBL_RIGHT"."site_code" AS "site_code", "TBL_RIGHT"."site_label" AS "site_label", "TBL_RIGHT"."country_code" AS "country_code", "TBL_RIGHT"."longitude" AS "longitude", "TBL_RIGHT"."latitude" AS "latitude", "TBL_RIGHT"."elevation" AS "elevation", "TBL_RIGHT"."temp" AS "temp", "TBL_RIGHT"."prec" AS "prec"
+  FROM (SELECT coalesce("TBL_LEFT"."site_id", "TBL_RIGHT"."site_id") AS "site_id", coalesce("TBL_LEFT"."organ", "TBL_RIGHT"."organ") AS "organ", coalesce("TBL_LEFT"."meas_met_id", "TBL_RIGHT"."meas_met_id") AS "meas_met_id", coalesce("TBL_LEFT"."species_code", "TBL_RIGHT"."species_code") AS "species_code", coalesce("TBL_LEFT"."manip", "TBL_RIGHT"."manip") AS "manip", "TBL_LEFT"."cwa" AS "cwa", coalesce("TBL_LEFT"."from", "TBL_RIGHT"."from") AS "from", coalesce("TBL_LEFT"."to", "TBL_RIGHT"."to") AS "to", coalesce("TBL_LEFT"."n_rings", "TBL_RIGHT"."n_rings") AS "n_rings", coalesce("TBL_LEFT"."n_radii", "TBL_RIGHT"."n_radii") AS "n_radii", coalesce("TBL_LEFT"."n_trees", "TBL_RIGHT"."n_trees") AS "n_trees", "TBL_LEFT"."cwtrad" AS "cwtrad", "TBL_LEFT"."cwttan" AS "cwttan", "TBL_LEFT"."la" AS "la", "TBL_LEFT"."ldrad" AS "ldrad", "TBL_LEFT"."ldtan" AS "ldtan", "TBL_LEFT"."n_obs" AS "n_obs", "TBL_RIGHT"."ring_width" AS "ring_width"
+  FROM (SELECT coalesce("TBL_LEFT"."site_id", "TBL_RIGHT"."site_id") AS "site_id", coalesce("TBL_LEFT"."organ", "TBL_RIGHT"."organ") AS "organ", coalesce("TBL_LEFT"."meas_met_id", "TBL_RIGHT"."meas_met_id") AS "meas_met_id", coalesce("TBL_LEFT"."species_code", "TBL_RIGHT"."species_code") AS "species_code", coalesce("TBL_LEFT"."manip", "TBL_RIGHT"."manip") AS "manip", "TBL_LEFT"."cwa" AS "cwa", coalesce("TBL_LEFT"."from", "TBL_RIGHT"."from") AS "from", coalesce("TBL_LEFT"."to", "TBL_RIGHT"."to") AS "to", coalesce("TBL_LEFT"."n_rings", "TBL_RIGHT"."n_rings") AS "n_rings", coalesce("TBL_LEFT"."n_radii", "TBL_RIGHT"."n_radii") AS "n_radii", coalesce("TBL_LEFT"."n_trees", "TBL_RIGHT"."n_trees") AS "n_trees", "TBL_LEFT"."cwtrad" AS "cwtrad", "TBL_LEFT"."cwttan" AS "cwttan", "TBL_LEFT"."la" AS "la", "TBL_LEFT"."ldrad" AS "ldrad", "TBL_LEFT"."ldtan" AS "ldtan", "TBL_RIGHT"."n_obs" AS "n_obs"
+  FROM (SELECT coalesce("TBL_LEFT"."site_id", "TBL_RIGHT"."site_id") AS "site_id", coalesce("TBL_LEFT"."organ", "TBL_RIGHT"."organ") AS "organ", coalesce("TBL_LEFT"."meas_met_id", "TBL_RIGHT"."meas_met_id") AS "meas_met_id", coalesce("TBL_LEFT"."species_code", "TBL_RIGHT"."species_code") AS "species_code", coalesce("TBL_LEFT"."manip", "TBL_RIGHT"."manip") AS "manip", "TBL_LEFT"."cwa" AS "cwa", coalesce("TBL_LEFT"."from", "TBL_RIGHT"."from") AS "from", coalesce("TBL_LEFT"."to", "TBL_RIGHT"."to") AS "to", coalesce("TBL_LEFT"."n_rings", "TBL_RIGHT"."n_rings") AS "n_rings", coalesce("TBL_LEFT"."n_radii", "TBL_RIGHT"."n_radii") AS "n_radii", coalesce("TBL_LEFT"."n_trees", "TBL_RIGHT"."n_trees") AS "n_trees", "TBL_LEFT"."cwtrad" AS "cwtrad", "TBL_LEFT"."cwttan" AS "cwttan", "TBL_LEFT"."la" AS "la", "TBL_LEFT"."ldrad" AS "ldrad", "TBL_RIGHT"."ldtan" AS "ldtan"
+  FROM (SELECT coalesce("TBL_LEFT"."site_id", "TBL_RIGHT"."site_id") AS "site_id", coalesce("TBL_LEFT"."organ", "TBL_RIGHT"."organ") AS "organ", coalesce("TBL_LEFT"."meas_met_id", "TBL_RIGHT"."meas_met_id") AS "meas_met_id", coalesce("TBL_LEFT"."species_code", "TBL_RIGHT"."species_code") AS "species_code", coalesce("TBL_LEFT"."manip", "TBL_RIGHT"."manip") AS "manip", "TBL_LEFT"."cwa" AS "cwa", coalesce("TBL_LEFT"."from", "TBL_RIGHT"."from") AS "from", coalesce("TBL_LEFT"."to", "TBL_RIGHT"."to") AS "to", coalesce("TBL_LEFT"."n_rings", "TBL_RIGHT"."n_rings") AS "n_rings", coalesce("TBL_LEFT"."n_radii", "TBL_RIGHT"."n_radii") AS "n_radii", coalesce("TBL_LEFT"."n_trees", "TBL_RIGHT"."n_trees") AS "n_trees", "TBL_LEFT"."cwtrad" AS "cwtrad", "TBL_LEFT"."cwttan" AS "cwttan", "TBL_LEFT"."la" AS "la", "TBL_RIGHT"."ldrad" AS "ldrad"
+  FROM (SELECT coalesce("TBL_LEFT"."site_id", "TBL_RIGHT"."site_id") AS "site_id", coalesce("TBL_LEFT"."organ", "TBL_RIGHT"."organ") AS "organ", coalesce("TBL_LEFT"."meas_met_id", "TBL_RIGHT"."meas_met_id") AS "meas_met_id", coalesce("TBL_LEFT"."species_code", "TBL_RIGHT"."species_code") AS "species_code", coalesce("TBL_LEFT"."manip", "TBL_RIGHT"."manip") AS "manip", "TBL_LEFT"."cwa" AS "cwa", coalesce("TBL_LEFT"."from", "TBL_RIGHT"."from") AS "from", coalesce("TBL_LEFT"."to", "TBL_RIGHT"."to") AS "to", coalesce("TBL_LEFT"."n_rings", "TBL_RIGHT"."n_rings") AS "n_rings", coalesce("TBL_LEFT"."n_radii", "TBL_RIGHT"."n_radii") AS "n_radii", coalesce("TBL_LEFT"."n_trees", "TBL_RIGHT"."n_trees") AS "n_trees", "TBL_LEFT"."cwtrad" AS "cwtrad", "TBL_LEFT"."cwttan" AS "cwttan", "TBL_RIGHT"."la" AS "la"
+  FROM (SELECT coalesce("TBL_LEFT"."site_id", "TBL_RIGHT"."site_id") AS "site_id", coalesce("TBL_LEFT"."organ", "TBL_RIGHT"."organ") AS "organ", coalesce("TBL_LEFT"."meas_met_id", "TBL_RIGHT"."meas_met_id") AS "meas_met_id", coalesce("TBL_LEFT"."species_code", "TBL_RIGHT"."species_code") AS "species_code", coalesce("TBL_LEFT"."manip", "TBL_RIGHT"."manip") AS "manip", "TBL_LEFT"."cwa" AS "cwa", coalesce("TBL_LEFT"."from", "TBL_RIGHT"."from") AS "from", coalesce("TBL_LEFT"."to", "TBL_RIGHT"."to") AS "to", coalesce("TBL_LEFT"."n_rings", "TBL_RIGHT"."n_rings") AS "n_rings", coalesce("TBL_LEFT"."n_radii", "TBL_RIGHT"."n_radii") AS "n_radii", coalesce("TBL_LEFT"."n_trees", "TBL_RIGHT"."n_trees") AS "n_trees", "TBL_LEFT"."cwtrad" AS "cwtrad", "TBL_RIGHT"."cwttan" AS "cwttan"
+  FROM (SELECT coalesce("TBL_LEFT"."site_id", "TBL_RIGHT"."site_id") AS "site_id", coalesce("TBL_LEFT"."organ", "TBL_RIGHT"."organ") AS "organ", coalesce("TBL_LEFT"."meas_met_id", "TBL_RIGHT"."meas_met_id") AS "meas_met_id", coalesce("TBL_LEFT"."species_code", "TBL_RIGHT"."species_code") AS "species_code", coalesce("TBL_LEFT"."manip", "TBL_RIGHT"."manip") AS "manip", "TBL_LEFT"."cwa" AS "cwa", coalesce("TBL_LEFT"."from", "TBL_RIGHT"."from") AS "from", coalesce("TBL_LEFT"."to", "TBL_RIGHT"."to") AS "to", coalesce("TBL_LEFT"."n_rings", "TBL_RIGHT"."n_rings") AS "n_rings", coalesce("TBL_LEFT"."n_radii", "TBL_RIGHT"."n_radii") AS "n_radii", coalesce("TBL_LEFT"."n_trees", "TBL_RIGHT"."n_trees") AS "n_trees", "TBL_RIGHT"."cwtrad" AS "cwtrad"
+  FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "manip", "cwa", "from", "to", "n_rings", "n_radii", "n_trees"
+FROM (SELECT *
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "manip", "value" AS "cwa", "from", "to", "n_rings", "n_radii", "n_trees", "key"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "manip", "value", "from", "to", "n_rings", "n_radii", "n_trees", "parameter" AS "key"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "manip", "value", "from", "to", "n_rings", "n_radii", "n_trees", "parameter"
+FROM (SELECT "TBL_LEFT"."site_id" AS "site_id", "TBL_LEFT"."organ" AS "organ", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."species_code" AS "species_code", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."manip" AS "manip", "TBL_LEFT"."value" AS "value", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."n_radii" AS "n_radii", "TBL_LEFT"."n_trees" AS "n_trees", "TBL_RIGHT"."parameter" AS "parameter"
+  FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip", ROUND(("value") :: numeric, 4) AS "value", "from", "to", "n_rings", "n_radii", "n_trees"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip", "value", min("from") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "from", "to", "n_rings", "n_radii", "n_trees"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip", "value", "from", max("to") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "to", max("n_rings") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "n_rings", max("n_radii") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "n_radii", max("n_trees") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "n_trees"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip", CASE WHEN ("param_id" IN (50.0)) THEN (SUM("value")) WHEN NOT("param_id" IN (50.0)) THEN (AVG("value")) END AS "value", MIN("from") AS "from", MAX("to") AS "to", SUM("n_rings") AS "n_rings", COUNT(DISTINCT "sample_id") AS "n_radii", COUNT(DISTINCT "tree_id") AS "n_trees"
+FROM (SELECT "TBL_LEFT"."sample_id" AS "sample_id", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."value" AS "value", "TBL_LEFT"."tree_id" AS "tree_id", "TBL_LEFT"."organ" AS "organ", "TBL_LEFT"."site_id" AS "site_id", "TBL_LEFT"."species_code" AS "species_code", "TBL_RIGHT"."manip" AS "manip"
+  FROM (SELECT "TBL_LEFT"."sample_id" AS "sample_id", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."value" AS "value", "TBL_RIGHT"."tree_id" AS "tree_id", "TBL_LEFT"."organ" AS "organ", "TBL_RIGHT"."site_id" AS "site_id", "TBL_RIGHT"."species_code" AS "species_code"
+  FROM (SELECT "TBL_RIGHT"."sample_id" AS "sample_id", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."value" AS "value", "TBL_RIGHT"."tree_id" AS "tree_id", "TBL_RIGHT"."organ" AS "organ"
+  FROM (SELECT "sample_id", "meas_met_id", "param_id", COUNT(DISTINCT "ring_id") AS "n_rings", MIN("year") AS "from", MAX("year") AS "to", CASE WHEN ("param_id" IN (50.0)) THEN (SUM("value")) WHEN NOT("param_id" IN (50.0)) THEN (AVG("value")) END AS "value"
+FROM (SELECT "TBL_LEFT"."ring_id" AS "ring_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."value" AS "value", "TBL_RIGHT"."subsample_id" AS "subsample_id", "TBL_LEFT"."year" AS "year", "TBL_RIGHT"."sample_id" AS "sample_id", "TBL_RIGHT"."meas_met_id" AS "meas_met_id"
+  FROM (SELECT "TBL_RIGHT"."id" AS "ring_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."value" AS "value", "TBL_RIGHT"."subsample_id" AS "subsample_id", "TBL_RIGHT"."year" AS "year"
+  FROM (SELECT *
+FROM (select * from v1.year) "ifliwbcsih"
+WHERE ("param_id" IN (1.0, 3.0, 4.0, 24.0, 25.0, 30.0, 31.0, 33.0, 37.0, 50.0))) "TBL_LEFT"
+  RIGHT JOIN (select * from v1.ring) "TBL_RIGHT"
+  ON ("TBL_LEFT"."ring_id" = "TBL_RIGHT"."id")
+) "TBL_LEFT"
+  RIGHT JOIN (SELECT "id" AS "subsample_id", "sample_id", "meas_met_id"
+FROM (select * from v1.subsample) "njtntadbxh") "TBL_RIGHT"
+  ON ("TBL_LEFT"."subsample_id" = "TBL_RIGHT"."subsample_id")
+) "yrqdjuxjfn"
+GROUP BY "sample_id", "meas_met_id", "param_id") "TBL_LEFT"
+  RIGHT JOIN (SELECT "id" AS "sample_id", "tree_id", "organ"
+FROM (select * from v1.sample) "wbvmnunzmj") "TBL_RIGHT"
+  ON ("TBL_LEFT"."sample_id" = "TBL_RIGHT"."sample_id")
+) "TBL_LEFT"
+  RIGHT JOIN (SELECT "id" AS "tree_id", "site_id", "species_code"
+FROM (select * from v1.tree) "deufsapyex") "TBL_RIGHT"
+  ON ("TBL_LEFT"."tree_id" = "TBL_RIGHT"."tree_id")
+) "TBL_LEFT"
+  LEFT JOIN (SELECT "tree_id", "value" AS "manip"
+FROM (SELECT *
+FROM (select * from v1.tree_param) "lybyxqvedq"
+WHERE ("tree_param_id" IN (5.0))) "inxlaheuyh") "TBL_RIGHT"
+  ON ("TBL_LEFT"."tree_id" = "TBL_RIGHT"."tree_id")
+) "awdvdtvxto"
+GROUP BY "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip") "uhffvxtkbv") "kdcmwxwzyi") "ciyiwjkijj") "TBL_LEFT"
+  INNER JOIN (SELECT "id" AS "param_id", "parameter"
+FROM (select * from v1.meas_param_fk) "dxujlgydkn") "TBL_RIGHT"
+  ON ("TBL_LEFT"."param_id" = "TBL_RIGHT"."param_id")
+) "tzpimzvfsu") "shzpwwlqeu") "sugckotktx") "vzlyqdhmre"
+WHERE ("key" = 'cwa')) "qltxynrjbb") "TBL_LEFT"
+  FULL JOIN (SELECT "site_id", "organ", "meas_met_id", "species_code", "manip", "cwtrad", "from", "to", "n_rings", "n_radii", "n_trees"
+FROM (SELECT *
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "manip", "value" AS "cwtrad", "from", "to", "n_rings", "n_radii", "n_trees", "key"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "manip", "value", "from", "to", "n_rings", "n_radii", "n_trees", "parameter" AS "key"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "manip", "value", "from", "to", "n_rings", "n_radii", "n_trees", "parameter"
+FROM (SELECT "TBL_LEFT"."site_id" AS "site_id", "TBL_LEFT"."organ" AS "organ", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."species_code" AS "species_code", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."manip" AS "manip", "TBL_LEFT"."value" AS "value", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."n_radii" AS "n_radii", "TBL_LEFT"."n_trees" AS "n_trees", "TBL_RIGHT"."parameter" AS "parameter"
+  FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip", ROUND(("value") :: numeric, 4) AS "value", "from", "to", "n_rings", "n_radii", "n_trees"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip", "value", min("from") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "from", "to", "n_rings", "n_radii", "n_trees"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip", "value", "from", max("to") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "to", max("n_rings") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "n_rings", max("n_radii") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "n_radii", max("n_trees") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "n_trees"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip", CASE WHEN ("param_id" IN (50.0)) THEN (SUM("value")) WHEN NOT("param_id" IN (50.0)) THEN (AVG("value")) END AS "value", MIN("from") AS "from", MAX("to") AS "to", SUM("n_rings") AS "n_rings", COUNT(DISTINCT "sample_id") AS "n_radii", COUNT(DISTINCT "tree_id") AS "n_trees"
+FROM (SELECT "TBL_LEFT"."sample_id" AS "sample_id", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."value" AS "value", "TBL_LEFT"."tree_id" AS "tree_id", "TBL_LEFT"."organ" AS "organ", "TBL_LEFT"."site_id" AS "site_id", "TBL_LEFT"."species_code" AS "species_code", "TBL_RIGHT"."manip" AS "manip"
+  FROM (SELECT "TBL_LEFT"."sample_id" AS "sample_id", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."value" AS "value", "TBL_RIGHT"."tree_id" AS "tree_id", "TBL_LEFT"."organ" AS "organ", "TBL_RIGHT"."site_id" AS "site_id", "TBL_RIGHT"."species_code" AS "species_code"
+  FROM (SELECT "TBL_RIGHT"."sample_id" AS "sample_id", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."value" AS "value", "TBL_RIGHT"."tree_id" AS "tree_id", "TBL_RIGHT"."organ" AS "organ"
+  FROM (SELECT "sample_id", "meas_met_id", "param_id", COUNT(DISTINCT "ring_id") AS "n_rings", MIN("year") AS "from", MAX("year") AS "to", CASE WHEN ("param_id" IN (50.0)) THEN (SUM("value")) WHEN NOT("param_id" IN (50.0)) THEN (AVG("value")) END AS "value"
+FROM (SELECT "TBL_LEFT"."ring_id" AS "ring_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."value" AS "value", "TBL_RIGHT"."subsample_id" AS "subsample_id", "TBL_LEFT"."year" AS "year", "TBL_RIGHT"."sample_id" AS "sample_id", "TBL_RIGHT"."meas_met_id" AS "meas_met_id"
+  FROM (SELECT "TBL_RIGHT"."id" AS "ring_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."value" AS "value", "TBL_RIGHT"."subsample_id" AS "subsample_id", "TBL_RIGHT"."year" AS "year"
+  FROM (SELECT *
+FROM (select * from v1.year) "xmnshfzggv"
+WHERE ("param_id" IN (1.0, 3.0, 4.0, 24.0, 25.0, 30.0, 31.0, 33.0, 37.0, 50.0))) "TBL_LEFT"
+  RIGHT JOIN (select * from v1.ring) "TBL_RIGHT"
+  ON ("TBL_LEFT"."ring_id" = "TBL_RIGHT"."id")
+) "TBL_LEFT"
+  RIGHT JOIN (SELECT "id" AS "subsample_id", "sample_id", "meas_met_id"
+FROM (select * from v1.subsample) "tcrxyssytl") "TBL_RIGHT"
+  ON ("TBL_LEFT"."subsample_id" = "TBL_RIGHT"."subsample_id")
+) "oidyohzsmd"
+GROUP BY "sample_id", "meas_met_id", "param_id") "TBL_LEFT"
+  RIGHT JOIN (SELECT "id" AS "sample_id", "tree_id", "organ"
+FROM (select * from v1.sample) "oeisticusi") "TBL_RIGHT"
+  ON ("TBL_LEFT"."sample_id" = "TBL_RIGHT"."sample_id")
+) "TBL_LEFT"
+  RIGHT JOIN (SELECT "id" AS "tree_id", "site_id", "species_code"
+FROM (select * from v1.tree) "bhxfenovys") "TBL_RIGHT"
+  ON ("TBL_LEFT"."tree_id" = "TBL_RIGHT"."tree_id")
+) "TBL_LEFT"
+  LEFT JOIN (SELECT "tree_id", "value" AS "manip"
+FROM (SELECT *
+FROM (select * from v1.tree_param) "mmucjrszsu"
+WHERE ("tree_param_id" IN (5.0))) "aduzklodxs") "TBL_RIGHT"
+  ON ("TBL_LEFT"."tree_id" = "TBL_RIGHT"."tree_id")
+) "zisjgiywwd"
+GROUP BY "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip") "mzenczuclq") "clnqnfxveq") "xaydkjwctn") "TBL_LEFT"
+  INNER JOIN (SELECT "id" AS "param_id", "parameter"
+FROM (select * from v1.meas_param_fk) "jexzaiackr") "TBL_RIGHT"
+  ON ("TBL_LEFT"."param_id" = "TBL_RIGHT"."param_id")
+) "tfszmfvkxx") "lrtxmqtlhk") "qqqlvtbdlj") "rncjrrbbni"
+WHERE ("key" = 'cwtrad')) "wnajimimkm") "TBL_RIGHT"
+  ON ("TBL_LEFT"."site_id" = "TBL_RIGHT"."site_id" AND "TBL_LEFT"."organ" = "TBL_RIGHT"."organ" AND "TBL_LEFT"."meas_met_id" = "TBL_RIGHT"."meas_met_id" AND "TBL_LEFT"."species_code" = "TBL_RIGHT"."species_code" AND "TBL_LEFT"."manip" = "TBL_RIGHT"."manip" AND "TBL_LEFT"."from" = "TBL_RIGHT"."from" AND "TBL_LEFT"."to" = "TBL_RIGHT"."to" AND "TBL_LEFT"."n_rings" = "TBL_RIGHT"."n_rings" AND "TBL_LEFT"."n_radii" = "TBL_RIGHT"."n_radii" AND "TBL_LEFT"."n_trees" = "TBL_RIGHT"."n_trees")
+) "TBL_LEFT"
+  FULL JOIN (SELECT "site_id", "organ", "meas_met_id", "species_code", "manip", "cwttan", "from", "to", "n_rings", "n_radii", "n_trees"
+FROM (SELECT *
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "manip", "value" AS "cwttan", "from", "to", "n_rings", "n_radii", "n_trees", "key"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "manip", "value", "from", "to", "n_rings", "n_radii", "n_trees", "parameter" AS "key"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "manip", "value", "from", "to", "n_rings", "n_radii", "n_trees", "parameter"
+FROM (SELECT "TBL_LEFT"."site_id" AS "site_id", "TBL_LEFT"."organ" AS "organ", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."species_code" AS "species_code", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."manip" AS "manip", "TBL_LEFT"."value" AS "value", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."n_radii" AS "n_radii", "TBL_LEFT"."n_trees" AS "n_trees", "TBL_RIGHT"."parameter" AS "parameter"
+  FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip", ROUND(("value") :: numeric, 4) AS "value", "from", "to", "n_rings", "n_radii", "n_trees"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip", "value", min("from") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "from", "to", "n_rings", "n_radii", "n_trees"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip", "value", "from", max("to") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "to", max("n_rings") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "n_rings", max("n_radii") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "n_radii", max("n_trees") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "n_trees"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip", CASE WHEN ("param_id" IN (50.0)) THEN (SUM("value")) WHEN NOT("param_id" IN (50.0)) THEN (AVG("value")) END AS "value", MIN("from") AS "from", MAX("to") AS "to", SUM("n_rings") AS "n_rings", COUNT(DISTINCT "sample_id") AS "n_radii", COUNT(DISTINCT "tree_id") AS "n_trees"
+FROM (SELECT "TBL_LEFT"."sample_id" AS "sample_id", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."value" AS "value", "TBL_LEFT"."tree_id" AS "tree_id", "TBL_LEFT"."organ" AS "organ", "TBL_LEFT"."site_id" AS "site_id", "TBL_LEFT"."species_code" AS "species_code", "TBL_RIGHT"."manip" AS "manip"
+  FROM (SELECT "TBL_LEFT"."sample_id" AS "sample_id", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."value" AS "value", "TBL_RIGHT"."tree_id" AS "tree_id", "TBL_LEFT"."organ" AS "organ", "TBL_RIGHT"."site_id" AS "site_id", "TBL_RIGHT"."species_code" AS "species_code"
+  FROM (SELECT "TBL_RIGHT"."sample_id" AS "sample_id", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."value" AS "value", "TBL_RIGHT"."tree_id" AS "tree_id", "TBL_RIGHT"."organ" AS "organ"
+  FROM (SELECT "sample_id", "meas_met_id", "param_id", COUNT(DISTINCT "ring_id") AS "n_rings", MIN("year") AS "from", MAX("year") AS "to", CASE WHEN ("param_id" IN (50.0)) THEN (SUM("value")) WHEN NOT("param_id" IN (50.0)) THEN (AVG("value")) END AS "value"
+FROM (SELECT "TBL_LEFT"."ring_id" AS "ring_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."value" AS "value", "TBL_RIGHT"."subsample_id" AS "subsample_id", "TBL_LEFT"."year" AS "year", "TBL_RIGHT"."sample_id" AS "sample_id", "TBL_RIGHT"."meas_met_id" AS "meas_met_id"
+  FROM (SELECT "TBL_RIGHT"."id" AS "ring_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."value" AS "value", "TBL_RIGHT"."subsample_id" AS "subsample_id", "TBL_RIGHT"."year" AS "year"
+  FROM (SELECT *
+FROM (select * from v1.year) "bhbcrmcapc"
+WHERE ("param_id" IN (1.0, 3.0, 4.0, 24.0, 25.0, 30.0, 31.0, 33.0, 37.0, 50.0))) "TBL_LEFT"
+  RIGHT JOIN (select * from v1.ring) "TBL_RIGHT"
+  ON ("TBL_LEFT"."ring_id" = "TBL_RIGHT"."id")
+) "TBL_LEFT"
+  RIGHT JOIN (SELECT "id" AS "subsample_id", "sample_id", "meas_met_id"
+FROM (select * from v1.subsample) "gxooesckof") "TBL_RIGHT"
+  ON ("TBL_LEFT"."subsample_id" = "TBL_RIGHT"."subsample_id")
+) "aceztofcnd"
+GROUP BY "sample_id", "meas_met_id", "param_id") "TBL_LEFT"
+  RIGHT JOIN (SELECT "id" AS "sample_id", "tree_id", "organ"
+FROM (select * from v1.sample) "xryaietlry") "TBL_RIGHT"
+  ON ("TBL_LEFT"."sample_id" = "TBL_RIGHT"."sample_id")
+) "TBL_LEFT"
+  RIGHT JOIN (SELECT "id" AS "tree_id", "site_id", "species_code"
+FROM (select * from v1.tree) "quocrdnymp") "TBL_RIGHT"
+  ON ("TBL_LEFT"."tree_id" = "TBL_RIGHT"."tree_id")
+) "TBL_LEFT"
+  LEFT JOIN (SELECT "tree_id", "value" AS "manip"
+FROM (SELECT *
+FROM (select * from v1.tree_param) "zzrbuifxtf"
+WHERE ("tree_param_id" IN (5.0))) "dzgwxbtrba") "TBL_RIGHT"
+  ON ("TBL_LEFT"."tree_id" = "TBL_RIGHT"."tree_id")
+) "ouglfwqdlz"
+GROUP BY "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip") "fumlvxxvwa") "glgvxhpxhg") "qybugcfviz") "TBL_LEFT"
+  INNER JOIN (SELECT "id" AS "param_id", "parameter"
+FROM (select * from v1.meas_param_fk) "iochbseuoy") "TBL_RIGHT"
+  ON ("TBL_LEFT"."param_id" = "TBL_RIGHT"."param_id")
+) "vhvyuufgdz") "lqtfggdgoo") "yefifowzpu") "mgwpowibwz"
+WHERE ("key" = 'cwttan')) "eicnlzgjkx") "TBL_RIGHT"
+  ON ("TBL_LEFT"."site_id" = "TBL_RIGHT"."site_id" AND "TBL_LEFT"."organ" = "TBL_RIGHT"."organ" AND "TBL_LEFT"."meas_met_id" = "TBL_RIGHT"."meas_met_id" AND "TBL_LEFT"."species_code" = "TBL_RIGHT"."species_code" AND "TBL_LEFT"."manip" = "TBL_RIGHT"."manip" AND "TBL_LEFT"."from" = "TBL_RIGHT"."from" AND "TBL_LEFT"."to" = "TBL_RIGHT"."to" AND "TBL_LEFT"."n_rings" = "TBL_RIGHT"."n_rings" AND "TBL_LEFT"."n_radii" = "TBL_RIGHT"."n_radii" AND "TBL_LEFT"."n_trees" = "TBL_RIGHT"."n_trees")
+) "TBL_LEFT"
+  FULL JOIN (SELECT "site_id", "organ", "meas_met_id", "species_code", "manip", "la", "from", "to", "n_rings", "n_radii", "n_trees"
+FROM (SELECT *
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "manip", "value" AS "la", "from", "to", "n_rings", "n_radii", "n_trees", "key"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "manip", "value", "from", "to", "n_rings", "n_radii", "n_trees", "parameter" AS "key"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "manip", "value", "from", "to", "n_rings", "n_radii", "n_trees", "parameter"
+FROM (SELECT "TBL_LEFT"."site_id" AS "site_id", "TBL_LEFT"."organ" AS "organ", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."species_code" AS "species_code", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."manip" AS "manip", "TBL_LEFT"."value" AS "value", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."n_radii" AS "n_radii", "TBL_LEFT"."n_trees" AS "n_trees", "TBL_RIGHT"."parameter" AS "parameter"
+  FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip", ROUND(("value") :: numeric, 4) AS "value", "from", "to", "n_rings", "n_radii", "n_trees"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip", "value", min("from") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "from", "to", "n_rings", "n_radii", "n_trees"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip", "value", "from", max("to") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "to", max("n_rings") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "n_rings", max("n_radii") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "n_radii", max("n_trees") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "n_trees"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip", CASE WHEN ("param_id" IN (50.0)) THEN (SUM("value")) WHEN NOT("param_id" IN (50.0)) THEN (AVG("value")) END AS "value", MIN("from") AS "from", MAX("to") AS "to", SUM("n_rings") AS "n_rings", COUNT(DISTINCT "sample_id") AS "n_radii", COUNT(DISTINCT "tree_id") AS "n_trees"
+FROM (SELECT "TBL_LEFT"."sample_id" AS "sample_id", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."value" AS "value", "TBL_LEFT"."tree_id" AS "tree_id", "TBL_LEFT"."organ" AS "organ", "TBL_LEFT"."site_id" AS "site_id", "TBL_LEFT"."species_code" AS "species_code", "TBL_RIGHT"."manip" AS "manip"
+  FROM (SELECT "TBL_LEFT"."sample_id" AS "sample_id", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."value" AS "value", "TBL_RIGHT"."tree_id" AS "tree_id", "TBL_LEFT"."organ" AS "organ", "TBL_RIGHT"."site_id" AS "site_id", "TBL_RIGHT"."species_code" AS "species_code"
+  FROM (SELECT "TBL_RIGHT"."sample_id" AS "sample_id", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."value" AS "value", "TBL_RIGHT"."tree_id" AS "tree_id", "TBL_RIGHT"."organ" AS "organ"
+  FROM (SELECT "sample_id", "meas_met_id", "param_id", COUNT(DISTINCT "ring_id") AS "n_rings", MIN("year") AS "from", MAX("year") AS "to", CASE WHEN ("param_id" IN (50.0)) THEN (SUM("value")) WHEN NOT("param_id" IN (50.0)) THEN (AVG("value")) END AS "value"
+FROM (SELECT "TBL_LEFT"."ring_id" AS "ring_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."value" AS "value", "TBL_RIGHT"."subsample_id" AS "subsample_id", "TBL_LEFT"."year" AS "year", "TBL_RIGHT"."sample_id" AS "sample_id", "TBL_RIGHT"."meas_met_id" AS "meas_met_id"
+  FROM (SELECT "TBL_RIGHT"."id" AS "ring_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."value" AS "value", "TBL_RIGHT"."subsample_id" AS "subsample_id", "TBL_RIGHT"."year" AS "year"
+  FROM (SELECT *
+FROM (select * from v1.year) "cqqelwyanr"
+WHERE ("param_id" IN (1.0, 3.0, 4.0, 24.0, 25.0, 30.0, 31.0, 33.0, 37.0, 50.0))) "TBL_LEFT"
+  RIGHT JOIN (select * from v1.ring) "TBL_RIGHT"
+  ON ("TBL_LEFT"."ring_id" = "TBL_RIGHT"."id")
+) "TBL_LEFT"
+  RIGHT JOIN (SELECT "id" AS "subsample_id", "sample_id", "meas_met_id"
+FROM (select * from v1.subsample) "rcolvbtgub") "TBL_RIGHT"
+  ON ("TBL_LEFT"."subsample_id" = "TBL_RIGHT"."subsample_id")
+) "bvugcbdxaj"
+GROUP BY "sample_id", "meas_met_id", "param_id") "TBL_LEFT"
+  RIGHT JOIN (SELECT "id" AS "sample_id", "tree_id", "organ"
+FROM (select * from v1.sample) "evyfiaprlo") "TBL_RIGHT"
+  ON ("TBL_LEFT"."sample_id" = "TBL_RIGHT"."sample_id")
+) "TBL_LEFT"
+  RIGHT JOIN (SELECT "id" AS "tree_id", "site_id", "species_code"
+FROM (select * from v1.tree) "fbedptbbau") "TBL_RIGHT"
+  ON ("TBL_LEFT"."tree_id" = "TBL_RIGHT"."tree_id")
+) "TBL_LEFT"
+  LEFT JOIN (SELECT "tree_id", "value" AS "manip"
+FROM (SELECT *
+FROM (select * from v1.tree_param) "hlrircsrit"
+WHERE ("tree_param_id" IN (5.0))) "pnwrizbmav") "TBL_RIGHT"
+  ON ("TBL_LEFT"."tree_id" = "TBL_RIGHT"."tree_id")
+) "kytqmkanwm"
+GROUP BY "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip") "jefsywczfh") "fxpbmjlnyj") "voqsfifypu") "TBL_LEFT"
+  INNER JOIN (SELECT "id" AS "param_id", "parameter"
+FROM (select * from v1.meas_param_fk) "kjpxgsawuz") "TBL_RIGHT"
+  ON ("TBL_LEFT"."param_id" = "TBL_RIGHT"."param_id")
+) "lceouaprcu") "qurjpouyvs") "vcdlzxterf") "kaltuedror"
+WHERE ("key" = 'la')) "bgywuakgzp") "TBL_RIGHT"
+  ON ("TBL_LEFT"."site_id" = "TBL_RIGHT"."site_id" AND "TBL_LEFT"."organ" = "TBL_RIGHT"."organ" AND "TBL_LEFT"."meas_met_id" = "TBL_RIGHT"."meas_met_id" AND "TBL_LEFT"."species_code" = "TBL_RIGHT"."species_code" AND "TBL_LEFT"."manip" = "TBL_RIGHT"."manip" AND "TBL_LEFT"."from" = "TBL_RIGHT"."from" AND "TBL_LEFT"."to" = "TBL_RIGHT"."to" AND "TBL_LEFT"."n_rings" = "TBL_RIGHT"."n_rings" AND "TBL_LEFT"."n_radii" = "TBL_RIGHT"."n_radii" AND "TBL_LEFT"."n_trees" = "TBL_RIGHT"."n_trees")
+) "TBL_LEFT"
+  FULL JOIN (SELECT "site_id", "organ", "meas_met_id", "species_code", "manip", "ldrad", "from", "to", "n_rings", "n_radii", "n_trees"
+FROM (SELECT *
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "manip", "value" AS "ldrad", "from", "to", "n_rings", "n_radii", "n_trees", "key"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "manip", "value", "from", "to", "n_rings", "n_radii", "n_trees", "parameter" AS "key"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "manip", "value", "from", "to", "n_rings", "n_radii", "n_trees", "parameter"
+FROM (SELECT "TBL_LEFT"."site_id" AS "site_id", "TBL_LEFT"."organ" AS "organ", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."species_code" AS "species_code", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."manip" AS "manip", "TBL_LEFT"."value" AS "value", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."n_radii" AS "n_radii", "TBL_LEFT"."n_trees" AS "n_trees", "TBL_RIGHT"."parameter" AS "parameter"
+  FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip", ROUND(("value") :: numeric, 4) AS "value", "from", "to", "n_rings", "n_radii", "n_trees"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip", "value", min("from") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "from", "to", "n_rings", "n_radii", "n_trees"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip", "value", "from", max("to") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "to", max("n_rings") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "n_rings", max("n_radii") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "n_radii", max("n_trees") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "n_trees"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip", CASE WHEN ("param_id" IN (50.0)) THEN (SUM("value")) WHEN NOT("param_id" IN (50.0)) THEN (AVG("value")) END AS "value", MIN("from") AS "from", MAX("to") AS "to", SUM("n_rings") AS "n_rings", COUNT(DISTINCT "sample_id") AS "n_radii", COUNT(DISTINCT "tree_id") AS "n_trees"
+FROM (SELECT "TBL_LEFT"."sample_id" AS "sample_id", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."value" AS "value", "TBL_LEFT"."tree_id" AS "tree_id", "TBL_LEFT"."organ" AS "organ", "TBL_LEFT"."site_id" AS "site_id", "TBL_LEFT"."species_code" AS "species_code", "TBL_RIGHT"."manip" AS "manip"
+  FROM (SELECT "TBL_LEFT"."sample_id" AS "sample_id", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."value" AS "value", "TBL_RIGHT"."tree_id" AS "tree_id", "TBL_LEFT"."organ" AS "organ", "TBL_RIGHT"."site_id" AS "site_id", "TBL_RIGHT"."species_code" AS "species_code"
+  FROM (SELECT "TBL_RIGHT"."sample_id" AS "sample_id", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."value" AS "value", "TBL_RIGHT"."tree_id" AS "tree_id", "TBL_RIGHT"."organ" AS "organ"
+  FROM (SELECT "sample_id", "meas_met_id", "param_id", COUNT(DISTINCT "ring_id") AS "n_rings", MIN("year") AS "from", MAX("year") AS "to", CASE WHEN ("param_id" IN (50.0)) THEN (SUM("value")) WHEN NOT("param_id" IN (50.0)) THEN (AVG("value")) END AS "value"
+FROM (SELECT "TBL_LEFT"."ring_id" AS "ring_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."value" AS "value", "TBL_RIGHT"."subsample_id" AS "subsample_id", "TBL_LEFT"."year" AS "year", "TBL_RIGHT"."sample_id" AS "sample_id", "TBL_RIGHT"."meas_met_id" AS "meas_met_id"
+  FROM (SELECT "TBL_RIGHT"."id" AS "ring_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."value" AS "value", "TBL_RIGHT"."subsample_id" AS "subsample_id", "TBL_RIGHT"."year" AS "year"
+  FROM (SELECT *
+FROM (select * from v1.year) "jirsqutcub"
+WHERE ("param_id" IN (1.0, 3.0, 4.0, 24.0, 25.0, 30.0, 31.0, 33.0, 37.0, 50.0))) "TBL_LEFT"
+  RIGHT JOIN (select * from v1.ring) "TBL_RIGHT"
+  ON ("TBL_LEFT"."ring_id" = "TBL_RIGHT"."id")
+) "TBL_LEFT"
+  RIGHT JOIN (SELECT "id" AS "subsample_id", "sample_id", "meas_met_id"
+FROM (select * from v1.subsample) "xshcdlckda") "TBL_RIGHT"
+  ON ("TBL_LEFT"."subsample_id" = "TBL_RIGHT"."subsample_id")
+) "erpovfdrxi"
+GROUP BY "sample_id", "meas_met_id", "param_id") "TBL_LEFT"
+  RIGHT JOIN (SELECT "id" AS "sample_id", "tree_id", "organ"
+FROM (select * from v1.sample) "dbxrjzqrdf") "TBL_RIGHT"
+  ON ("TBL_LEFT"."sample_id" = "TBL_RIGHT"."sample_id")
+) "TBL_LEFT"
+  RIGHT JOIN (SELECT "id" AS "tree_id", "site_id", "species_code"
+FROM (select * from v1.tree) "rjvsfxwubv") "TBL_RIGHT"
+  ON ("TBL_LEFT"."tree_id" = "TBL_RIGHT"."tree_id")
+) "TBL_LEFT"
+  LEFT JOIN (SELECT "tree_id", "value" AS "manip"
+FROM (SELECT *
+FROM (select * from v1.tree_param) "qojofanmjm"
+WHERE ("tree_param_id" IN (5.0))) "aeiabkchnf") "TBL_RIGHT"
+  ON ("TBL_LEFT"."tree_id" = "TBL_RIGHT"."tree_id")
+) "nhoxrgxaxb"
+GROUP BY "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip") "aycxcegojz") "lhjpiuovam") "hyofqiwcss") "TBL_LEFT"
+  INNER JOIN (SELECT "id" AS "param_id", "parameter"
+FROM (select * from v1.meas_param_fk) "ixuluuilzr") "TBL_RIGHT"
+  ON ("TBL_LEFT"."param_id" = "TBL_RIGHT"."param_id")
+) "mawmxpmcbd") "pnjprsrnhi") "soxokspahu") "fejgcnadme"
+WHERE ("key" = 'ldrad')) "iflefrpens") "TBL_RIGHT"
+  ON ("TBL_LEFT"."site_id" = "TBL_RIGHT"."site_id" AND "TBL_LEFT"."organ" = "TBL_RIGHT"."organ" AND "TBL_LEFT"."meas_met_id" = "TBL_RIGHT"."meas_met_id" AND "TBL_LEFT"."species_code" = "TBL_RIGHT"."species_code" AND "TBL_LEFT"."manip" = "TBL_RIGHT"."manip" AND "TBL_LEFT"."from" = "TBL_RIGHT"."from" AND "TBL_LEFT"."to" = "TBL_RIGHT"."to" AND "TBL_LEFT"."n_rings" = "TBL_RIGHT"."n_rings" AND "TBL_LEFT"."n_radii" = "TBL_RIGHT"."n_radii" AND "TBL_LEFT"."n_trees" = "TBL_RIGHT"."n_trees")
+) "TBL_LEFT"
+  FULL JOIN (SELECT "site_id", "organ", "meas_met_id", "species_code", "manip", "ldtan", "from", "to", "n_rings", "n_radii", "n_trees"
+FROM (SELECT *
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "manip", "value" AS "ldtan", "from", "to", "n_rings", "n_radii", "n_trees", "key"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "manip", "value", "from", "to", "n_rings", "n_radii", "n_trees", "parameter" AS "key"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "manip", "value", "from", "to", "n_rings", "n_radii", "n_trees", "parameter"
+FROM (SELECT "TBL_LEFT"."site_id" AS "site_id", "TBL_LEFT"."organ" AS "organ", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."species_code" AS "species_code", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."manip" AS "manip", "TBL_LEFT"."value" AS "value", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."n_radii" AS "n_radii", "TBL_LEFT"."n_trees" AS "n_trees", "TBL_RIGHT"."parameter" AS "parameter"
+  FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip", ROUND(("value") :: numeric, 4) AS "value", "from", "to", "n_rings", "n_radii", "n_trees"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip", "value", min("from") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "from", "to", "n_rings", "n_radii", "n_trees"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip", "value", "from", max("to") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "to", max("n_rings") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "n_rings", max("n_radii") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "n_radii", max("n_trees") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "n_trees"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip", CASE WHEN ("param_id" IN (50.0)) THEN (SUM("value")) WHEN NOT("param_id" IN (50.0)) THEN (AVG("value")) END AS "value", MIN("from") AS "from", MAX("to") AS "to", SUM("n_rings") AS "n_rings", COUNT(DISTINCT "sample_id") AS "n_radii", COUNT(DISTINCT "tree_id") AS "n_trees"
+FROM (SELECT "TBL_LEFT"."sample_id" AS "sample_id", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."value" AS "value", "TBL_LEFT"."tree_id" AS "tree_id", "TBL_LEFT"."organ" AS "organ", "TBL_LEFT"."site_id" AS "site_id", "TBL_LEFT"."species_code" AS "species_code", "TBL_RIGHT"."manip" AS "manip"
+  FROM (SELECT "TBL_LEFT"."sample_id" AS "sample_id", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."value" AS "value", "TBL_RIGHT"."tree_id" AS "tree_id", "TBL_LEFT"."organ" AS "organ", "TBL_RIGHT"."site_id" AS "site_id", "TBL_RIGHT"."species_code" AS "species_code"
+  FROM (SELECT "TBL_RIGHT"."sample_id" AS "sample_id", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."value" AS "value", "TBL_RIGHT"."tree_id" AS "tree_id", "TBL_RIGHT"."organ" AS "organ"
+  FROM (SELECT "sample_id", "meas_met_id", "param_id", COUNT(DISTINCT "ring_id") AS "n_rings", MIN("year") AS "from", MAX("year") AS "to", CASE WHEN ("param_id" IN (50.0)) THEN (SUM("value")) WHEN NOT("param_id" IN (50.0)) THEN (AVG("value")) END AS "value"
+FROM (SELECT "TBL_LEFT"."ring_id" AS "ring_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."value" AS "value", "TBL_RIGHT"."subsample_id" AS "subsample_id", "TBL_LEFT"."year" AS "year", "TBL_RIGHT"."sample_id" AS "sample_id", "TBL_RIGHT"."meas_met_id" AS "meas_met_id"
+  FROM (SELECT "TBL_RIGHT"."id" AS "ring_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."value" AS "value", "TBL_RIGHT"."subsample_id" AS "subsample_id", "TBL_RIGHT"."year" AS "year"
+  FROM (SELECT *
+FROM (select * from v1.year) "mfcgknxnth"
+WHERE ("param_id" IN (1.0, 3.0, 4.0, 24.0, 25.0, 30.0, 31.0, 33.0, 37.0, 50.0))) "TBL_LEFT"
+  RIGHT JOIN (select * from v1.ring) "TBL_RIGHT"
+  ON ("TBL_LEFT"."ring_id" = "TBL_RIGHT"."id")
+) "TBL_LEFT"
+  RIGHT JOIN (SELECT "id" AS "subsample_id", "sample_id", "meas_met_id"
+FROM (select * from v1.subsample) "dybexfysct") "TBL_RIGHT"
+  ON ("TBL_LEFT"."subsample_id" = "TBL_RIGHT"."subsample_id")
+) "rjxwzyjvmg"
+GROUP BY "sample_id", "meas_met_id", "param_id") "TBL_LEFT"
+  RIGHT JOIN (SELECT "id" AS "sample_id", "tree_id", "organ"
+FROM (select * from v1.sample) "rgnhrmzifp") "TBL_RIGHT"
+  ON ("TBL_LEFT"."sample_id" = "TBL_RIGHT"."sample_id")
+) "TBL_LEFT"
+  RIGHT JOIN (SELECT "id" AS "tree_id", "site_id", "species_code"
+FROM (select * from v1.tree) "wtzqzskkze") "TBL_RIGHT"
+  ON ("TBL_LEFT"."tree_id" = "TBL_RIGHT"."tree_id")
+) "TBL_LEFT"
+  LEFT JOIN (SELECT "tree_id", "value" AS "manip"
+FROM (SELECT *
+FROM (select * from v1.tree_param) "jtqcxgegpx"
+WHERE ("tree_param_id" IN (5.0))) "omhbkahpes") "TBL_RIGHT"
+  ON ("TBL_LEFT"."tree_id" = "TBL_RIGHT"."tree_id")
+) "oxzknirhjw"
+GROUP BY "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip") "uagxwmyrax") "zyrlkbfatp") "abquczikiq") "TBL_LEFT"
+  INNER JOIN (SELECT "id" AS "param_id", "parameter"
+FROM (select * from v1.meas_param_fk) "nsdmchdumx") "TBL_RIGHT"
+  ON ("TBL_LEFT"."param_id" = "TBL_RIGHT"."param_id")
+) "gyeuvhuzsu") "cfqlprmiqd") "eurqpwjskk") "shhvjpohmh"
+WHERE ("key" = 'ldtan')) "hnzcytnlzq") "TBL_RIGHT"
+  ON ("TBL_LEFT"."site_id" = "TBL_RIGHT"."site_id" AND "TBL_LEFT"."organ" = "TBL_RIGHT"."organ" AND "TBL_LEFT"."meas_met_id" = "TBL_RIGHT"."meas_met_id" AND "TBL_LEFT"."species_code" = "TBL_RIGHT"."species_code" AND "TBL_LEFT"."manip" = "TBL_RIGHT"."manip" AND "TBL_LEFT"."from" = "TBL_RIGHT"."from" AND "TBL_LEFT"."to" = "TBL_RIGHT"."to" AND "TBL_LEFT"."n_rings" = "TBL_RIGHT"."n_rings" AND "TBL_LEFT"."n_radii" = "TBL_RIGHT"."n_radii" AND "TBL_LEFT"."n_trees" = "TBL_RIGHT"."n_trees")
+) "TBL_LEFT"
+  FULL JOIN (SELECT "site_id", "organ", "meas_met_id", "species_code", "manip", "n_obs", "from", "to", "n_rings", "n_radii", "n_trees"
+FROM (SELECT *
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "manip", "value" AS "n_obs", "from", "to", "n_rings", "n_radii", "n_trees", "key"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "manip", "value", "from", "to", "n_rings", "n_radii", "n_trees", "parameter" AS "key"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "manip", "value", "from", "to", "n_rings", "n_radii", "n_trees", "parameter"
+FROM (SELECT "TBL_LEFT"."site_id" AS "site_id", "TBL_LEFT"."organ" AS "organ", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."species_code" AS "species_code", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."manip" AS "manip", "TBL_LEFT"."value" AS "value", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."n_radii" AS "n_radii", "TBL_LEFT"."n_trees" AS "n_trees", "TBL_RIGHT"."parameter" AS "parameter"
+  FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip", ROUND(("value") :: numeric, 4) AS "value", "from", "to", "n_rings", "n_radii", "n_trees"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip", "value", min("from") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "from", "to", "n_rings", "n_radii", "n_trees"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip", "value", "from", max("to") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "to", max("n_rings") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "n_rings", max("n_radii") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "n_radii", max("n_trees") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "n_trees"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip", CASE WHEN ("param_id" IN (50.0)) THEN (SUM("value")) WHEN NOT("param_id" IN (50.0)) THEN (AVG("value")) END AS "value", MIN("from") AS "from", MAX("to") AS "to", SUM("n_rings") AS "n_rings", COUNT(DISTINCT "sample_id") AS "n_radii", COUNT(DISTINCT "tree_id") AS "n_trees"
+FROM (SELECT "TBL_LEFT"."sample_id" AS "sample_id", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."value" AS "value", "TBL_LEFT"."tree_id" AS "tree_id", "TBL_LEFT"."organ" AS "organ", "TBL_LEFT"."site_id" AS "site_id", "TBL_LEFT"."species_code" AS "species_code", "TBL_RIGHT"."manip" AS "manip"
+  FROM (SELECT "TBL_LEFT"."sample_id" AS "sample_id", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."value" AS "value", "TBL_RIGHT"."tree_id" AS "tree_id", "TBL_LEFT"."organ" AS "organ", "TBL_RIGHT"."site_id" AS "site_id", "TBL_RIGHT"."species_code" AS "species_code"
+  FROM (SELECT "TBL_RIGHT"."sample_id" AS "sample_id", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."value" AS "value", "TBL_RIGHT"."tree_id" AS "tree_id", "TBL_RIGHT"."organ" AS "organ"
+  FROM (SELECT "sample_id", "meas_met_id", "param_id", COUNT(DISTINCT "ring_id") AS "n_rings", MIN("year") AS "from", MAX("year") AS "to", CASE WHEN ("param_id" IN (50.0)) THEN (SUM("value")) WHEN NOT("param_id" IN (50.0)) THEN (AVG("value")) END AS "value"
+FROM (SELECT "TBL_LEFT"."ring_id" AS "ring_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."value" AS "value", "TBL_RIGHT"."subsample_id" AS "subsample_id", "TBL_LEFT"."year" AS "year", "TBL_RIGHT"."sample_id" AS "sample_id", "TBL_RIGHT"."meas_met_id" AS "meas_met_id"
+  FROM (SELECT "TBL_RIGHT"."id" AS "ring_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."value" AS "value", "TBL_RIGHT"."subsample_id" AS "subsample_id", "TBL_RIGHT"."year" AS "year"
+  FROM (SELECT *
+FROM (select * from v1.year) "euzihnlvfj"
+WHERE ("param_id" IN (1.0, 3.0, 4.0, 24.0, 25.0, 30.0, 31.0, 33.0, 37.0, 50.0))) "TBL_LEFT"
+  RIGHT JOIN (select * from v1.ring) "TBL_RIGHT"
+  ON ("TBL_LEFT"."ring_id" = "TBL_RIGHT"."id")
+) "TBL_LEFT"
+  RIGHT JOIN (SELECT "id" AS "subsample_id", "sample_id", "meas_met_id"
+FROM (select * from v1.subsample) "jglmessisu") "TBL_RIGHT"
+  ON ("TBL_LEFT"."subsample_id" = "TBL_RIGHT"."subsample_id")
+) "odxntwzyms"
+GROUP BY "sample_id", "meas_met_id", "param_id") "TBL_LEFT"
+  RIGHT JOIN (SELECT "id" AS "sample_id", "tree_id", "organ"
+FROM (select * from v1.sample) "xsrkgmtyqc") "TBL_RIGHT"
+  ON ("TBL_LEFT"."sample_id" = "TBL_RIGHT"."sample_id")
+) "TBL_LEFT"
+  RIGHT JOIN (SELECT "id" AS "tree_id", "site_id", "species_code"
+FROM (select * from v1.tree) "jmroisoodi") "TBL_RIGHT"
+  ON ("TBL_LEFT"."tree_id" = "TBL_RIGHT"."tree_id")
+) "TBL_LEFT"
+  LEFT JOIN (SELECT "tree_id", "value" AS "manip"
+FROM (SELECT *
+FROM (select * from v1.tree_param) "uwnvspdeqn"
+WHERE ("tree_param_id" IN (5.0))) "mvucniorwy") "TBL_RIGHT"
+  ON ("TBL_LEFT"."tree_id" = "TBL_RIGHT"."tree_id")
+) "ktftgrende"
+GROUP BY "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip") "vkaqaecnxl") "okhwluhwst") "zlaypwmjvu") "TBL_LEFT"
+  INNER JOIN (SELECT "id" AS "param_id", "parameter"
+FROM (select * from v1.meas_param_fk) "brcwzqpxwh") "TBL_RIGHT"
+  ON ("TBL_LEFT"."param_id" = "TBL_RIGHT"."param_id")
+) "sftxdoweyi") "kgwbrklvzl") "qiqrtdmuwo") "oefphsedqo"
+WHERE ("key" = 'n_obs')) "ijyctczewv") "TBL_RIGHT"
+  ON ("TBL_LEFT"."site_id" = "TBL_RIGHT"."site_id" AND "TBL_LEFT"."organ" = "TBL_RIGHT"."organ" AND "TBL_LEFT"."meas_met_id" = "TBL_RIGHT"."meas_met_id" AND "TBL_LEFT"."species_code" = "TBL_RIGHT"."species_code" AND "TBL_LEFT"."manip" = "TBL_RIGHT"."manip" AND "TBL_LEFT"."from" = "TBL_RIGHT"."from" AND "TBL_LEFT"."to" = "TBL_RIGHT"."to" AND "TBL_LEFT"."n_rings" = "TBL_RIGHT"."n_rings" AND "TBL_LEFT"."n_radii" = "TBL_RIGHT"."n_radii" AND "TBL_LEFT"."n_trees" = "TBL_RIGHT"."n_trees")
+) "TBL_LEFT"
+  FULL JOIN (SELECT "site_id", "organ", "meas_met_id", "species_code", "manip", "ring_width", "from", "to", "n_rings", "n_radii", "n_trees"
+FROM (SELECT *
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "manip", "value" AS "ring_width", "from", "to", "n_rings", "n_radii", "n_trees", "key"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "manip", "value", "from", "to", "n_rings", "n_radii", "n_trees", "parameter" AS "key"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "manip", "value", "from", "to", "n_rings", "n_radii", "n_trees", "parameter"
+FROM (SELECT "TBL_LEFT"."site_id" AS "site_id", "TBL_LEFT"."organ" AS "organ", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."species_code" AS "species_code", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."manip" AS "manip", "TBL_LEFT"."value" AS "value", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."n_radii" AS "n_radii", "TBL_LEFT"."n_trees" AS "n_trees", "TBL_RIGHT"."parameter" AS "parameter"
+  FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip", ROUND(("value") :: numeric, 4) AS "value", "from", "to", "n_rings", "n_radii", "n_trees"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip", "value", min("from") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "from", "to", "n_rings", "n_radii", "n_trees"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip", "value", "from", max("to") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "to", max("n_rings") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "n_rings", max("n_radii") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "n_radii", max("n_trees") OVER (PARTITION BY "site_id", "organ", "meas_met_id", "species_code") AS "n_trees"
+FROM (SELECT "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip", CASE WHEN ("param_id" IN (50.0)) THEN (SUM("value")) WHEN NOT("param_id" IN (50.0)) THEN (AVG("value")) END AS "value", MIN("from") AS "from", MAX("to") AS "to", SUM("n_rings") AS "n_rings", COUNT(DISTINCT "sample_id") AS "n_radii", COUNT(DISTINCT "tree_id") AS "n_trees"
+FROM (SELECT "TBL_LEFT"."sample_id" AS "sample_id", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."value" AS "value", "TBL_LEFT"."tree_id" AS "tree_id", "TBL_LEFT"."organ" AS "organ", "TBL_LEFT"."site_id" AS "site_id", "TBL_LEFT"."species_code" AS "species_code", "TBL_RIGHT"."manip" AS "manip"
+  FROM (SELECT "TBL_LEFT"."sample_id" AS "sample_id", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."value" AS "value", "TBL_RIGHT"."tree_id" AS "tree_id", "TBL_LEFT"."organ" AS "organ", "TBL_RIGHT"."site_id" AS "site_id", "TBL_RIGHT"."species_code" AS "species_code"
+  FROM (SELECT "TBL_RIGHT"."sample_id" AS "sample_id", "TBL_LEFT"."meas_met_id" AS "meas_met_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."n_rings" AS "n_rings", "TBL_LEFT"."from" AS "from", "TBL_LEFT"."to" AS "to", "TBL_LEFT"."value" AS "value", "TBL_RIGHT"."tree_id" AS "tree_id", "TBL_RIGHT"."organ" AS "organ"
+  FROM (SELECT "sample_id", "meas_met_id", "param_id", COUNT(DISTINCT "ring_id") AS "n_rings", MIN("year") AS "from", MAX("year") AS "to", CASE WHEN ("param_id" IN (50.0)) THEN (SUM("value")) WHEN NOT("param_id" IN (50.0)) THEN (AVG("value")) END AS "value"
+FROM (SELECT "TBL_LEFT"."ring_id" AS "ring_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."value" AS "value", "TBL_RIGHT"."subsample_id" AS "subsample_id", "TBL_LEFT"."year" AS "year", "TBL_RIGHT"."sample_id" AS "sample_id", "TBL_RIGHT"."meas_met_id" AS "meas_met_id"
+  FROM (SELECT "TBL_RIGHT"."id" AS "ring_id", "TBL_LEFT"."param_id" AS "param_id", "TBL_LEFT"."value" AS "value", "TBL_RIGHT"."subsample_id" AS "subsample_id", "TBL_RIGHT"."year" AS "year"
+  FROM (SELECT *
+FROM (select * from v1.year) "jcvhcxveit"
+WHERE ("param_id" IN (1.0, 3.0, 4.0, 24.0, 25.0, 30.0, 31.0, 33.0, 37.0, 50.0))) "TBL_LEFT"
+  RIGHT JOIN (select * from v1.ring) "TBL_RIGHT"
+  ON ("TBL_LEFT"."ring_id" = "TBL_RIGHT"."id")
+) "TBL_LEFT"
+  RIGHT JOIN (SELECT "id" AS "subsample_id", "sample_id", "meas_met_id"
+FROM (select * from v1.subsample) "axwbiwcecd") "TBL_RIGHT"
+  ON ("TBL_LEFT"."subsample_id" = "TBL_RIGHT"."subsample_id")
+) "bdqfrzckip"
+GROUP BY "sample_id", "meas_met_id", "param_id") "TBL_LEFT"
+  RIGHT JOIN (SELECT "id" AS "sample_id", "tree_id", "organ"
+FROM (select * from v1.sample) "ewhpekvkzf") "TBL_RIGHT"
+  ON ("TBL_LEFT"."sample_id" = "TBL_RIGHT"."sample_id")
+) "TBL_LEFT"
+  RIGHT JOIN (SELECT "id" AS "tree_id", "site_id", "species_code"
+FROM (select * from v1.tree) "bzynojlyfm") "TBL_RIGHT"
+  ON ("TBL_LEFT"."tree_id" = "TBL_RIGHT"."tree_id")
+) "TBL_LEFT"
+  LEFT JOIN (SELECT "tree_id", "value" AS "manip"
+FROM (SELECT *
+FROM (select * from v1.tree_param) "qcvjotbjnn"
+WHERE ("tree_param_id" IN (5.0))) "nfmafsgnxb") "TBL_RIGHT"
+  ON ("TBL_LEFT"."tree_id" = "TBL_RIGHT"."tree_id")
+) "ujokqepjck"
+GROUP BY "site_id", "organ", "meas_met_id", "species_code", "param_id", "manip") "ythukdppvc") "mxdydnghde") "nsronxylhx") "TBL_LEFT"
+  INNER JOIN (SELECT "id" AS "param_id", "parameter"
+FROM (select * from v1.meas_param_fk) "mhhuqqjbhe") "TBL_RIGHT"
+  ON ("TBL_LEFT"."param_id" = "TBL_RIGHT"."param_id")
+) "balosnqidy") "vsujdjcwcs") "dhriserbnc") "bolkpiqvxb"
+WHERE ("key" = 'ring_width')) "owmddapcix") "TBL_RIGHT"
+  ON ("TBL_LEFT"."site_id" = "TBL_RIGHT"."site_id" AND "TBL_LEFT"."organ" = "TBL_RIGHT"."organ" AND "TBL_LEFT"."meas_met_id" = "TBL_RIGHT"."meas_met_id" AND "TBL_LEFT"."species_code" = "TBL_RIGHT"."species_code" AND "TBL_LEFT"."manip" = "TBL_RIGHT"."manip" AND "TBL_LEFT"."from" = "TBL_RIGHT"."from" AND "TBL_LEFT"."to" = "TBL_RIGHT"."to" AND "TBL_LEFT"."n_rings" = "TBL_RIGHT"."n_rings" AND "TBL_LEFT"."n_radii" = "TBL_RIGHT"."n_radii" AND "TBL_LEFT"."n_trees" = "TBL_RIGHT"."n_trees")
+) "TBL_LEFT"
+  INNER JOIN (SELECT "id" AS "site_id", "sampling_year" AS "year", "site_code", "site_label", "country_code", "longitude", "latitude", "elevation", "temp", "prec"
+FROM (select * from v1.site) "qvfnowvqul") "TBL_RIGHT"
+  ON ("TBL_LEFT"."site_id" = "TBL_RIGHT"."site_id")
+) "TBL_LEFT"
+  INNER JOIN (SELECT "species_code", "wood_type", "leaf_habit", "wood_plane"
+FROM (select * from v1.species_fk) "hvpvqlhpyp") "TBL_RIGHT"
+  ON ("TBL_LEFT"."species_code" = "TBL_RIGHT"."species_code")
+) "TBL_LEFT"
+  INNER JOIN (SELECT "id" AS "meas_met_id", "output", "hardware", "software"
+FROM (select * from v1.meas_met_fk) "kabuonrqsc") "TBL_RIGHT"
+  ON ("TBL_LEFT"."meas_met_id" = "TBL_RIGHT"."meas_met_id")
+) "TBL_LEFT"
+  LEFT JOIN (SELECT "site_id", "person_id"
+FROM (SELECT *
+FROM (select * from v1.person_role) "brczhpdfsw"
+WHERE ("role" IN (1.0))) "hyizqyktqb") "TBL_RIGHT"
+  ON ("TBL_LEFT"."site_id" = "TBL_RIGHT"."site_id")
+) "TBL_LEFT"
+  LEFT JOIN (SELECT "id" AS "person_id", "last_name", "first_name", "email", "institution_code"
+FROM (select * from v1.person) "llqxiyysma") "TBL_RIGHT"
+  ON ("TBL_LEFT"."person_id" = "TBL_RIGHT"."person_id")
+) "ufhfnzkdvq"
+ORDER BY "site_code") "qfjumbnakw"
