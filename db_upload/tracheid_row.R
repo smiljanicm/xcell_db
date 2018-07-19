@@ -259,7 +259,7 @@ subsample.df %>%
 
 # 1.9 read measurements ---------------------------------------------------
 
-meas_d <- load_txt_measurements(file_dir = file_dir, subsample_id = subsample_id_d)
+meas_d <- load_txt_measurements(file_dir = file_dir, subsample_id = subsample_id_d, file_type = 'FR')
 
 meas_d$dontmatch
 
@@ -267,9 +267,6 @@ meas_d$dontmatch
 # meas_met_rx <- meas_d$setting %>%
 #  inner_join(subsample_id_d, by = c('data_filename')) %>%
 #  select(subsample_id, parameter, value)
-
-
-
 
 # 2.1 Ring table ----------------------------------------------------------
 

@@ -118,46 +118,66 @@ db_get_constrains <- function(dbcon, sch = 'v1'){
 #' already in DB and keep id's for that part, and add the new ones
 
 check_append_db <- function(d_table, table.name, sch = 'v1', constrains_db){
-  #-- which table and it's constrains
-  col_unique <- dplyr::filter(constrains_db, table %in% table.name) %>% dplyr::pull(constrains) %>% unique() # remove unique after db reapload
   
-  # test if db is non empty
-  db_n <- tbl_x(table.name, sch) %>% head(1) %>% collect() %>% nrow()
-  
-  if(db_n > 0) {
+  if( nrow(d_table) > 0 ){ # if uploading table is not empty
     
-    # find which already in the database
-    d_table_t <- select(d_table, col_unique)
+    #-- which table and it's constrains
+    col_unique <- dplyr::filter(constrains_db, table %in% table.name) %>% dplyr::pull(constrains) %>% unique() # remove unique after db reapload
     
-    d_table_t <- dplyr::inner_join(
-      dplyr::select_(tbl_x(table.name, sch), .dots = col_unique),
-      d_table_t,
-      by = col_unique,
-      copy = T, auto_index = TRUE) %>% 
-      collect() 
+    # test if db is non empty
+    db_n <- tbl_x(table.name, sch) %>% head(1) %>% collect() %>% nrow()
     
-    # join with the other data
-    if(nrow(d_table_t) > 0){
-      d_table <- dplyr::anti_join(d_table, d_table_t, by = col_unique)
-    }
-    
-  }
-  
-  if(any(colnames(d_table) %in% 'id')){
-    
-    if(db_n > 0){
-      # get the last max id
-      max.id <- tbl_x(table.name, sch) %>% dplyr::summarize(max(id, na.rm = T)) %>% dplyr::pull()
+    if(db_n > 0) {
       
-      # compare which data already in db, and replace the id's for all
-      d_table %>%
-        mutate(id = row_number() + max.id,
-               id = as.integer(id))->
-        d_table
-    }else{
-      d_table$id <- 1:nrow(d_table)
+      if(table.name %in% 'cell') {
+        
+        r_id <- unique(d_table$ring_id)
+        
+        d_table_t <- tbl_x(table.name, sch) %>% 
+          filter(ring_id %in% r_id) %>%
+          select(-value) %>%
+          collect() %>%
+          inner_join(d_table, by = col_unique)
+        
+      }else{
+        
+        # find which already in the database
+        d_table_t <- select(d_table, col_unique)
+        
+        d_table_t <- dplyr::inner_join(
+          dplyr::select_(tbl_x(table.name, sch), .dots = col_unique),
+          d_table_t,
+          by = col_unique,
+          copy = T, auto_index = TRUE) %>% 
+          collect() 
+        
+      }
+
+      
+      # join with the other data
+      if(nrow(d_table_t) > 0){
+        d_table <- dplyr::anti_join(d_table, d_table_t, by = col_unique)
+      }
+      
+    }
+    
+    if(any(colnames(d_table) %in% 'id')){
+      
+      if(db_n > 0 ){
+        # get the last max id
+        max.id <- tbl_x(table.name, sch) %>% dplyr::summarize(max(id, na.rm = T)) %>% dplyr::pull()
+        
+        # compare which data already in db, and replace the id's for all
+        d_table %>%
+          mutate(id = row_number() + max.id,
+                 id = as.integer(id))->
+          d_table
+      }else{
+        d_table$id <- 1:nrow(d_table)
+      }
     }
   }
+  
   
   return(d_table)
 }
@@ -201,6 +221,19 @@ get_id <- function(d_table, table.name, sch = 'v1', constrains_db){
   ) %>%
     collect()
 }
+
+db_delete_cascade <- function( x, table.name = 'site', sch = 'v1', x_col = 'id'){
+  #' @description function to delete cascade based on the id of the row
+  #' @param x an vector of id's to be removed
+  #' @param table.name name of the top table in the database where cascade start
+  #' @param sch scheme where table is located
+  #' @param x_col a column name based on which id's will be selected
+  #' db_delete_cascade(x = c(1000, 2000), table.name = 'ring')
+  
+  dbExecute(dbcon, paste0('DELETE FROM ', sch, '.', table.name, ' WHERE ', x_col, ' in (', paste(x, collapse = ','), ')') )
+}
+
+
 
 # READ FILES -------------------------------------------------------
 
@@ -334,7 +367,7 @@ load_roxas_measurements <- function( file_dir = NULL, subsample_id = subsample_i
     rx_year <- read_xlsx(fl, "Annual rings", skip = 2) %>% 
       filter(row_number() < which(is.na(Year))[1], .[7] != 0) %>% 
       mutate_all(funs(as.numeric)) %>% 
-      mutate_all(funs(ifelse(. == -999, NA, .))) %>% 
+      mutate_all(funs(ifelse(. == -999 | . == -9999, NA, .))) %>% 
       rename_cols(year_info) %>%
       select(year = Year, intersect(colnames(.), year_info)) %>%
       mutate(data_filename = rx_d_f_id)
@@ -344,7 +377,7 @@ load_roxas_measurements <- function( file_dir = NULL, subsample_id = subsample_i
       rename_cols(cell_info) %>%
       select(year = Year, intersect(colnames(.), cell_info)) %>%
       mutate_all(funs(as.numeric)) %>% 
-      mutate_all(funs(ifelse(. == -999, NA, .))) %>% 
+      mutate_all(funs(ifelse(. == -999 | . == -9999, NA, .))) %>% 
       mutate(data_filename = rx_d_f_id)
     
     rx_setting <- read_xlsx(fl, "ROXAS settings", skip = 2) %>%  
@@ -396,13 +429,7 @@ load_roxas_measurements <- function( file_dir = NULL, subsample_id = subsample_i
   setting <- inner_join(setting, unique_samples_rx %>% distinct(data_filename),  by =c('data_filename'))
   
   
-  
   #- reshape all the files
-  year <- year %>% 
-    gather(parameter, value, -year, -data_filename) %>%
-    filter(!is.na(value))
-  
-  
   if('cwtrad' %in% colnames(cell)) {
     cell <- cell %>% 
       mutate(drad = ((4 * cwtrad) / rtsr) + 2 * cwtrad,
@@ -414,6 +441,23 @@ load_roxas_measurements <- function( file_dir = NULL, subsample_id = subsample_i
     mutate_at(vars(x_cal, y_cal), funs(round(., 4))) %>%
     filter(!is.na(value))
   
+  # calculate the yearly mean from cell table
+  year_cell_param <- cell %>% 
+    group_by(data_filename, year, parameter ) %>%
+    summarise(value = mean(value, na.rm = T))
+  
+  n_cell <- cell %>% 
+    group_by(data_filename, year) %>%
+    summarise(value = n_distinct(paste0(x_cal, y_cal))) %>%
+    mutate(parameter = 'n_obs')
+  
+  # bind year table
+  year <- year %>% 
+    gather(parameter, value, -year, -data_filename) %>%
+    bind_rows( year_cell_param ) %>%
+    bind_rows( n_cell ) %>%
+    filter(!is.na(value)) %>%
+    filter(!parameter %in% c('row', 'position', 'dist', 'rdist'))
   
   setting <- setting %>% 
     gather(parameter, value, -data_filename) %>%
@@ -427,10 +471,11 @@ load_roxas_measurements <- function( file_dir = NULL, subsample_id = subsample_i
 
 
 
-load_txt_measurements <- function( file_dir = NULL, subsample_id = subsample_id_d ){
+load_txt_measurements <- function( file_dir = NULL, subsample_id = subsample_id_d, file_type = 'RU'){
   #' @description function load each of the txt file (output from software with row measurements), combine them together and remove duplicates
   #' @param file_dir - directory where all the files are stored
   #' @param sample_id - a data frame with at least two columns containing sample_label and data_filename. By default is new.measurement_info
+  #' @param file_type - specify the function for reading the different roxas file types
   #' @return a list of three tables: annual table, cell table and settings table
   
   if(is.null(file_dir)) stop('please provide the location of the files')
@@ -447,17 +492,20 @@ load_txt_measurements <- function( file_dir = NULL, subsample_id = subsample_id_
     
     cat(paste0('Proccessing file - ', fl, '\n'))
     
-    #data <- read.TXT_FR(fl,data) 
-    data <- read.TXT_RU(fl,data) 
-    #data <- read.TXT_CHI(fl,data) 
-    #data <- read.TXT_SEC(fl,data) 
-    #data <- read.TXT_POT(fl,data) 
+    data <- switch( file_type, 
+                    FR = read.TXT_FR(fl, data),
+                    CHI = read.TXT_CHI(fl, data),
+                    RU = read.TXT_RU(fl, data),
+                    SEC = read.TXT_SEC(fl, data),
+                    POT = read.TXT_POT(fl, data) 
+                    )
+
     
     tx_year <- data %>% 
       group_by(data_filename,Year) %>%
       summarise(ring_width = max(y_cal))  %>%
       mutate_all(funs(as.numeric)) %>% 
-      mutate_all(funs(ifelse(. == -999, NA, .))) %>% 
+      mutate_all(funs(ifelse(. %in% c(-999, -9999), NA, .))) %>% 
       rename_cols(year_info) %>%
       select(data_filename, year = Year, intersect(colnames(.), year_info))
     # %>% ggplot() + geom_line(aes(year,ring_width, col=data_filename)) 
@@ -468,7 +516,7 @@ load_txt_measurements <- function( file_dir = NULL, subsample_id = subsample_id_
       rename_cols(cell_info) %>%
       select(data_filename, year = Year, intersect(colnames(.), cell_info)) %>%
       mutate_all(funs(as.numeric)) %>% 
-      mutate_all(funs(ifelse(. == -999, NA, .)))
+      mutate_all(funs(ifelse(. %in% c(-999, -9999), NA, .)))
     
     year <- bind_rows(year, tx_year)
     cell <- bind_rows(cell, tx_cell)
@@ -510,17 +558,28 @@ load_txt_measurements <- function( file_dir = NULL, subsample_id = subsample_id_
   cell <- inner_join(cell, unique_samples_tx, by = c('data_filename', 'year'))
   
   #- reshape all the files
-  year <- year %>% 
-    gather(parameter, value, -year, -data_filename) %>%
-    filter(!is.na(value))
-  
-  
   cell <- cell %>%
     gather(parameter, value, -year, -data_filename, -x_cal, -y_cal) %>%
     mutate_at(vars(x_cal, y_cal), funs(round(., 4))) %>%
     filter(!is.na(value))
   
+  # calculate the yearly mean from cell table
+  year_cell_param <- cell %>% 
+    group_by(data_filename, year, parameter ) %>%
+    summarise(value = mean(value, na.rm = T))
   
+  n_cell <- cell %>% 
+    group_by(data_filename, year) %>%
+    summarise(value = n_distinct(paste0(x_cal, y_cal))) %>%
+    mutate(parameter = 'n_obs')
+  
+  # bind year table
+  year <- year %>% 
+    gather(parameter, value, -year, -data_filename) %>%
+    bind_rows( year_cell_param ) %>%
+    bind_rows( n_cell ) %>%
+    filter(!is.na(value)) %>%
+    filter(!parameter %in% c('row', 'position', 'dist', 'rdist'))
   
   return(list(year = year,
               cell = cell,
@@ -576,7 +635,7 @@ load_xray_measurements <- function( file_dir = NULL, subsample_id = subsample_id
 #      rename_cols(cell_info) %>%
       select(data_filename, year = year, intersect(colnames(.), cell_info)) %>%
       mutate_all(funs(as.numeric)) %>% 
-      mutate_all(funs(ifelse(. == -999, NA, .)))
+      mutate_all(funs(ifelse(. %in% c(-999, -9999), NA, .)))
     
     year <- bind_rows(year, tx_year)
     cell <- bind_rows(cell, tx_cell)
@@ -606,13 +665,29 @@ load_xray_measurements <- function( file_dir = NULL, subsample_id = subsample_id
   cell <- inner_join(cell, unique_samples_tx, by = c('data_filename', 'year'))
   
   #- reshape all the files
-  year <- year %>% 
-    gather(parameter, value, -year, -data_filename) %>%
-    filter(!is.na(value))
-  
   cell <- cell %>%
     gather(parameter, value, -year, -data_filename, -x_cal, -y_cal) %>%
     filter(!is.na(value))
+  
+  # calculate the yearly mean from cell table
+  year_cell_param <- cell %>% 
+    group_by(data_filename, year, parameter ) %>%
+    summarise(value = mean(value, na.rm = T))
+  
+  n_cell <- cell %>% 
+    group_by(data_filename, year) %>%
+    summarise(value = n_distinct(paste0(x_cal, y_cal))) %>%
+    mutate(parameter = 'n_obs')
+  
+  # bind year table
+  year <- year %>% 
+    gather(parameter, value, -year, -data_filename) %>%
+    bind_rows( year_cell_param ) %>%
+    bind_rows( n_cell ) %>%
+    filter(!is.na(value)) %>%
+    filter(!parameter %in% c('row', 'position', 'dist', 'rdist'))
+  
+  
   
   return(list(year = year,
               cell = cell,
